@@ -20,3 +20,4 @@ src/main/java/com/hg/ecommerce/dao/impl/*Dao.java
 # IDEA META DATA #
 /.idea
 *.iml
+.project
