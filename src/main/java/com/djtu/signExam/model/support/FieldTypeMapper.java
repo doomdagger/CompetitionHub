@@ -1,0 +1,19 @@
+package com.djtu.signExam.model.support;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Which implementation should FieldTypeMapper bind to?
+ * handle it to guice. Spring cannot achieve that
+ * @author Li He
+ *
+ */
+public interface FieldTypeMapper {
+	//映射字段类型
+	@SuppressWarnings("rawtypes")
+	public Class mapFieldType(FieldEntry entry);
+	
+	//获取全部表(集合)的全部字段结构
+	public Map<TableDef, List<FieldEntry>> fetchDatabaseMeta(String url, String username, String password);
+}

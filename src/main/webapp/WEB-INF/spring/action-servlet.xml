@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd ">
+
+	<mvc:annotation-driven enable-matrix-variables="true" conversion-service="conversionService">
+		<mvc:message-converters>
+        	<bean  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+    		<bean  class="org.springframework.http.converter.ResourceHttpMessageConverter"></bean>
+    		<bean  class="org.springframework.http.converter.FormHttpMessageConverter"></bean>
+    		<bean  class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"></bean>
+    	</mvc:message-converters>
+	</mvc:annotation-driven>
+
+    <!-- 注意：FreeMarker与SpringMVC集成时，其配置一定要放在SpringMVC的配置之前 -->
+    <!-- 否则：在访问"/getUser"时服务器就会报告[HTTP Status 404 - /WEB-INF/jsp/myfree.jsp] -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- 指定FreeMarker模板文件目录 -->
+        <property name="templateLoaderPath" value="/WEB-INF/views/ftl/" />
+        <!-- 编码设置 -->
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="freeMarkerViewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value="" />
+        <property name="suffix" value=".ftl" />
+        <property name="contentType" value="text/html; charset=UTF-8" />
+    </bean>
+
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+    	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+    	<!--<mvc:interceptor>
+        	<mvc:mapping path="/**"/>
+        	<mvc:exclude-mapping path="/demo/webservice/**"/>
+			<bean class="com.djtu.signExam.interceptor.UserControlInterceptor"/>
+    	</mvc:interceptor>-->
+    	<!-- Add more interceptors here -->
+        <mvc:interceptor>
+            <mvc:mapping path="/man/**"/>
+            <!--<mvc:exclude-mapping path="/man/*"/>-->
+            <bean class="com.djtu.signExam.interceptor.ManControllerInterceptor"/>
+        </mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- conversion&formatter service 转换服务 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    	<property name="formatters">
+        	<list>
+            	
+        	</list>
+    	</property>
+	</bean>
+	
+	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->  
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/views/resources/" />
+	
+	<!-- ignore the error, I don't know what goes wrong with STS. Everything works well. -->
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.djtu.signExam.action" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+       	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/> 
+	</context:component-scan>
+
+
+	
+	<!-- 覆盖默认值，提供jsp文件路径以及后缀名 -->
+	<!--<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/views/"/>
+    	<property name="suffix" value=".jsp"/>
+	</bean>-->
+
+
+	
+	<!-- 覆盖默认的DataBinder配置 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    	<property name="cacheSeconds" value="0" />
+    	<property name="webBindingInitializer">
+        	<bean class="com.djtu.signExam.action.extension.ActionBindingInitializer" />
+    	</property>
+	</bean>
+	
+</beans>

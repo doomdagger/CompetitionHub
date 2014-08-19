@@ -1,0 +1,51 @@
+package {{packageName}};
+
+{{#importInfos}}
+import {{.}};
+{{/importInfos}}
+
+/**
+ * Description:{{modelDescription}}
+ * <p>from schema <strong>{{schema}}</strong> in table <strong>{{table}}</strong></p>
+ * <p>Do not modify the source code randomly</p>
+ * 
+ *  @author auto_generate model
+ */
+ @Table("{{table}}")
+public class {{modelName}} extends EntityObject{
+
+	/**
+	 *  serialVersionUID, dedicated to object serialize.
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	{{#fieldEntries}}
+	/**
+	 * Description:{{fieldDescription}}
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "{{mappedFieldName}}"</li>
+	 * 	 <li>Field Type  : "{{mappedTypeName}}"</li>
+	 * 	 <li>Field Length: "{{fieldLength}}"</li>
+	 *   <li>Refer Info  : "{{refTableName}}"</li>
+	 * </ul>
+	 * </p>
+	 */
+	{{#primaryKey}}
+	@Id
+	{{/primaryKey}}
+	@Column("{{mappedFieldName}}")
+	private {{typeName}} {{fieldName}};
+
+	public {{typeName}} get{{qualifiedFieldName}}() {
+		return {{fieldName}};
+	}
+
+	public void set{{qualifiedFieldName}}({{typeName}} {{fieldName}}) {
+		this.{{fieldName}} = {{fieldName}};
+	}
+	{{/fieldEntries}}
+		
+}
