@@ -2,9 +2,9 @@
 
 
 
-<div class="container" style="margin-left: 45px;">
+<div class="container-fluid" style="">
     <!-- line-1 left-1-->
-    <div class="col-sm-5">
+    <div class="col-lg-5">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -124,7 +124,7 @@
         </div>
 
         <div class="col-sm-3">
-            <div class="panel panel-primary" style="height: 415px;margin-right: -43px">
+            <div class="panel panel-primary" style="height: 415px;">
                 <div class="panel-heading"><span class="glyphicon glyphicon-user"/>我的帐号</div>
                 <div class="panel-body">
                     <div class="my-index-loginPanel" style="text-align: center">
@@ -148,7 +148,7 @@
 
         <!--学院风采-->
         <div class="col-sm-12">
-            <div class="panel panel-default" style="margin-right: -43px;height: 580px">
+            <div class="panel panel-default" style="height: 647px">
                 <h3><label class="label label-danger center-block">学院风采</label></h3>
                 <div class="panel-body">
                     <div class="list-group">
@@ -192,7 +192,7 @@
 
 
 <!--time line-->
-<div class="container">
+<div class="container-fluid">
     <h4><span class="glyphicon glyphicon-time">赛事日程</span></h4>
     <div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
@@ -234,7 +234,6 @@
                 <img src="resources/img/img4.jpg" alt="查看详情">
             </a>
         </div>
-
     </div>
 </div>
 

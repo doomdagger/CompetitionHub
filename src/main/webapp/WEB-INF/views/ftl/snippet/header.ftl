@@ -27,8 +27,8 @@
 
 <#--导航栏-->
 <!-- common top part start-->
-<div class="container">
-    <div><img src="/resources/img/index-top5.jpg" height="150px" width="100%"></div>
+<div class="container-fluid">
+    <div><img src="/resources/img/top.jpg" height="150px" width="100%"></div>
     <nav class="navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -39,7 +39,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right" style="font-size: 18px;">
                 <li><a href="/compt/list" class="label label-danger"><span style="color: #000000">赛事公告</span></a></li>
-                <li><a href="/news/broList" class="label label-info"><span style="color: #000000">新闻中心</span></a></li>
+                <li><a href="/news/list" class="label label-info"><span style="color: #000000">新闻中心</span></a></li>
                 <li><a href="achievementShow.html" class="label label-success"><span style="color: #000000">学院风采</span></a></li>
                 <li><a href="search.html" class="label label-warning"><span style="color: #000000">获奖查询</span></a></li>
                 <li><a href="/aboutUs" class="label label-primary"><span style="color: #000000">关于我们</span></a></li>

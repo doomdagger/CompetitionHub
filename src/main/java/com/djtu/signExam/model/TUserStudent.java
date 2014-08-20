@@ -5,12 +5,12 @@ import com.djtu.signExam.model.support.annotation.Column;
 import com.djtu.signExam.model.support.annotation.Id;
 /**
  * Description:No Description Available
- * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_userStudent</strong></p>
+ * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_userstudent</strong></p>
  * <p>Do not modify the source code randomly</p>
  * 
  *  @author auto_generate model
  */
- @Table("t_userStudent")
+ @Table("t_user_student")
 public class TUserStudent extends EntityObject{
 	/**
 	 *  serialVersionUID, dedicated to object serialize.

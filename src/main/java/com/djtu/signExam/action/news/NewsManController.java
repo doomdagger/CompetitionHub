@@ -4,7 +4,6 @@ import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.model.TNews;
 import com.djtu.signExam.service.news.NewsService;
-import com.djtu.signExam.util.DateUtil;
 import com.djtu.signExam.util.StringConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,20 +28,24 @@ public class NewsManController {
     public String manList(Model model){
         List<TNews> newsList = newsService.getNewsByPage(Pageable.inPage(1, ProjectPageConfig.B_newsListPageSize));
         model.addAttribute("newsList",newsList);
-        return "newsMan";
+        model.addAttribute("navbar","news");
+        return "newsManList";
     }
+
     //管理列表，包含分页
     @RequestMapping("/manList/{currpage}")
     public String manListByPage(@PathVariable int currpage, Model model){
         //currpage should be validated
         List<TNews> newsList = newsService.getNewsByPage(Pageable.inPage(currpage, ProjectPageConfig.B_newsListPageSize));
         model.addAttribute("newsList",newsList);
-        return "newsMan";
+        model.addAttribute("navbar","news");
+        return "newsManList";
     }
 
     //发布新闻
     @RequestMapping("/manPublishGet")
-    public String manPublishGet(){
+    public String manPublishGet(Model model){
+        model.addAttribute("navbar","news");
         return "newsManPub";
     }
 
@@ -66,14 +69,19 @@ public class NewsManController {
         return "";
     }
 
-    @RequestMapping("/manUpdate")
-    public String manUpdate(){
-        return "";
+    //编辑新闻Get
+    @RequestMapping("/manUpdateGet")
+    public String manUpdateGet(@RequestParam String newsId,Model model){
+        TNews tNews = newsService.getNewsById(newsId);
+        model.addAttribute("news",tNews);
+        return "newsManPub";
     }
 
     @RequestMapping("/manDelete")
-    public String manDelete(){
-        return "";
+    public @ResponseBody String manDelete(@RequestParam String newsId){
+        //ajax delete
+        newsService.deleteNewsById(newsId);
+        return StringConst.AJAX_SUCCESS;
     }
 
     //Ajax 置顶/取消置顶 接收参数type 0为取消置顶 1为置顶
@@ -91,7 +99,6 @@ public class NewsManController {
             System.out.println("get in");
             newsService.updateNews(tNews);
         }
-
         return StringConst.AJAX_SUCCESS;
     }
 }

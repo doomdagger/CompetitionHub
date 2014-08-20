@@ -1,6 +1,6 @@
 <#include "./snippet/header.ftl">
 
-<div class="container"  style="margin-left:50px">
+<div class="container-fluid">
     <#include "./snippet/AdminLeftNavbar.ftl">
 
     <div class="col-sm-10">
@@ -15,12 +15,16 @@
             </div>
 
             <div>
+                <div>
+                    <label class="label label-danger" id="newsTips"></label>
+                </div>
                 <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
                     <tr>
                         <th>序号</th>
                         <th style="width: 180px;">新闻标题</th>
                         <th>发布日期</th>
-                        <th>置顶</th>
+                        <th style="width: 180px;">置顶</th>
+                        <th>编辑</th>
                         <th>删除</th>
                     </tr>
                     <#if newsList?exists>
@@ -28,34 +32,28 @@
 
                             <tr>
                                 <td>${news_index+1}</td>
-                                <td><a href="/man/news/manDetail/">今日大事件</a></td>
+                                <td><a href="/news/detail?link=${news?if_exists.ID}">${news?if_exists.title}</a></td>
                                 <td>${news.createtime?if_exists}</td>
                                 <#if !news.isTop?if_exists>
-                                    <td><a class="btn btn-info btn-xs newsToTop" id="${news.ID}">置顶</a></td>
+                                    <td>
+                                        <label class="label label-warning isTop" style="display: none">当前置顶</label>
+                                        <a class="btn btn-info btn-xs newsToTop" alt="${news.ID?if_exists}">置顶</a>
+                                        <a class="btn btn-primary btn-xs newsNoTop" alt="${news.ID?if_exists}" style="display: none">取消置顶</a>
+                                    </td>
                                 <#else>
-                                    <td><a class="btn btn-primary btn-xs newsNoTop" id="${news.ID}">取消置顶</a></td>
+                                    <td>
+                                        <label class="label label-warning isTop">当前置顶</label>
+                                        <a class="btn btn-primary btn-xs newsNoTop" alt="${news.ID?if_exists}">取消置顶</a>
+                                        <a class="btn btn-info btn-xs newsToTop" alt="${news.ID?if_exists}" style="display: none">置顶</a>
+                                    </td>
                                 </#if>
 
-                                <td><a class="btn btn-xs btn-danger" id="${news.ID}" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
+                                <td><a class="btn btn-xs btn-danger" alt="${news.ID}" href="/man/news/manUpdateGet?newsId=${news.ID?if_exists}">编辑</a></td>
+                                <td><a class="btn btn-xs btn-danger preDelNews" alt="${news.ID?if_exists}" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
                             </tr>
 
                         </#list>
                     </#if>
-
-                    <tr>
-                        <td>1</td>
-                        <td><a href="/man/news/manDetail">今日大事件</a></td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td><a class="btn btn-info btn-xs">置顶</a></td>
-                        <td><a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="/man/news/manDetail">今日大事件</a></td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td><a class="btn btn-primary btn-xs">取消置顶</a></td>
-                        <td><a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
-                    </tr>
 
                 </table>
             </div>
@@ -90,8 +88,9 @@
                 确认删除该新闻
             </div>
             <div class="modal-footer">
+                <input type="hidden" value="" id="preDelNewsId">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+                <button type="button" id="doDelNews" class="btn btn-danger" data-dismiss="modal">删除</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

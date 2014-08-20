@@ -2,7 +2,7 @@
 
 
 
-<div class="container" style="margin-left: 45px;">
+<div class="container-fluid" style="">
     <div class="col-sm-3">
         <!--account panel-->
         <div class="panel panel-primary" style="height: 250px;">
@@ -86,7 +86,7 @@
 
 
 <!--time line-->
-<div class="container">
+<div class="container-fluid">
     <h4><span class="glyphicon glyphicon-time">赛事日程</span></h4>
     <div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>

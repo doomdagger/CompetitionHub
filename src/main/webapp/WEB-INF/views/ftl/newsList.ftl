@@ -1,7 +1,7 @@
 <#include "./snippet/header.ftl">
 
 
-<div class="container" style="margin-left: 45px;">
+<div class="container-fluid">
     <div class="col-sm-3">
         <!--account panel-->
         <div class="panel panel-primary" style="height: 250px;">
