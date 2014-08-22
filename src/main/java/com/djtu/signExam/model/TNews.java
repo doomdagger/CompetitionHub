@@ -158,24 +158,4 @@ public class TNews extends EntityObject{
 	public void setIsTop(boolean isTop) {
 		this.isTop = isTop;
 	}
-	/**
-	 * Description:
-	 * <p>
-	 * Mapped field info in table:
-	 * <ul>
-	 * 	 <li>Field Name  : "is_mark"</li>
-	 * 	 <li>Field Type  : "BIT"</li>
-	 * 	 <li>Field Length: "0"</li>
-	 *   <li>Refer Info  : ""</li>
-	 * </ul>
-	 * </p>
-	 */
-	@Column("is_mark")
-	private boolean isMark;
-	public boolean getIsMark() {
-		return isMark;
-	}
-	public void setIsMark(boolean isMark) {
-		this.isMark = isMark;
-	}
 }

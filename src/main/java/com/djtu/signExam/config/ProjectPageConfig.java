@@ -5,7 +5,9 @@ package com.djtu.signExam.config;
  */
 public class ProjectPageConfig {
 
-    //F for frontstage
-    //B for backstage
-    public final static int B_newsListPageSize = 50;
+    public final static int MAN_NEWS_LIST_PAGESIZE = 50;
+
+    public final static int MAN_COMP_LIST_PAGESIZE = 50;
+
+    public final static int MAN_SHOW_LIST_PAGESIZE = 50;
 }

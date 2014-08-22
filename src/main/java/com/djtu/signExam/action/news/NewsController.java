@@ -38,6 +38,4 @@ public class NewsController {
        model.addAttribute("news",tNews);
        return "newsDetail";
    }
-
-
 }

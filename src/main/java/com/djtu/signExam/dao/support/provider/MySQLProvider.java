@@ -618,7 +618,12 @@ public class MySQLProvider implements ISQLProvider {
 				this.SQL.insert(this.SQL.indexOf(INSERT)+INSERT.length()+1, this.Model+BLANK);
 				this.isSetModel = true;
 			}else if(isDelete){
-				this.SQL.insert(this.SQL.indexOf(DELETE)+DELETE.length()+1, this.Model+BLANK);
+                //System.out.println(this.SQL);
+                if(this.SQL.length() == DELETE.length()){
+                    this.SQL.append(this.Model+BLANK);
+                }else{
+                    this.SQL.insert(this.SQL.indexOf(DELETE)+DELETE.length()+1, this.Model+BLANK);
+                }
 				this.isSetModel = true;
 			}else if(isUpdate){
 				this.SQL.insert(this.SQL.indexOf(UPDATE)+UPDATE.length(), this.Model+BLANK+SET);

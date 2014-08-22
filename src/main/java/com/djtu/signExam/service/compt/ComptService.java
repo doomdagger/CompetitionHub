@@ -24,5 +24,8 @@ public interface ComptService {
 
     //流程操作
     //状态 status ： 0等待审核(通过/拒绝) 1通过审核(报名中) 2未通过审核(等重新发布) 3报名结束(比赛进行中) 4比赛结束(确认结果/成绩录入)
-    public boolean updateStatus(int status);
+    public boolean updateStatus(String id,int status);
+
+    //tools
+    public int getPageCount(int pageSize);
 }

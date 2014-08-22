@@ -30,9 +30,9 @@
                     <#if newsList?exists>
                         <#list newsList as news>
 
-                            <tr>
+                            <tr id="${news.ID?if_exists}">
                                 <td>${news_index+1}</td>
-                                <td><a href="/news/detail?link=${news?if_exists.ID}">${news?if_exists.title}</a></td>
+                                <td><a href="javascript:void(0)" onclick="window.open('/news/detail?link=${news?if_exists.ID}')">${news.title?if_exists}</a></td>
                                 <td>${news.createtime?if_exists}</td>
                                 <#if !news.isTop?if_exists>
                                     <td>
@@ -48,7 +48,7 @@
                                     </td>
                                 </#if>
 
-                                <td><a class="btn btn-xs btn-danger" alt="${news.ID}" href="/man/news/manUpdateGet?newsId=${news.ID?if_exists}">编辑</a></td>
+                                <td><a class="btn btn-xs btn-danger" alt="${news.ID}" href="/man/news/manUpdateGet?link=${news.ID?if_exists}">编辑</a></td>
                                 <td><a class="btn btn-xs btn-danger preDelNews" alt="${news.ID?if_exists}" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
                             </tr>
 
@@ -60,13 +60,36 @@
             <!--pageable-->
             <div style="text-align: right">
                 <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
+                    <#if pageable??>
+                        <#if pageable.pageCount == 1>
+                            <li><a>&laquo;</a></li>
+                            <li class="active"><a>1</a></li>
+                            <li><a>&raquo;</a></li>
+                        <#else>
+                            <#--here is the << -->
+                            <#if pageable.currentPage == 1>
+                                <li><a>&laquo;</a></li>
+                            <#else>
+                                <li><a href="/man/news/manList/${pageable.currentPage-1}">&laquo;</a></li>
+                            </#if>
+
+                            <#--中间循环-->
+                            <#list 1..pageable.pageCount as p>
+                                <#if p == pageable.currentPage>
+                                    <li class="active"><a>${p}</a></li>
+                                <#else>
+                                    <li><a href="/man/news/manList/${p}">${p}</a></li>
+                                </#if>
+                            </#list>
+
+                            <#--here is the >> -->
+                            <#if pageable.currentPage == pageable.pageCount>
+                                <li><a>&raquo;</a></li>
+                            <#else>
+                                <li><a href="/man/news/manList/${pageable.currentPage+1}">&raquo;</a></li>
+                            </#if>
+                        </#if>
+                    </#if>
                 </ul>
             </div>
         </div>

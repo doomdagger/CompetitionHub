@@ -31,4 +31,21 @@ $(document).ready(function(){
         $('#comIsSupport').fadeOut();
     });
 
+    $("#comType1").click(function(){
+        var check = $(this).attr("checked");
+        console.log(check);
+        if(check){
+            $("#maxMember").val(1);
+        }
+    });
+    //设置最小小组人数
+    $("#maxMember").blur(function(){
+        var re=  /^[0-9]*[1-9][0-9]*$/;
+        if(re.test($(this).val())){
+            console.log("right");
+        }else{
+            console.log("error");
+        }
+    });
+
 });

@@ -19,4 +19,6 @@ public interface NewsService {
     public boolean deleteNewsById(String id);
 
     public boolean addNews(TNews tNews);
+
+    public int getPageCount(int pageSize);
 }

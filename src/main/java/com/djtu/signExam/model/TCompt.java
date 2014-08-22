@@ -458,4 +458,24 @@ public class TCompt extends EntityObject{
 	public void setIsDelete(boolean isDelete) {
 		this.isDelete = isDelete;
 	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "createtime"</li>
+	 * 	 <li>Field Type  : "DATETIME"</li>
+	 * 	 <li>Field Length: "19"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("createtime")
+	private Date createtime;
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 }

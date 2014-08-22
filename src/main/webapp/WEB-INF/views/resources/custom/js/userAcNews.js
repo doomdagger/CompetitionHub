@@ -17,7 +17,7 @@ $(document).ready(function(){
         if(htmlContent.trim().length==0 || $("#title").val().trim().length == 0 ){
             $("#newsPubSubmit").removeClass("btn-success");
             $("#newsPubSubmit").addClass("btn-danger");
-            $("#newsPubSubmit").html("内容尚未填写完整");
+            $("#newsPubSubmit").html("内容尚未填写完整(点击重新尝试)");
             return;
         }
         //pass validate
@@ -42,10 +42,10 @@ $(document).ready(function(){
                     var times = 3;//3秒后跳转
                     $("#newsPubSubmit").html("提交成功( "+times+" 秒后跳转到新闻管理页面)");
                     setInterval(function(){
-                        $("#newsPubSubmit").html("提交成功( "+--times+" 秒后跳转到新闻管理页面)");
                         if(times<0){
                             location.href = "/man/news/manList";
                         }
+                        $("#newsPubSubmit").html("提交成功( "+--times+" 秒后跳转到新闻管理页面)");
                     },1000);
                 }else{
                     //发布失败
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 
     //删除询问框
-    $("#preDelNews").click(function(){
+    $(".preDelNews").click(function(){
         $("#preDelNewsId").val($(this).attr("alt"));
     });
     //删除询问框取消按钮
@@ -120,6 +120,7 @@ $(document).ready(function(){
                 if(_AJAX.success == json){
                     $("#newsTips").html("删除成功");
                     $("#newsTips").fadeIn();
+                    $("#"+newsId).fadeOut();//隐藏被删除的列，这样不用刷新页面
                     setTimeout(function(){
                         $("#newsTips").fadeOut();
                     },3000);

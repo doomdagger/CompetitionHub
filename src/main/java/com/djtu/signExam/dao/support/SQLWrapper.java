@@ -673,6 +673,7 @@ public class SQLWrapper {
 	 * @return
 	 */
 	public String getQuery() {
+        System.out.println("SQLWrapper: "+this.provider.getSQL());
 		return this.provider.getSQL();
 	}
 	/**

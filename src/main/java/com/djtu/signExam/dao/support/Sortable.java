@@ -9,6 +9,7 @@ public class Sortable {
 	
 	private Sortable(String field,SORT sort){
 		this.setSort(sort);
+        this.setField(field);
 	}
 	
 	public static Sortable inSort(String field,SORT sort){
@@ -16,7 +17,7 @@ public class Sortable {
 	}
 
 	public String getField() {
-		return field;
+		return this.field;
 	}
 	
 	public void setField(String field) {
@@ -24,7 +25,7 @@ public class Sortable {
 	}
 
 	public SORT getSort() {
-		return sort;
+		return this.sort;
 	}
 
 	public void setSort(SORT sort) {

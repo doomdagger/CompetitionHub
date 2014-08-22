@@ -35,7 +35,11 @@ public class Pageable {
 		this.pageCount = pageCount;
 	}
 	public int getOffset() {
-		return offset;
+        if(this.pageCount != 0 && this.pageSize != 0 && this.currentPage != 0){
+            this.offset = (this.currentPage-1)*pageSize;
+            return this.offset;
+        }
+		return 0;
 	}
 	public void setOffset(int offset) {
 		this.offset = offset;

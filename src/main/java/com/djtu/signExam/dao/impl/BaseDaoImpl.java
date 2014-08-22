@@ -284,6 +284,17 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		}
 	}
 
+    //tools
+    @Override
+    public int getPageCount(int pageSize) {
+        long sum = getCount();
+        //计算总分页数量
+        //如果每页数量比总数大，只有1
+        //如果相除没有余数，结果是除数
+        //如果相除有余数，结果是除数+1
+        return (pageSize>=sum)?1: (int) ((sum / pageSize == 0) ? (sum / pageSize) : (sum / pageSize) + 1);
+    }
+
 	
 	
 }

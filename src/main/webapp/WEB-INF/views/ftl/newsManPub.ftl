@@ -13,7 +13,7 @@
             <form role="form" id="newsPubForm" method="get" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">新闻标题</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="赛事名称" value="${news?if_exists.title}">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="赛事名称" value="<#if news??>${news.title?if_exists}</#if>">
                 </div>
 
                 <div class="form-group">
@@ -29,7 +29,7 @@
                     <!-- 加载编辑器的容器 -->
                     <#--<script id="container" name="content" type="text/plain">
                     </script>-->
-                    <textarea class="form-control" id="editor_id" placeholder="留言内容">${news?if_exists.content}</textarea>
+                    <textarea class="form-control" id="editor_id" placeholder="留言内容"><#if new??>${news.content?if_exists}</#if></textarea>
                 </div>
 
                 <div>

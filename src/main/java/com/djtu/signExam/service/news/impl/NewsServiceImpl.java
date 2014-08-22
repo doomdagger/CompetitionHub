@@ -52,4 +52,9 @@ public class NewsServiceImpl implements NewsService {
         }
         return true;
     }
+
+    @Override
+    public int getPageCount(int pageSize) {
+        return tNewsDao.getPageCount(pageSize);
+    }
 }

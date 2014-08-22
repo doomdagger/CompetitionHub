@@ -5,7 +5,7 @@ import com.djtu.signExam.model.support.annotation.Column;
 import com.djtu.signExam.model.support.annotation.Id;
 /**
  * Description:No Description Available
- * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_userstudent</strong></p>
+ * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_user_student</strong></p>
  * <p>Do not modify the source code randomly</p>
  * 
  *  @author auto_generate model

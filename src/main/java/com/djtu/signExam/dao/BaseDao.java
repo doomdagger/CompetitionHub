@@ -63,6 +63,9 @@ public interface BaseDao<T> {
 	long getCount();
 	
 	long getCountByWrapper(SQLWrapper sqlWrapper);
+
+    //tools
+    public int getPageCount(int pageSize);
 	
 	
 }

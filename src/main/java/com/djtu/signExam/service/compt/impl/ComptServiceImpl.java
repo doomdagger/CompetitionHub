@@ -50,8 +50,13 @@ public class ComptServiceImpl implements ComptService {
     }
 
     @Override
-    public boolean updateStatus(int status) {
-        SQLWrapper sqlWrapper = SQLWrapper.instance().update().set("status",status);
+    public boolean updateStatus(String id,int status) {
+        SQLWrapper sqlWrapper = SQLWrapper.instance().update().set("status",status).where().eq("ID",id);
         return tComptDao.updateByWrapper(sqlWrapper);
+    }
+
+    @Override
+    public int getPageCount(int pageSize) {
+        return tComptDao.getPageCount(pageSize);
     }
 }
