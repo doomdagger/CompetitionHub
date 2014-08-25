@@ -194,8 +194,11 @@
 <!--time line-->
 <div class="container-fluid">
     <h4><span class="glyphicon glyphicon-time">赛事日程</span></h4>
-    <div class="progress progress-striped">
+    <#--<div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>-->
+    <div style="width: 100%">
+        <img src="/resources/img/timebar.jpg" width="100%">
     </div>
     <div class="row">
         <div class="col-xs-4 col-md-2">
