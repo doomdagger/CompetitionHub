@@ -7,6 +7,11 @@
 
 $(document).ready(function(){
 
+    var _AJAX = {
+        success:"AJAX_SUCCESS",
+        fail:"AJAX_FAIL"
+    }
+
     /*小组赛 和 个人赛的切换*/
     $('#comType1').click(function(){
         $('#comType2Text').fadeOut();
@@ -30,7 +35,7 @@ $(document).ready(function(){
     $('#comIsSupport2').click(function(){
         $('#comIsSupport').fadeOut();
     });
-
+    //勾选“个人赛”
     $("#comType1").click(function(){
         var check = $(this).attr("checked");
         console.log(check);
@@ -47,5 +52,50 @@ $(document).ready(function(){
             console.log("error");
         }
     });
+
+    //多添加一项附件
+    $("#addOneMore").click(function(){
+        var node = "<div class='form-group'><input type=\"file\" name=\"upFile\" class='col-sm-3'><button type='button' class=\"btn btn-xs btn-danger btnDelDiv col-sm-1\">删除</button></div>";
+        $("#uploadFileList").append(node);
+        $(".btnDelDiv").on("click",function(){
+            $(this).parent().remove();
+        });
+    });
+
+    $(".upFile").change(function(){
+        var filename = $(this).val();
+        var ext = filename.substring(filename.indexOf("."));
+        //var allowExt = ['.jpg','.png','gif','doc','.xls',''];
+        console.log("filename:"+filename);
+        console.log("ext:"+ext)
+
+    });
+    //上传附件
+    $("#btnSubmitFile").click(function(){
+        $("#comptUploadFile").submit();
+    });
+
+    //删除附件
+    $(".btnFileDel").click(function(){
+        var isDelete = confirm("确定要删除附件吗?");
+        if(isDelete){
+            var link = $(this).attr("alt");
+            var url = "/man/compt/deleteFile";
+            var data = {"link":link};
+            $.post(
+                url,
+                data,
+                function(json){
+                    if(_AJAX.success === json){
+                        alert("删除成功");
+                        $("#_"+link).remove();
+                    }else{
+                        alert("删除失败")
+                    }
+                }
+            );
+        }
+    });
+
 
 });

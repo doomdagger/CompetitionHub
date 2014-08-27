@@ -41,12 +41,8 @@ public class ComptServiceImpl implements ComptService {
     }
 
     @Override
-    public boolean addCompt(TCompt tCompt) {
-        Object key = tComptDao.add(tCompt);
-        if(key == "" || key == null){
-            return false;
-        }
-        return true;
+    public Integer addCompt(TCompt tCompt) {
+        return (Integer) tComptDao.add(tCompt);
     }
 
     @Override

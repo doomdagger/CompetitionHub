@@ -8,14 +8,17 @@
             赛事发布
         </div>
         <!--管理员拒绝发布，重新发布-->
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h5><b>审核意见</b></h5>
-            <p>赛事一般，学校此类赛事过多
-        </div>
+        <#if compt?? && compt.isVaild && compt.validResult != "">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><b>管理员-审核意见:</b></h5>
+                <p>${compt.validResult?if_exists}
+            </div>
+        </#if>
+
         <#if isSubmit?? && isSubmit == "success">
             <div class="alert alert-success">
-                <h4>表单提交成功</h4>
+                <h4><b>表单提交成功</b></h4>
                 <p>可以在下方上传赛事附件
             </div>
         <#else>
@@ -79,8 +82,8 @@
                     <div class="form-group">
                         <label>是否需要上传作品</label>
                         &nbsp;&nbsp;&nbsp;
-                        <label><input type="radio" name="sp_isWroks" value="1" id="comIsNeedWorks1" checked>是</label>&nbsp;&nbsp;&nbsp;
-                        <label><input type="radio" name="sp_isWroks" value="0" id="comIsNeedWorks2">否</label>
+                        <label><input type="radio" name="sp_isWorks" value="1" id="comIsNeedWorks1" checked>是</label>&nbsp;&nbsp;&nbsp;
+                        <label><input type="radio" name="sp_isWorks" value="0" id="comIsNeedWorks2">否</label>
                     </div>
                     <div class="form-group" id="comIsNeedWorks">
                         <label class="label label-warning" for="input8">作品上传说明</label>
@@ -108,14 +111,52 @@
 
         <#--上传文件-->
         <div class="alert alert-info">
-            <h3><span class="glyphicon glyphicon-upload"></span>附件上传</h3>
-            <p>提交表单后才能上传附件，请先提交表单
-            <!--upload file-->
-            <#if isSubmit?? && isSubmit == "success">
-                <div class="form-group>
-                    <label for="exampleInputFile">上传附件</label>
-                    <input type="file" id="exampleInputFile">
+            <h4><span class="glyphicon glyphicon-upload"></span>附件上传</h4>
+            <!--exist files-->
+            <#if attachList??>
+                <h5><b>已上传的文件</b></h5>
+                <div class="panel">
+                    <table class="table table-bordered table-responsive table-hover">
+                        <tr>
+                            <th>序号</th>
+                            <th>文件名(点击下载)</th>
+                            <th>上传时间</th>
+                            <th>管理</th>
+                        </tr>
+                        <#if (attachList?size>0)>
+                            <#list attachList as item>
+                                <tr id="_${item.ID?if_exists}">
+                                    <td>${item_index+1}</td>
+                                    <td><a href="${item.savepath?if_exists}">${item.name?if_exists}</a></td>
+                                    <td>${item.createtime?if_exists}</td>
+                                    <td><a class="btn btn-xs btn-danger btnFileDel" alt="${item.ID?if_exists}">删除</a></td>
+                                </tr>
+                            </#list>
+                        <#else>
+                            <tr>
+                               <td colspan="4" style="text-align: center"><b>当前没有任何记录</b></td>
+                            </tr>
+                        </#if>
+                    </table>
                 </div>
+            </#if>
+            <!--upload file-->
+            <#if isSubmit??&& isSubmit == "success">
+                <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadFile?link=${link?if_exists}" id="comptUploadFile">
+                    <div id="uploadFileList">
+                        <div class="form-group">
+                            <input type="file" class="col-sm-3 upFile" name="upFile">
+                        </div>
+                    </div>
+                    <input type="hidden" value="${link?if_exists}" name="link" id="tempComptId">
+                </form>
+                <button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>
+                <button type="button" class="btn btn-xs btn-success" id="btnSubmitFile">上传附件</button>
+                <p>备注：
+                <p>如果现在不需要上传，您后续也可以到“赛事管理”中继续上传附件
+                <p>上传成功后将自动跳转到“赛事管理”页面!
+            <#else>
+                <p><b>备注：</b>先发布赛事后才能上传附件，请先发布赛事
             </#if>
         </div>
     </div>
@@ -153,7 +194,7 @@
         $("#contentProxy").val($("#editor1").val());
         editor2.sync();
         $("#comptIntroProxy").val($("#editor2").val());
-
+        //上面为了验证是否content是否有值
         $("#btnSubmit").click();
     });
     $("comptForm").validate();

@@ -439,6 +439,26 @@ public class TCompt extends EntityObject{
 		this.isVaild = isVaild;
 	}
 	/**
+	 * Description:审核意见
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "valid_result"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "1000"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("valid_result")
+	private String validResult;
+	public String getValidResult() {
+		return validResult;
+	}
+	public void setValidResult(String validResult) {
+		this.validResult = validResult;
+	}
+	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:

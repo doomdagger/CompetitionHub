@@ -18,4 +18,11 @@ public class UploadConst {
     public static final String KE_IMG_THUMBS_PATH = "kindedtorUploads"+File.separator+"thumbs"+File.separator+"img"+File.separator;
     public static final int KE_THUMBS_IMG_WIDTH = 700;
     public static final int KE_THUMBS_IMG_HEIGHT = 350;
+
+    //util common upload file
+    public static final String FILE_URL_PATH = File.separator+"resources"+ File.separator+"UserUpload"+File.separator+"docs"+File.separator;
+    public static final String FILE_RES_PATH = File.separator+"WEB-INF"+ File.separator+"views"+ FILE_URL_PATH;
+
+
+
 }

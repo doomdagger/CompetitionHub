@@ -19,7 +19,7 @@ public interface ComptService {
 
     public boolean deleteComptById(String id);
 
-    public boolean addCompt(TCompt tCompt);
+    public Integer addCompt(TCompt tCompt);
 
 
     //流程操作

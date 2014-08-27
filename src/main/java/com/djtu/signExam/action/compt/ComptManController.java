@@ -3,9 +3,11 @@ package com.djtu.signExam.action.compt;
 import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.model.TCompt;
+import com.djtu.signExam.model.TComptAttchment;
+import com.djtu.signExam.service.compt.ComptAttchmentService;
 import com.djtu.signExam.service.compt.ComptService;
-import com.djtu.signExam.util.JsonUtil;
-import com.djtu.signExam.util.StringConst;
+import com.djtu.signExam.util.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.JSONObject;
 import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +33,8 @@ public class ComptManController {
 
     @Autowired
     private ComptService comptService;
+    @Autowired
+    private ComptAttchmentService comptAttchmentService;
 
     //const for page nav
     private final String NAV_BAR = "navbar";
@@ -41,7 +49,7 @@ public class ComptManController {
         List<TCompt> comptList = comptService.getComByPage(pageable);
         pageable.setPageCount(pageCount);
         model.addAttribute("pageable",pageable);
-        model.addAttribute("compt",comptList);
+        model.addAttribute("comptList",comptList);
         model.addAttribute(NAV_BAR,CURR_MAN_BAR);
         return "comptManList";
     }
@@ -62,32 +70,32 @@ public class ComptManController {
     }
 
     @RequestMapping("/publishGet")
-    public String publishGet(String isSubmit,Model model){
+    public String publishGet(String link,String isSubmit,Model model){
         model.addAttribute(NAV_BAR,CURR_PUB_BAR);
         model.addAttribute("isSubmit",isSubmit);
+        model.addAttribute("link",link);
         return "comptManPub";
     }
 
-/*    title:编程
-    sponsor:大连
-    level:1
-    address:大连
-    comptDate:2015
-    deadline_s:
-    deadline_e:
-    content:你好
-    comptIntro:你好
-    sp_type:1
-    sp_maxMember:1
-    sp_isWroks:1
-    sp_worksIntro:
-    isSupport:1*/
-
+    //新增赛事
     @RequestMapping(value="/publishPost",method = RequestMethod.POST)
-    public String publishPost(@RequestParam String title, String sponsor, String level,String address,String comptDate,
-                              Date deadline_s,Date deadline_e,String content,String comptIntro,
-                              String sp_type,@RequestParam int maxMember,String sp_isWorks,String sp_worksIntro,
-                              String isSupport,String supportIntro,RedirectAttributes redirectAttributes){
+    public String publishPost(@RequestParam String title,
+                              @RequestParam String sponsor,
+                              @RequestParam String level,
+                              @RequestParam String address,
+                              @RequestParam String comptDate,
+                              @RequestParam String deadline_s,
+                              @RequestParam String deadline_e,
+                              @RequestParam String content,
+                              @RequestParam String comptIntro,
+                              @RequestParam String sp_type,
+                              @RequestParam int sp_maxMember,
+                              @RequestParam String sp_isWorks,
+                              @RequestParam String sp_worksIntro,
+                              @RequestParam String isSupport,
+                              @RequestParam String supportIntro,
+                              RedirectAttributes redirectAttributes){
+
         //form page post
         TCompt compt = new TCompt();
         compt.setTitle(title);
@@ -95,12 +103,19 @@ public class ComptManController {
         compt.setLevel(new Integer(level));
         compt.setComptDate(comptDate);
         compt.setAddress(address);
-        compt.setContent(content);
-        compt.setComptIntro(comptIntro);
-        compt.setDeadlineS(deadline_s);
-        compt.setDeadlineE(deadline_e);
+        compt.setContent(content.replaceAll("\\\\","\\\\\\\\"));//处理路径信息
+        compt.setComptIntro(comptIntro.replaceAll("\\\\","\\\\\\\\"));//处理路径信息
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        try {
+            Date deadline_start = simpleDateFormat.parse(deadline_s+" 00:00:00");
+            Date deadline_end = simpleDateFormat.parse(deadline_e+" 00:00:00");
+            compt.setDeadlineS(deadline_start);
+            compt.setDeadlineE(deadline_end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         compt.setSpType(sp_type == "1" ? true : false);
-        compt.setSpMaxMember(maxMember);
+        compt.setSpMaxMember(sp_maxMember);
         compt.setSpIsWorks(sp_isWorks == "1" ? true : false);
         compt.setSpWorksIntro(sp_worksIntro);
         compt.setIsSupport(isSupport == "1" ? true : false);
@@ -108,13 +123,61 @@ public class ComptManController {
         compt.setIsDelete(false);
         compt.setStatus(1);
         compt.setCreatetime(new Date());
-        comptService.addCompt(compt);
+        compt.setIsVaild(false);
+        Integer comptId = comptService.addCompt(compt);
         redirectAttributes.addAttribute("isSubmit", "success");
+        redirectAttributes.addAttribute("link", comptId);
         return "redirect:/man/compt/publishGet";
     }
 
+    //上传附件页面
+    @RequestMapping("/uploadGet")
+    public String uploadGet(@RequestParam String link,Model model){
+        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        model.addAttribute("attachList",attachList);
+        model.addAttribute("link",link);
+        model.addAttribute(NAV_BAR,CURR_MAN_BAR);
+        return "comptManFileUpload";
+    }
+
+    //添加附件
+    @RequestMapping(value = "/uploadFile",method = RequestMethod.POST)
+    public String uploadFile(@RequestParam String link,HttpServletRequest request,HttpServletResponse response,RedirectAttributes redirectAttributes){
+        //项目绝对路径
+        String savePath = request.getServletContext().getRealPath(UploadConst.FILE_RES_PATH);
+        List<String> fileNameList = FileUploader.uploadFile(request,response,savePath);
+        for(String name : fileNameList){
+            TComptAttchment tComptAttchment = new TComptAttchment();
+            tComptAttchment.setCreatetime(new Date());
+            tComptAttchment.setIsDelete(false);
+            tComptAttchment.setName(name);
+            tComptAttchment.setSkTCompt(new Integer(link));
+            tComptAttchment.setType(true);//true :1 即为赛事附件
+            tComptAttchment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
+            comptAttchmentService.addOne(tComptAttchment);
+        }
+        return "redirect:/man/compt/list";
+    }
+
+    //删除附件
+    @RequestMapping("/deleteFile")
+    public @ResponseBody  String deleteFile(@RequestParam String link){
+        if(comptAttchmentService.deleteOneById(link)){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    //编辑赛事
     @RequestMapping("/updateGet")
-    public String updateGet(@RequestParam String link){
+    public String updateGet(@RequestParam String link,Model model){
+        TCompt compt = comptService.getComptById(link);
+        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        model.addAttribute("attachList",attachList);
+        model.addAttribute("compt",compt);
+        model.addAttribute("isSubmit","success");
+        model.addAttribute("link",link);
+        model.addAttribute(NAV_BAR,CURR_PUB_BAR);
         return  "comptManPub";
     }
 

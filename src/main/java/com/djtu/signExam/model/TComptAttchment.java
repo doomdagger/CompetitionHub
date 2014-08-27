@@ -119,7 +119,7 @@ public class TComptAttchment extends EntityObject{
 		this.createtime = createtime;
 	}
 	/**
-	 * Description:
+	 * Description:0为学生报名，1为赛事
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
@@ -197,5 +197,25 @@ public class TComptAttchment extends EntityObject{
 	}
 	public void setIsValid(boolean isValid) {
 		this.isValid = isValid;
+	}
+	/**
+	 * Description:保存路径
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "savepath"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "2000"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("savepath")
+	private String savepath;
+	public String getSavepath() {
+		return savepath;
+	}
+	public void setSavepath(String savepath) {
+		this.savepath = savepath;
 	}
 }

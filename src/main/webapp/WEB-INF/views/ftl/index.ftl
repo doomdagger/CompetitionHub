@@ -210,7 +210,7 @@
         <div class="col-xs-4 col-md-2">
             <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
             <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
+                <img src="resources/img/img4.jpg" alt="查看详情">1764138897
             </a>
         </div>
         <div class="col-xs-4 col-md-2">

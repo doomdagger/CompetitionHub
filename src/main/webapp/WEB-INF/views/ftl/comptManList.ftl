@@ -24,7 +24,7 @@
                         <th>赛事等级</th>
                         <th style="width: 150px;">发布时间</th>
                         <th>状态</th>
-                        <th style="width: 150px;">管理</th>
+                        <th style="width: 200px;">管理</th>
                     </tr>
                     <#if comptList?exists>
                         <#list comptList as compt>
@@ -59,53 +59,37 @@
                                 </#if>
                                 <#--按钮状态-->
                                 <#if compt.status == 1>
-                                        <td><a href="/man/compt/updateGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
+                                        <td>
+                                            <a href="/man/compt/updateGet?isSubmit=none&link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
+                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        </td>
                                     <#elseif compt.status == 2>
-                                        <td><a href="#" class="btn btn-xs btn-primary">重新交审</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
+                                        <td><a href="#" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
+                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        </td>
                                     <#elseif compt.status == 3>
-                                        <td><a href="#" class="btn btn-xs btn-warning">报名审核</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">报名审核</a>
+                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        </td>
                                     <#elseif compt.status == 4>
-                                        <td><a href="#" class="btn btn-xs btn-warning">结束比赛</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">结束比赛</a>
+                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        </td>
                                     <#elseif compt.status == 5>
-                                        <td><a class="btn btn-xs btn-success">确认结果 & 成绩录入</a></td>
+                                        <td><a class="btn btn-xs btn-success" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
                                         <td><span style="color: black">完成</span></td>
                                 </#if>
                             </tr>
                         </#list>
                     </#if>
-                    <#--<tr>
-                        <td>1</td>
-                        <td>挑战杯中国赛</td>
-                        <td>国家级A</td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td style="color: blue">等待审核</td>
-                        <td><a href="userAc-ComPub.html" class="btn btn-xs btn-info">重新编辑</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>挑战杯中国赛</td>
-                        <td>国家级A</td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td style="color: green">通过审核</td>
-                        <td><a href="userAc-ComSignList.html" class="btn btn-xs btn-warning">报名审核</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>挑战杯中国赛</td>
-                        <td>国家级A</td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td style="color: red">未通过审核</td>
-                        <td><a href="userAc-ComPub.html" class="btn btn-xs btn-primary">重新发布</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal">删除赛事</button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>挑战杯中国赛</td>
-                        <td>国家级A</td>
-                        <td>2014-05-22 10：00：00</td>
-                        <td style="color: purple">比赛结束</td>
-                        <td><button class="btn btn-xs btn-success">确认结果 & 成绩录入</button></td>
-                    </tr>-->
+
                 </table>
             </div>
             <!--pageable-->
@@ -169,5 +153,5 @@
 
 
 
-<script src="/resources/custom/js/comtManList.js" type="text/javascript"></script>
+<script src="/resources/custom/js/comptManList.js" type="text/javascript"></script>
 <#include "./snippet/footer.ftl">
