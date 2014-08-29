@@ -4,6 +4,8 @@ import com.djtu.signExam.dao.support.UUIDGenerator;
 import com.djtu.signExam.model.TUserStudent;
 import com.djtu.signExam.service.user.RegisterAndLoginService;
 import com.djtu.signExam.service.user.impl.RegisterAndLoginServiceImpl;
+import com.djtu.signExam.util.MailUtil;
+import com.djtu.signExam.util.SessionUtil;
 import com.djtu.signExam.util.StringConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by root on 14-7-7.
@@ -57,6 +63,12 @@ public class RegisterAndLoginController {
         tUserStudent.setAIsDelete(false);
 
         registerAndLoginService.register(tUserStudent);
+        //send email
+        try {
+            MailUtil.sendHTMLMessage(SessionUtil.getSession(),"787449527@qq.com","787449527@qq.com","","","title","content");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         //return "reg_valid";
         attr.addAttribute("email",email);
         return "redirect:/user/waitValidEmail";//重定向，避免刷新提交

@@ -1,8 +1,10 @@
 package com.djtu.signExam.service.compt.impl;
 
 import com.djtu.signExam.dao.impl.TComptDao;
+import com.djtu.signExam.dao.support.IOperators;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.dao.support.SQLWrapper;
+import com.djtu.signExam.dao.support.Sortable;
 import com.djtu.signExam.model.TCompt;
 import com.djtu.signExam.service.compt.ComptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class ComptServiceImpl implements ComptService {
 
     @Override
     public List<TCompt> getComByPage(Pageable pageable) {
-        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().limit(pageable);
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().orderBy(Sortable.inSort("isTop", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)).limit(pageable);
         return tComptDao.findAllByWrapper(sqlWrapper);
     }
 

@@ -46,9 +46,7 @@ public class NewsManController {
         //currpage should be validated
         //如果输入当前页小于1或大于总页数 都显示第一页
         int pageCount = newsService.getPageCount(ProjectPageConfig.MAN_NEWS_LIST_PAGESIZE);
-        System.out.println("curr:"+currpage+" count:"+pageCount);
         currpage = (currpage<1 || currpage> pageCount)?1:currpage;
-        System.out.println("curr:"+currpage+" count:"+pageCount);
         Pageable pageable = Pageable.inPage(currpage,ProjectPageConfig.MAN_NEWS_LIST_PAGESIZE);
         pageable.setPageCount(pageCount);//设置pageCount
         //get newsList
@@ -110,17 +108,15 @@ public class NewsManController {
 
     //Ajax 置顶/取消置顶 接收参数type 0为取消置顶 1为置顶
     @RequestMapping("/manTotop/{value}")
-    public @ResponseBody String manTotop(@PathVariable int value,@RequestParam int newsId){
+    public @ResponseBody String manTotop(@PathVariable int value,@RequestParam String newsId){
         if(!"".equals(newsId)){
-            TNews tNews = new TNews();
-            tNews.setID(newsId);
+            TNews tNews = newsService.getNewsById(newsId);
             if(1==value){
                 tNews.setCreatetime(new Date());
                 tNews.setIsTop(true);
             }else{
                 tNews.setIsTop(false);
             }
-            System.out.println("get in");
             newsService.updateNews(tNews);
         }
         return StringConst.AJAX_SUCCESS;

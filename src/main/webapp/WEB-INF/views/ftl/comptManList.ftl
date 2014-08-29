@@ -24,13 +24,14 @@
                         <th>赛事等级</th>
                         <th style="width: 150px;">发布时间</th>
                         <th>状态</th>
+                        <th>置顶状态</th>
                         <th style="width: 200px;">管理</th>
                     </tr>
                     <#if comptList?exists>
                         <#list comptList as compt>
-                            <tr id="${compt.ID?if_exists}">
+                            <tr id="_${compt.ID?if_exists}">
                                 <td>${compt_index+1}</td>
-                                <td>${compt.title?if_exists}</td>
+                                <td><a href="/compt/detail?link=${compt.ID?if_exists}">${compt.title?if_exists}</a></td>
                                 <#--赛事等级-->
                                 <td>
                                     <#if compt.level == 1>国家级A
@@ -43,6 +44,20 @@
                                 </td>
                                 <#--发布时间-->
                                 <td>${compt.createtime?if_exists}</td>
+                                <#--置顶状态-->
+                                <#if !compt.isTop?if_exists>
+                                    <td>
+                                        <label class="label label-warning isTop" style="display: none">当前置顶</label>
+                                        <a class="btn btn-info btn-xs newsToTop" alt="${compt.ID?if_exists}">置顶</a>
+                                        <a class="btn btn-primary btn-xs newsNoTop" alt="${compt.ID?if_exists}" style="display: none">取消置顶</a>
+                                    </td>
+                                <#else>
+                                    <td>
+                                        <label class="label label-warning isTop">当前置顶</label>
+                                        <a class="btn btn-primary btn-xs newsNoTop" alt="${compt.ID?if_exists}">取消置顶</a>
+                                        <a class="btn btn-info btn-xs newsToTop" alt="${compt.ID?if_exists}" style="display: none">置顶</a>
+                                    </td>
+                                </#if>
                                 <#--审核状态-->
                                 <#if compt.status == 1>
                                     <td style="color: blue">等待审核</td>
@@ -56,35 +71,40 @@
                                     <td><span style="color: purple">比赛结束</span></td>
                                 <#elseif compt.status == 6>
                                     <td><span style="color: black">完成</span></td>
+                                <#else>
+                                    <td>零状态</td>
                                 </#if>
+
                                 <#--按钮状态-->
                                 <#if compt.status == 1>
                                         <td>
-                                            <a href="/man/compt/updateGet?isSubmit=none&link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
-                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
                                             <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 2>
-                                        <td><a href="#" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
-                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                        <td><a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
                                             <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 3>
                                         <td>
                                             <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">报名审核</a>
-                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <button class="btn btn-xs btn-dange btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
                                             <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 4>
                                         <td>
                                             <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">结束比赛</a>
-                                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
                                             <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 5>
                                         <td><a class="btn btn-xs btn-success" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
                                         <td><span style="color: black">完成</span></td>
+                                    <#else>
+                                        <td>零状态</td>
                                 </#if>
                             </tr>
                         </#list>
@@ -144,8 +164,9 @@
                 确认删除赛事
             </div>
             <div class="modal-footer">
+                <input type="hidden" id="linkDelCompt" value="">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDelCompt">删除</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

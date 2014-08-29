@@ -48,8 +48,12 @@ $(document).ready(function(){
         var re=  /^[0-9]*[1-9][0-9]*$/;
         if(re.test($(this).val())){
             console.log("right");
+            if($(this).val()<2){
+                $(this).val(1);
+            }
         }else{
-            console.log("error");
+            alert("请输入正确的数字");
+            $(this).val(1);
         }
     });
 
@@ -73,6 +77,8 @@ $(document).ready(function(){
     //上传附件
     $("#btnSubmitFile").click(function(){
         $("#comptUploadFile").submit();
+        //var fileList = document.getElementsByName("upFile");
+        //console.log(fileList);
     });
 
     //删除附件

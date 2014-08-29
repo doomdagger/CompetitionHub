@@ -67,30 +67,37 @@
         <p><br/>
         <div class="panel panel-primary" style="height: 415px">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-new-window">新闻中心</span>
+                <span class="glyphicon glyphicon-file sr-only"></span>
+                <div class="navbar-left">
+                    <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></a>
+                    <a href="/news/list" class="btn btn-default btn-xs btn-info">查看更多</a>
+                </div>
             </div>
 
             <div class="list-group" style="font-size: 12px;">
-                <a class="list-group-item" href="comDetail.html"><span class="label label-danger">Top</span> 蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html"><span class="label label-danger">Top</span> 蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
+                <#if newsList?? && (newsList?size>0)>
+                    <#list newsList as news>
+                        <a class="list-group-item" href="/news/detail?link=${news.ID?if_exists}">
+                            <#if news.isTop?if_exists>
+                                <span class="label label-danger">Top</span>
+                            </#if>
+                            <span>${news.title?if_exists}</span>
+                            <span style="color: #2aabd2">[ 发布时间 ：${news.createtime?if_exists}]</span></a>
+                    </#list>
+                <#else>
+                    <div class="jumbotron">
+                        <h4>Sorry!系统暂未发布任何新闻...</h4>
+                    </div>
+                </#if>
             </div>
-            <button class="btn btn-info btn-xs btn-block">查看更多</button>
-
         </div>
         <!--line-2 left-3-->
         <div class="panel panel-default" style="height: 300px">
-            <h3><label class="label label-danger center-block">友情链接</label></h3>
+            <h3><label class="label label-primary center-block">友情链接</label></h3>
             <div class="list-group" style="font-size: 12px;">
-                <a href="#" class="list-group-item active">大连交通大学竞赛官网</a>
-                <a href="#" class="list-group-item">大连交通大学官网</a>
-                <a href="#" class="list-group-item">大连交通大学教务在线</a>
+                <a href="#" class="list-group-item">大连交通大学竞赛官网</a>
+                <a href="http://www.djtu.edu.cn" class="list-group-item">大连交通大学官网</a>
+                <a href="http://jw.djtu.edu.cn" class="list-group-item">大连交通大学教务在线</a>
                 <a href="#" class="list-group-item">大连理工大学创新可以官网</a>
                 <a href="#" class="list-group-item">中国挑战杯官网</a>
                 <a href="#" class="list-group-item">中国挑战杯官网</a>
@@ -103,29 +110,39 @@
         <div class="col-sm-9">
             <div class="panel panel-primary" style="height: 415px">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-file">赛事公告</span>
-                    <!--<span style="text-align: right">了解更多</span>-->
+                    <span class="glyphicon glyphicon-file sr-only"></span>
+                    <div class="navbar-left">
+                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></a>
+                        <a href="/compt/list" class="btn btn-default btn-xs btn-info">查看更多</a>
+                    </div>
                 </div>
 
                 <div class="list-group" style="font-size: 12px;">
-                    <a class="list-group-item" href="comDetail.html"><span class="label label-danger">Top</span> 蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html"><span class="label label-danger">Top</span> 蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
-                    <a class="list-group-item" href="comDetail.html">蓝桥杯大连地区本科A组 <span style="color: #2aabd2">[2014-06-01]</span></a>
+                    <#if comptList?? && (comptList?size>0) >
+                        <#list comptList as compt>
+                            <a class="list-group-item" href="/compt/detail?link=${compt.ID?if_exists}">
+                                <#if compt.isTop?if_exists>
+                                    <span class="label label-danger">Top</span>
+                                </#if>
+                                <span>${compt.title?if_exists}</span>
+                                <span style="color: #2aabd2">[ 发布时间：${compt.createtime?if_exists}]</span></a>
+                        </#list>
+                    <#else>
+                        <div class="jumbotron">
+                            <h4>Sorry!系统暂未发布任何赛事...</h4>
+                        </div>
+                    </#if>
                 </div>
-                <button class="btn btn-info btn-xs btn-block">查看更多</button>
-
             </div>
         </div>
 
         <div class="col-sm-3">
             <div class="panel panel-primary" style="height: 415px;">
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"/>我的帐号</div>
+                <div class="panel-heading">
+                    <div class="navbar-left">
+                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>我的账号</b></a>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <div class="my-index-loginPanel" style="text-align: center">
                         <span class="glyphicon glyphicon-user">个人信息</span>
@@ -149,7 +166,7 @@
         <!--学院风采-->
         <div class="col-sm-12">
             <div class="panel panel-default" style="height: 647px">
-                <h3><label class="label label-danger center-block">学院风采</label></h3>
+                <h3><label class="label label-primary center-block">学院风采</label></h3>
                 <div class="panel-body">
                     <div class="list-group">
                         <div class="list-group-item">
@@ -190,55 +207,7 @@
 </div>
 <!--line-1 end -->
 
-
-<!--time line-->
-<div class="container-fluid">
-    <h4><span class="glyphicon glyphicon-time">赛事日程</span></h4>
-    <#--<div class="progress progress-striped">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-    </div>-->
-    <div style="width: 100%">
-        <img src="/resources/img/timebar.jpg" width="100%">
-    </div>
-    <div class="row">
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
-            </a>
-        </div>
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">1764138897
-            </a>
-        </div>
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
-            </a>
-        </div>
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
-            </a>
-        </div>
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
-            </a>
-        </div>
-        <div class="col-xs-4 col-md-2">
-            <div style="text-align: center"><h6><span>2014-05-23</span></h6></div>
-            <a href="#" class="thumbnail">
-                <img src="resources/img/img4.jpg" alt="查看详情">
-            </a>
-        </div>
-    </div>
-</div>
+<#include "./snippet/comptOnDate.ftl">
 
 
 <#include "./snippet/footer.ftl">

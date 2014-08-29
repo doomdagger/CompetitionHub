@@ -283,40 +283,20 @@ public class TCompt extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "sp_isWorks"</li>
-	 * 	 <li>Field Type  : "BIT"</li>
-	 * 	 <li>Field Length: "0"</li>
-	 *   <li>Refer Info  : ""</li>
-	 * </ul>
-	 * </p>
-	 */
-	@Column("sp_isWorks")
-	private boolean spIsWorks;
-	public boolean getSpIsWorks() {
-		return spIsWorks;
-	}
-	public void setSpIsWorks(boolean spIsWorks) {
-		this.spIsWorks = spIsWorks;
-	}
-	/**
-	 * Description:
-	 * <p>
-	 * Mapped field info in table:
-	 * <ul>
-	 * 	 <li>Field Name  : "sp_worksIntro"</li>
+	 * 	 <li>Field Name  : "needFileIntro"</li>
 	 * 	 <li>Field Type  : "TEXT"</li>
 	 * 	 <li>Field Length: "65535"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("sp_worksIntro")
-	private String spWorksIntro;
-	public String getSpWorksIntro() {
-		return spWorksIntro;
+	@Column("needFileIntro")
+	private String needFileIntro;
+	public String getNeedFileIntro() {
+		return needFileIntro;
 	}
-	public void setSpWorksIntro(String spWorksIntro) {
-		this.spWorksIntro = spWorksIntro;
+	public void setNeedFileIntro(String needFileIntro) {
+		this.needFileIntro = needFileIntro;
 	}
 	/**
 	 * Description:
@@ -343,20 +323,20 @@ public class TCompt extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "sp_maxMember"</li>
+	 * 	 <li>Field Name  : "sp_num"</li>
 	 * 	 <li>Field Type  : "INT"</li>
 	 * 	 <li>Field Length: "10"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("sp_maxMember")
-	private int spMaxMember;
-	public int getSpMaxMember() {
-		return spMaxMember;
+	@Column("sp_num")
+	private int spNum;
+	public int getSpNum() {
+		return spNum;
 	}
-	public void setSpMaxMember(int spMaxMember) {
-		this.spMaxMember = spMaxMember;
+	public void setSpNum(int spNum) {
+		this.spNum = spNum;
 	}
 	/**
 	 * Description:
@@ -497,5 +477,45 @@ public class TCompt extends EntityObject{
 	}
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isNeedFile"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isNeedFile")
+	private boolean isNeedFile;
+	public boolean getIsNeedFile() {
+		return isNeedFile;
+	}
+	public void setIsNeedFile(boolean isNeedFile) {
+		this.isNeedFile = isNeedFile;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isTop"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isTop")
+	private boolean isTop;
+	public boolean getIsTop() {
+		return isTop;
+	}
+	public void setIsTop(boolean isTop) {
+		this.isTop = isTop;
 	}
 }

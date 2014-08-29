@@ -4,6 +4,7 @@ import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.model.TCompt;
 import com.djtu.signExam.model.TComptAttchment;
+import com.djtu.signExam.model.TNews;
 import com.djtu.signExam.service.compt.ComptAttchmentService;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.util.*;
@@ -44,8 +45,8 @@ public class ComptManController {
     @RequestMapping(value={"/list","/"})
     public String list(Model model){
 
-        int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_NEWS_LIST_PAGESIZE);
-        Pageable pageable = Pageable.inPage(1,ProjectPageConfig.MAN_NEWS_LIST_PAGESIZE);
+        int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
+        Pageable pageable = Pageable.inPage(1,ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
         List<TCompt> comptList = comptService.getComByPage(pageable);
         pageable.setPageCount(pageCount);
         model.addAttribute("pageable",pageable);
@@ -74,6 +75,7 @@ public class ComptManController {
         model.addAttribute(NAV_BAR,CURR_PUB_BAR);
         model.addAttribute("isSubmit",isSubmit);
         model.addAttribute("link",link);
+        model.addAttribute("status",0);
         return "comptManPub";
     }
 
@@ -88,14 +90,15 @@ public class ComptManController {
                               @RequestParam String deadline_e,
                               @RequestParam String content,
                               @RequestParam String comptIntro,
-                              @RequestParam String sp_type,
+                              @RequestParam int sp_type,
                               @RequestParam int sp_maxMember,
-                              @RequestParam String sp_isWorks,
+                              @RequestParam int sp_isWorks,
                               @RequestParam String sp_worksIntro,
-                              @RequestParam String isSupport,
+                              @RequestParam int isSupport,
                               @RequestParam String supportIntro,
+                              @RequestParam int currentStatus,
+                              @RequestParam int link,//edit
                               RedirectAttributes redirectAttributes){
-
         //form page post
         TCompt compt = new TCompt();
         compt.setTitle(title);
@@ -105,7 +108,7 @@ public class ComptManController {
         compt.setAddress(address);
         compt.setContent(content.replaceAll("\\\\","\\\\\\\\"));//处理路径信息
         compt.setComptIntro(comptIntro.replaceAll("\\\\","\\\\\\\\"));//处理路径信息
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date deadline_start = simpleDateFormat.parse(deadline_s+" 00:00:00");
             Date deadline_end = simpleDateFormat.parse(deadline_e+" 00:00:00");
@@ -114,17 +117,27 @@ public class ComptManController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        compt.setSpType(sp_type == "1" ? true : false);
-        compt.setSpMaxMember(sp_maxMember);
-        compt.setSpIsWorks(sp_isWorks == "1" ? true : false);
-        compt.setSpWorksIntro(sp_worksIntro);
-        compt.setIsSupport(isSupport == "1" ? true : false);
+        compt.setSpType(sp_type == 1 ? true : false);
+        compt.setSpNum(sp_maxMember);
+        compt.setIsNeedFile(sp_isWorks == 1 ? true : false);
+        compt.setNeedFileIntro(sp_worksIntro);
+        compt.setIsSupport(isSupport == 1 ? true : false);
         compt.setSupportIntro(supportIntro);
         compt.setIsDelete(false);
         compt.setStatus(1);
         compt.setCreatetime(new Date());
-        compt.setIsVaild(false);
-        Integer comptId = comptService.addCompt(compt);
+        compt.setIsVaild(currentStatus < 2 ? false : true);
+        compt.setIsTop(false);
+        compt.setStatus(1);//无论现在是何种状态，status状态字都将回到1（重新提交状态）
+        Integer comptId = link;
+        if(currentStatus==0){
+            comptId = comptService.addCompt(compt);//new
+        }else{
+            compt.setID(link);
+            comptService.updateCompt(compt);//edit
+        }
+
+
         redirectAttributes.addAttribute("isSubmit", "success");
         redirectAttributes.addAttribute("link", comptId);
         return "redirect:/man/compt/publishGet";
@@ -178,7 +191,22 @@ public class ComptManController {
         model.addAttribute("isSubmit","success");
         model.addAttribute("link",link);
         model.addAttribute(NAV_BAR,CURR_PUB_BAR);
+        model.addAttribute("status",compt.getStatus());//当前状态字
         return  "comptManPub";
+    }
+
+    @RequestMapping("/updateEditGet")
+    public String updateEditGet(@RequestParam String link,Model model){
+        TCompt compt = comptService.getComptById(link);
+        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        model.addAttribute("attachList",attachList);
+        model.addAttribute("compt",compt);
+        model.addAttribute("link",link);
+        model.addAttribute(NAV_BAR,CURR_PUB_BAR);
+        model.addAttribute("status",compt.getStatus());//当前状态字
+        System.out.println("上传：" + compt.getNeedFileIntro());
+
+        return "comptManPub";
     }
 
     @RequestMapping("/updateStatus/{link}/{code}")
@@ -190,9 +218,27 @@ public class ComptManController {
         return "redirect:/man/compt/list/1";//重定向
     }
 
-    @RequestMapping("/delete/{link}")
-    public String delete(@RequestParam String link){
-        //ajax post do delete
+    @RequestMapping("/delete")
+    public @ResponseBody String delete(@RequestParam String link){
+        if(comptService.deleteComptById(link)){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    //Ajax 置顶/取消置顶 接收参数type 0为取消置顶 1为置顶
+    @RequestMapping("/manTotop/{value}")
+    public @ResponseBody String manTotop(@PathVariable int value,@RequestParam String link){
+        if(!"".equals(link)){
+            TCompt compt = comptService.getComptById(link);
+            if(1==value){
+                compt.setCreatetime(new Date());
+                compt.setIsTop(true);
+            }else{
+                compt.setIsTop(false);
+            }
+            comptService.updateCompt(compt);
+        }
         return StringConst.AJAX_SUCCESS;
     }
 }
