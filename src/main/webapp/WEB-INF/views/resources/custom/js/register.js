@@ -20,7 +20,8 @@ $(document).ready(function () {
         isRePwd : false,
         isAcademy : false,
         isPro : false,
-        isCellPhone : false
+        isCellPhone : false,
+        isCode:false
     };
 
     /*check the username*/
@@ -69,6 +70,76 @@ $(document).ready(function () {
         }
     });
     /*check the email end*/
+
+    //send code to emailbox
+    $("#sendCode").click(function(){
+        if(isNull($("#email").val())){
+            alert("请先输入邮箱");
+            $("#email").focus();
+            return;
+        }
+        //set loading img
+        $(this).html("<img src='/resources/img/loading.gif' width='15px;'/>正在发送邮件...");
+        //
+        var url = "/user/sendCode";
+        var data = {"email":$("#email").val()};
+        var currBtn = $(this);
+        $.post(url,data,function(json){
+            currBtn.attr("disabled",true);
+            if(json === _AJAX.success){
+                $("#validCode").attr("disabled",false);
+                var index = 60;
+                var timer = setInterval(function(){
+                    if(index>0){
+                        currBtn.html("发送成功|("+index+")秒后重新发送");
+                    }else{
+                        currBtn.html("重新发送");
+                        currBtn.attr("disabled",false);
+                        clearInterval(timer);
+                    }
+                    index--;
+                    console.log("time:"+index);
+                },1000);
+            }else{
+                var index = 5;
+                var timer = setInterval(function(){
+                    if(index>0){
+                        currBtn.html("发送失败|("+index+")秒后重新发送");
+                    }else{
+                        currBtn.html("重新发送");
+                        currBtn.attr("disabled",false);
+                        clearInterval(timer);
+                    }
+                    index--;
+                    console.log("time:"+index);
+                },1000);
+            }
+        });
+    });
+
+    //ajax check valid code
+    $('#validCode').focus(function(){$(this).css('color','#555555'); $('.regTipsEmail').hide()});
+    $("#validCode").blur(function(){
+        var currBtn = $(this);
+        if(!isNull($(this).val()) ) {
+            var url = "/user/checkCode";
+            var data = {"link":$(this).val()};
+            $.post(url,data,function(json){
+                if(json === _AJAX.success){
+                    currBtn.parent().addClass("has-success");
+                    check.isCode = true;
+                }else{
+                    currBtn.after("<span class='glyphicon glyphicon-remove-circle help-block regTipsEmail' style='color:red'>验证码错误</span>");
+                    currBtn.parent().removeClass("has-success");
+                    check.isCode = false;
+                }
+            });
+        }else{
+            $(this).after("<span class='glyphicon glyphicon-remove-circle help-block regTipsEmail' style='color:red'>验证码不能为空</span>");
+            $(this).parent().removeClass("has-success");
+            check.isCode = false;
+        }
+    });
 
     /*check the studentNo start*/
     $('#studentNo').focus(function(){$('#studentNo').css('color','#555555'); $('.regTips3').fadeOut()});

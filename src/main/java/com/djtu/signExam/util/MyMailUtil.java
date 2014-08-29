@@ -22,7 +22,7 @@ public class MyMailUtil {
      * @param to：收件人，多个收件人中间用逗号隔开
      * @return
      */
-    public static boolean sendMail(String title,String content,String to) {
+    public static boolean simpleSendMail(String title,String content,String to) {
         try {
             InputStream in = MyMailUtil.class.getResourceAsStream("/com/djtu/signExam/config/email.properties");
             Properties prop = new Properties();
@@ -52,5 +52,9 @@ public class MyMailUtil {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static String generateNum(){
+        return (int)(Math.random()*9000+1000)+"";
     }
 }

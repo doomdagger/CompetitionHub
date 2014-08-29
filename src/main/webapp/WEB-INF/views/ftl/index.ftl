@@ -112,13 +112,14 @@
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-file sr-only"></span>
                     <div class="navbar-left">
-                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></a>
+                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>赛事公告</b></a>
                         <a href="/compt/list" class="btn btn-default btn-xs btn-info">查看更多</a>
                     </div>
                 </div>
 
-                <div class="list-group" style="font-size: 12px;">
-                    <#if comptList?? && (comptList?size>0) >
+
+                <#if comptList?? && (comptList?size>0) >
+                    <div class="list-group" style="font-size: 12px;">
                         <#list comptList as compt>
                             <a class="list-group-item" href="/compt/detail?link=${compt.ID?if_exists}">
                                 <#if compt.isTop?if_exists>
@@ -127,12 +128,13 @@
                                 <span>${compt.title?if_exists}</span>
                                 <span style="color: #2aabd2">[ 发布时间：${compt.createtime?if_exists}]</span></a>
                         </#list>
-                    <#else>
-                        <div class="jumbotron">
-                            <h4>Sorry!系统暂未发布任何赛事...</h4>
-                        </div>
-                    </#if>
-                </div>
+                    </div>
+                <#else>
+                    <div class="alert">
+                        <h4>Sorry!系统暂未发布任何赛事...</h4>
+                    </div>
+                </#if>
+
             </div>
         </div>
 

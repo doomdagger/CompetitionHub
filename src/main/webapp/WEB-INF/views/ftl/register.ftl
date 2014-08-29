@@ -15,6 +15,11 @@
 </head>
 <body>
 
+<div class="container-fluid">
+    <div><img src="/resources/img/top.jpg" height="150px" width="100%"></div>
+</div>
+
+
 <div class="container">
     <div class="col-sm-offset-2"><h1>大连交通大学竞赛官网-(学生账号)注册</h1></div>
     <div class="alert alert-danger col-sm-offset-2" role="alert">
@@ -33,6 +38,15 @@
                 <label for="email" class="col-xs-2 control-label"><span style="color: red">*</span>邮箱</label>
                 <div class="col-xs-10">
                     <input type="email" class="form-control" id="email" name="email" placeholder="一个邮箱只能绑定一个学号,可用做登陆账号">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-2"></label>
+                <div class="col-xs-10">
+                    <label>输入邮箱验证码</label>
+                    <input type="text" class="form-control" id="validCode" name="code" placeholder="邮箱验证码会发送至您的邮箱" disabled>
+                    <button type="button" class="btn btn-xs btn-success" id="sendCode">发送验证码至邮箱</button>
                 </div>
             </div>
 
@@ -94,5 +108,6 @@
 <script src="../resources/custom/js/JSValidate.js"></script>
 
 <script src="../resources/custom/js/register.js"></script>
-</body>
-</html>
+
+
+<#include "./snippet/footer.ftl">
