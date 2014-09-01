@@ -19,35 +19,35 @@
             <div class="carousel-inner">
                 <!--one item-->
                 <div class="item active">
-                    <a href="#"><img src="resources/img/img3.jpg" alt="..."></a>
+                    <a href="#"><img src="/resources/img/img3.jpg" alt="..."></a>
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="resources/img/img4.jpg" alt="...">
+                    <img src="/resources/img/img4.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="resources/img/img5.jpg" alt="...">
+                    <img src="/resources/img/img5.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="resources/img/img6.jpg" alt="...">
+                    <img src="/resources/img/img6.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="resources/img/img7.jpg" alt="...">
+                    <img src="/resources/img/img7.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
@@ -67,10 +67,13 @@
         <p><br/>
         <div class="panel panel-primary" style="height: 415px">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-file sr-only"></span>
-                <div class="navbar-left">
-                    <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></a>
-                    <a href="/news/list" class="btn btn-default btn-xs btn-info">查看更多</a>
+                <div class="nav">
+                    <div class="navbar-left">
+                        <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></label>
+                    </div>
+                    <div class="navbar-right">
+                        <a href="/news/" class="btn btn-xs btn-info">更多</a>
+                    </div>
                 </div>
             </div>
 
@@ -85,7 +88,7 @@
                             <span style="color: #2aabd2">[ 发布时间 ：${news.createtime?if_exists}]</span></a>
                     </#list>
                 <#else>
-                    <div class="jumbotron">
+                    <div class="alert alert-warning">
                         <h4>Sorry!系统暂未发布任何新闻...</h4>
                     </div>
                 </#if>
@@ -95,7 +98,7 @@
         <div class="panel panel-default" style="height: 300px">
             <h3><label class="label label-primary center-block">友情链接</label></h3>
             <div class="list-group" style="font-size: 12px;">
-                <a href="#" class="list-group-item">大连交通大学竞赛官网</a>
+                <a href="/index" class="list-group-item">大连交通大学竞赛官网</a>
                 <a href="http://www.djtu.edu.cn" class="list-group-item">大连交通大学官网</a>
                 <a href="http://jw.djtu.edu.cn" class="list-group-item">大连交通大学教务在线</a>
                 <a href="#" class="list-group-item">大连理工大学创新可以官网</a>
@@ -110,10 +113,13 @@
         <div class="col-sm-9">
             <div class="panel panel-primary" style="height: 415px">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-file sr-only"></span>
-                    <div class="navbar-left">
-                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>赛事公告</b></a>
-                        <a href="/compt/list" class="btn btn-default btn-xs btn-info">查看更多</a>
+                    <div class="nav">
+                        <div class="navbar-left">
+                            <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-file"></span>赛事公告</b></label>
+                        </div>
+                        <div class="navbar-right">
+                            <a href="/compt/" class="btn btn-xs btn-info">更多</a>
+                        </div>
                     </div>
                 </div>
 
@@ -130,7 +136,7 @@
                         </#list>
                     </div>
                 <#else>
-                    <div class="alert">
+                    <div class="alert alert-warning">
                         <h4>Sorry!系统暂未发布任何赛事...</h4>
                     </div>
                 </#if>
@@ -141,24 +147,34 @@
         <div class="col-sm-3">
             <div class="panel panel-primary" style="height: 415px;">
                 <div class="panel-heading">
-                    <div class="navbar-left">
-                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>我的账号</b></a>
+                    <div class="nav">
+                        <div class="navbar-left">
+                            <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-user"></span>我的账号</b></label>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="my-index-loginPanel" style="text-align: center">
-                        <span class="glyphicon glyphicon-user">个人信息</span>
+                        <span class="glyphicon glyphicon-user">账号登陆</span>
                         <p>
                         <div>
-                            <img src="resources/img/img7.jpg" style="width: 100px" alt="..." class="img-thumbnail">
-                            <p><h6>姓名：周荣辉</h6>
-                            <p><h6>身份：学生</h6>
-                            <p><h6>学院：机械学院</h6>
-                            <p><h6>专业：软件工程</h6>
-                            <p><h6>学号：1018160222</h6>
-                            <p><button class="btn btn-info btn-block">管理中心</button>
-                            <p><button class="btn btn-warning btn-block">注销帐号</button>
+                            <img src="/resources/img/img7.jpg" style="width: 100px" alt="..." class="img-thumbnail">
+                            <br/><br/>
+                            <form role="form">
+                                <div class="form-group">
+                                    <!--<label for="username">用户名</label>-->
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号" style="font-size: 6px;">
+                                </div>
+                                <div class="form-group">
+                                    <!--<label for="pwd">密码</label>-->
+                                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" style="font-size: 6px;">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success btn-block">登陆</button>
+                                </div>
+                            </form>
                             <p><button class="btn btn-primary btn-block">注册帐号</button>
+                            <p><small>仅限大连交通大学在校生注册使用</small>
                         </div>
                     </div>
                 </div>
@@ -174,28 +190,28 @@
                         <div class="list-group-item">
                             <div>
                                 <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="resources/img/img7.jpg" height="50px">
+                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
                                 <p class="list-group-item-text">hello world</p>
                             </div>
                         </div>
                         <div class="list-group-item">
                             <div>
                                 <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="resources/img/img7.jpg" height="50px">
+                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
                                 <p class="list-group-item-text">hello world</p>
                             </div>
                         </div>
                         <div class="list-group-item">
                             <div>
                                 <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="resources/img/img7.jpg" height="50px">
+                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
                                 <p class="list-group-item-text">hello world</p>
                             </div>
                         </div>
                         <div class="list-group-item">
                             <div>
                                 <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="resources/img/img7.jpg" height="50px">
+                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
                                 <p class="list-group-item-text">hello world</p>
                             </div>
                         </div>
