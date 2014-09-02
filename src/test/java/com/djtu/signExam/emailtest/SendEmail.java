@@ -49,6 +49,6 @@ public class SendEmail {
 
     @Test
     public void testUtil(){
-        MyMailUtil.sendMail("我是小辉","没有内容","787449527@qq.com");
+        MyMailUtil.simpleSendMail("我是小辉","没有内容","787449527@qq.com");
     }
 }
