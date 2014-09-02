@@ -19,14 +19,7 @@
             <div class="carousel-inner">
                 <!--one item-->
                 <div class="item active">
-                    <a href="#"><img src="/resources/img/img3.jpg" alt="..."></a>
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-                <!--one item-->
-                <div class="item">
-                    <img src="/resources/img/img4.jpg" alt="...">
+                    <a href="#"><img src="/resources/img/img5.jpg" alt="..."></a>
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
@@ -40,14 +33,21 @@
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="/resources/img/img6.jpg" alt="...">
+                    <img src="/resources/img/img5.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
                 </div>
                 <!--one item-->
                 <div class="item">
-                    <img src="/resources/img/img7.jpg" alt="...">
+                    <img src="/resources/img/img5.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <p>这里可以添加标题
+                    </div>
+                </div>
+                <!--one item-->
+                <div class="item">
+                    <img src="/resources/img/img5.jpg" alt="...">
                     <div class="carousel-caption">
                         <p>这里可以添加标题
                     </div>
@@ -95,7 +95,7 @@
             </div>
         </div>
         <!--line-2 left-3-->
-        <div class="panel panel-default" style="height: 300px">
+        <div class="panel panel-primary" style="height: 300px">
             <h3><label class="label label-primary center-block">友情链接</label></h3>
             <div class="list-group" style="font-size: 12px;">
                 <a href="/index" class="list-group-item">大连交通大学竞赛官网</a>
@@ -155,26 +155,63 @@
                 </div>
                 <div class="panel-body">
                     <div class="my-index-loginPanel" style="text-align: center">
-                        <span class="glyphicon glyphicon-user">账号登陆</span>
+                        <br/>
+                        <#if Session?? && Session["U_LOGIN"]?? && Session["U_LOGIN"]==1>
+                            <span class="glyphicon glyphicon-user" id="accountTips">账号信息</span>
+                        <#else>
+                            <span class="glyphicon glyphicon-user" id="accountTips">账号登录</span>
+                        </#if>
                         <p>
                         <div>
-                            <img src="/resources/img/img7.jpg" style="width: 100px" alt="..." class="img-thumbnail">
-                            <br/><br/>
-                            <form role="form">
-                                <div class="form-group">
-                                    <!--<label for="username">用户名</label>-->
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号" style="font-size: 6px;">
+                            <br/>
+
+                            <#--login succ-->
+                                <div id="indexLoginSucc" <#if Session?? && Session["U_LOGIN"]?? && Session["U_LOGIN"]==1>style="display: block"<#else>style="display: none"</#if> >
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label class="form-control" id="usernameSucc"><#if Session?? && Session['CUR']?? && Session['CUR']['CUR_NAME']??>${Session['CUR']['CUR_NAME']?if_exists}</#if></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control" id="usertypeSucc">
+                                                <#if Session?? && Session['CUR']?? && Session['CUR']['CUR_TYPE']??>
+                                                    <#if Session['CUR']['CUR_TYPE'] == 0>学生账号
+                                                    <#elseif Session['CUR']['CUR_TYPE'] == 1>管理员账号
+                                                    <#elseif Session['CUR']['CUR_TYPE'] == 2>学院账号
+                                                    <#elseif Session['CUR']['CUR_TYPE'] == 3>教务账号
+                                                    <#else>其他账号
+                                                    </#if>
+                                                </#if>
+                                            </label>
+                                        </div>
+                                    </form>
+                                    <a class="btn btn-success btn-block" id="btnIndexLogOut" href="/user/logout">注销登录</a>
+                                    <br/>
+                                    <p><a class="btn btn-primary btn-block" href="/man/">个人中心</a>
+                                    <p><small>仅限大连交通大学在校生注册使用</small>
                                 </div>
-                                <div class="form-group">
-                                    <!--<label for="pwd">密码</label>-->
-                                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" style="font-size: 6px;">
+
+                            <#--login panel-->
+                                <div id="indexLoginPanel" <#if Session?? && Session['U_LOGIN']?? && Session['U_LOGIN']==1>style="display: none"<#else>style="display: block"</#if>>
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <!--<label for="username">用户名</label>-->
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号" style="font-size: 6px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <!--<label for="pwd">密码</label>-->
+                                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" style="font-size: 6px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label><input type="radio" name="usertype" value="0" id="type0" checked>学生</label>&nbsp;&nbsp;
+                                            <label><input type="radio" name="usertype" value="1" id="type1">老师</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success btn-block" id="btnIndexLogin">登陆</button>
+                                        </div>
+                                    </form>
+                                    <p><a class="btn btn-primary btn-block"href="/user/regGet">注册帐号</a>
+                                    <p><small>仅限大连交通大学在校生注册使用</small>
                                 </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-success btn-block">登陆</button>
-                                </div>
-                            </form>
-                            <p><button class="btn btn-primary btn-block">注册帐号</button>
-                            <p><small>仅限大连交通大学在校生注册使用</small>
                         </div>
                     </div>
                 </div>
@@ -183,7 +220,7 @@
 
         <!--学院风采-->
         <div class="col-sm-12">
-            <div class="panel panel-default" style="height: 647px">
+            <div class="panel panel-primary" style="height: 647px">
                 <h3><label class="label label-primary center-block">学院风采</label></h3>
                 <div class="panel-body">
                     <div class="list-group">
@@ -224,6 +261,10 @@
 
 </div>
 <!--line-1 end -->
+
+
+<#--custom-->
+<script type="text/javascript" src="/resources/custom/js/common.js"></script>
 
 <#include "./snippet/comptOnDate.ftl">
 

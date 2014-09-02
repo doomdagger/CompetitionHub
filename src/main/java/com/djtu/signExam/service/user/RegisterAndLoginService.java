@@ -1,6 +1,8 @@
 package com.djtu.signExam.service.user;
 
+import com.djtu.signExam.model.TUserAdmin;
 import com.djtu.signExam.model.TUserStudent;
+import com.djtu.signExam.model.support.EntityObject;
 
 /**
  * Created by root on 14-7-16.
@@ -13,7 +15,11 @@ public interface RegisterAndLoginService {
 
     public boolean signInByEmail(String email,String pwd,int type);
 
+    public EntityObject signInByEmailAndReturnObj(String email,String pwd,int type);
+
     public boolean signInByNo(String No,String pwd,int type);
+
+    public EntityObject signInByNoAndReturnObj(String No,String pwd,int type);
 
     public boolean signOut();
 
@@ -22,4 +28,8 @@ public interface RegisterAndLoginService {
 
     //check studentNo
     public boolean checkStudentNo(String No);
+
+    //管理员登录
+    public TUserAdmin signInByEmail(String email,String pwd);
+
 }

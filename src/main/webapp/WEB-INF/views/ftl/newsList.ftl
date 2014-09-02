@@ -7,19 +7,34 @@
         <!--account panel-->
         <div class="panel panel-primary" style="height: 250px;">
             <div class="panel-heading">
-                <div class="navbar-left">
-                    <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>我的账号</b></a>
+                <div class="nav">
+                    <div class="navbar-left">
+                        <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-user"></span>我的账号</b></label>
+                    </div>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="my-index-loginPanel" style="text-align: center">
-                    <span class="glyphicon glyphicon-user">登陆到我的帐号</span>
+                    <span class="glyphicon glyphicon-user">账号登陆</span>
                     <p>
                     <div>
-                        <img src="/resources/img/img7.jpg" style="width: 100px" alt="..." class="img-thumbnail">
-                        <p><h6>姓名：周荣辉</h6>
-                        <p><h6>身份：管理员</h6>
-                        <p><button class="btn btn-info btn-block">管理中心</button>
+                    <#--<img src="/resources/img/img7.jpg" style="width: 100px" alt="..." class="img-thumbnail">-->
+                        <br/>
+                        <form role="form">
+                            <div class="form-group">
+                                <!--<label for="username">用户名</label>-->
+                                <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号">
+                            </div>
+                            <div class="form-group">
+                                <!--<label for="pwd">密码</label>-->
+                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success btn-block">登陆</button>
+                            </div>
+                        </form>
+                    <#--<p><button class="btn btn-primary btn-block">注册帐号</button>
+                    <p><small>仅限大连交通大学在校生注册使用</small>-->
                     </div>
                 </div>
             </div>
@@ -27,9 +42,14 @@
 
         <!--compt panel-->
         <div class="panel panel-primary" style="height: 320px;">
-            <div class="panel-heading"><span class="glyphicon glyphicon-file sr-only"></span>
-                <div class="navbar-left">
-                    <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>最近赛事</b></a>
+            <div class="panel-heading">
+                <div class="nav">
+                    <div class="navbar-left">
+                        <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-file"></span>最近赛事</b></label>
+                    </div>
+                    <div class="navbar-right">
+                        <a href="/compt/" class="btn btn-xs btn-info">更多</a>
+                    </div>
                 </div>
             </div>
             <div class="list-group" style="font-size: 11px;">
@@ -43,7 +63,7 @@
                     </a>
                 </#list>
             <#else>
-                <div class="jumbotron">
+                <div class="alert alert-warning">
                     <h3>Sorry,系统暂未发布新闻...</h3>
                 </div>
             </#if>
@@ -56,9 +76,13 @@
         <div>
             <div class="panel panel-primary" style="height: 586px;">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-file sr-only"></span>
-                    <div class="navbar-left">
-                        <a class="btn btn-default"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></a>
+                    <div class="nav">
+                        <div class="navbar-left">
+                            <label class="label label-danger" style="font-size: 12px;"><b><span class="glyphicon glyphicon-file"></span>新闻中心</b></label>
+                        </div>
+                        <#--<div class="navbar-right">
+                            <a type="button" class="btn btn-xs btn-info">更多</a>
+                        </div>-->
                     </div>
                 </div>
                 <div class="list-group" style="font-size: 13px;">
@@ -73,7 +97,7 @@
                         </a>
                     </#list>
                 <#else>
-                    <div class="jumbotron">
+                    <div class="alert alert-warning">
                         <h3>Sorry,系统暂未发布新闻...</h3>
                     </div>
                 </#if>

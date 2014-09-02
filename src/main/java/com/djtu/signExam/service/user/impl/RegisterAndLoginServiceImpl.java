@@ -3,7 +3,9 @@ package com.djtu.signExam.service.user.impl;
 import com.djtu.signExam.dao.impl.TUserAdminDao;
 import com.djtu.signExam.dao.impl.TUserStudentDao;
 import com.djtu.signExam.dao.support.SQLWrapper;
+import com.djtu.signExam.model.TUserAdmin;
 import com.djtu.signExam.model.TUserStudent;
+import com.djtu.signExam.model.support.EntityObject;
 import com.djtu.signExam.service.user.RegisterAndLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,7 +45,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
         //type:0:学生帐号 1：管理员帐号 2：学院帐号 3：教务帐号
         Object object;
         if(email != null && pwd != null){
-            if(type>0){
+            if(type==0){
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd);
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
@@ -58,14 +60,31 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
     }
 
     @Override
+    public EntityObject signInByEmailAndReturnObj(String email, String pwd, int type) {
+        if(email != null && pwd != null){
+            if(type==0){
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd);
+                return tUserStudentDao.findOneByWrapper(sqlWrapper);
+            }else{
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd).eq("a_type",type);
+                return tUserAdminDao.findOneByWrapper(sqlWrapper);
+            }
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public boolean signInByNo(String No, String pwd, int type) {
         //type:0:学生帐号 1：管理员帐号 2：学院帐号 3：教务帐号
         Object object;
         if(No != null && pwd != null){
-            if(type>0){
+            if(type==0){
+                //学生账号
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd);
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
+                //管理员 学院 教务
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd).eq("a_type",type);
                 object = tUserAdminDao.findOneByWrapper(sqlWrapper);
             }
@@ -74,6 +93,23 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public EntityObject signInByNoAndReturnObj(String No, String pwd, int type) {
+        if(No != null && pwd != null){
+            if(type==0){
+                //学生账号
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd);
+                return tUserStudentDao.findOneByWrapper(sqlWrapper);
+            }else{
+                //管理员 学院 教务
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd).eq("a_type",type);
+                return tUserAdminDao.findOneByWrapper(sqlWrapper);
+            }
+        }else{
+            return null;
+        }
     }
 
     @Override
@@ -97,6 +133,11 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
             return true;//学号可用
         }
         return false;//学号不可用
+    }
+
+    @Override
+    public TUserAdmin signInByEmail(String email, String pwd) {
+        return tUserAdminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_pwd",pwd));
     }
 
 

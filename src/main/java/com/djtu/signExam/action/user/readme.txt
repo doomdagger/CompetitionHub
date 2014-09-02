@@ -1,0 +1,1 @@
+由ManCtrollerInterceptor来控制权限

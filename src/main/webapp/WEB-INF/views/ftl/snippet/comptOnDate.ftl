@@ -1,6 +1,10 @@
 <!--time line-->
-<div class="container-fluid">
-    <h4><span class="glyphicon glyphicon-time"><b>赛事日程</b></span></h4>
+<div class="container">
+    <h3>
+        <label class=" label label-primary">
+            <span class="glyphicon glyphicon-time"><b>赛事日程</b></span>
+        </label>
+    </h3>
 <#--<div class="progress progress-striped">
     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 </div>-->

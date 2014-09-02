@@ -193,7 +193,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		}
 		this.query = wrapper.getQuery();
 		List<T> list = getJdbcTemplate().query(this.query, BeanPropertyRowMapper.newInstance(cls));
-		return list.get(0);
+		return list.isEmpty()?null:list.get(0);
         //return getJdbcTemplate().queryForObject(this.query, cls);
         //return getJdbcTemplate().queryForObject(this.query,BeanPropertyRowMapper.newInstance(cls));
 	}
@@ -202,7 +202,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 	public T findOneByWrapper(SQLWrapper sqlWrapper) {
 		this.query = sqlWrapper.setModel(meta.getTableName()).getQuery();
         List<T> list = getJdbcTemplate().query(this.query, BeanPropertyRowMapper.newInstance(cls));
-        return list.get(0);
+        return list.isEmpty()?null:list.get(0);
 		//return getJdbcTemplate().queryForObject(this.query, cls);
 	}
 

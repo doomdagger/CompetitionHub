@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/man")
 public class ManController {
 
-    @RequestMapping("/")
+    //when get here shoud be access the "ManControllerInterceptor"
+    @RequestMapping("")
     public String index(){
         //should judge the user type here and return the correct page and data
         return "userAcademy";
