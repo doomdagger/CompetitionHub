@@ -77,15 +77,16 @@ public class RegisterAndLoginController {
 
         String ValidCode = UUIDGenerator.randomUUID();
         TUserStudent tUserStudent = new TUserStudent();
-        tUserStudent.setUUsername(username);
-        tUserStudent.setAEmail(email);
-        tUserStudent.setAUserPwd(pwd);
-        tUserStudent.setAIsActive(false);
-        tUserStudent.setAUserNo(studentNo);
-        tUserStudent.setAActivateCode(ValidCode);
-        tUserStudent.setUCellphone(cellphone);
-        tUserStudent.setUProfession(pro);
-        tUserStudent.setAIsDelete(false);
+        tUserStudent.setUsername(username);
+        tUserStudent.setEmail(email);
+        tUserStudent.setUserPwd(pwd);
+        tUserStudent.setIsActive(false);
+        tUserStudent.setUserNo(studentNo);
+        tUserStudent.setActivateCode(ValidCode);
+        tUserStudent.setCellphone(cellphone);
+        tUserStudent.setAcademy(academy);
+        tUserStudent.setProfession(pro);
+        tUserStudent.setIsDelete(false);
         if(registerAndLoginService.register(tUserStudent)){
             //设置session
         }
@@ -119,14 +120,15 @@ public class RegisterAndLoginController {
             HashMap<String,Object> userSession = new HashMap<String, Object>();
             HashMap<String,Object> userMap = new HashMap<String, Object>();
             userMap.put(SessionConst.U_USER_TYPE,0);//用户类型
-            userMap.put(SessionConst.U_USER_NAME,student.getUUsername());//用户姓名
+            userMap.put(SessionConst.U_USER_NAME,student.getUsername());//用户姓名
             userMap.put(SessionConst.U_USER_LINK,student.getID());//用户ID
+
             //put in user session
             session.setAttribute(SessionConst.U_LOGIN,SessionConst.U_LOGIN_SUCC);//登录标志
             session.setAttribute(SessionConst.U_USER,userMap);
             //return json
             JSONObject result = new JSONObject();
-            result.put("usernameSucc",student.getUUsername()==null?"":student.getUUsername());
+            result.put("usernameSucc",student.getUsername()==null?"":student.getUsername());
             result.put("usertypeSucc",0);
             result.put("result",StringConst.AJAX_SUCCESS);
             return result.toString();
@@ -145,9 +147,11 @@ public class RegisterAndLoginController {
             HttpSession session = request.getSession();
             HashMap<String,Object> userSession = new HashMap<String, Object>();
             HashMap<String,Object> userMap = new HashMap<String, Object>();
-            userMap.put(SessionConst.U_USER_TYPE,0);//用户类型
+            userMap.put(SessionConst.U_USER_TYPE,tUserAdmin.getAType());//用户类型
             userMap.put(SessionConst.U_USER_NAME,tUserAdmin.getUUsername());//用户姓名
             userMap.put(SessionConst.U_USER_LINK,tUserAdmin.getID());//用户ID
+            userMap.put(SessionConst.U_USER_ISTP,tUserAdmin.getIsSuper());
+            System.out.println("LOGIN-ISTP:"+tUserAdmin.getIsSuper());
             //put in user session
             session.setAttribute(SessionConst.U_LOGIN,SessionConst.U_LOGIN_SUCC);//登录标志
             session.setAttribute(SessionConst.U_USER,userMap);

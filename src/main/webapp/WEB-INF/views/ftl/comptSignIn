@@ -1,0 +1,185 @@
+<#include "./snippet/header.ftl">
+
+<!--competition introduction-->
+<div class="container">
+    <h2 style="text-align: center"><label class="label label-info">竞赛报名</label></h2>
+</div>
+
+
+
+
+<!--sign up here-->
+<div class="container">
+    <!--com remark-->
+    <div class="alert alert-danger">
+        <div>
+            <h4><span class="glyphicon glyphicon-registration-mark">说明：</span></h4>
+            <div>请认真填写每一项内容,每项内容都将影响到你是否能参加比赛或者赛后获奖</div>
+        </div>
+    </div>
+
+    <div>
+        <h2><label class="label label-danger"><span class="glyphicon glyphicon-log-in">报名入口</span></label></h2>
+        <div>
+            <h4><label class="label label-primary">参赛形式：小组赛 (组员由组长添加)</label></h4>
+            <div class="alert alert-info">
+                <#if student?exists>
+                    <h5><b>组长</b> ： ${student.username?if_exists}</h5>
+                    <h5><b>学号</b> ： ${student.userNo?if_exists}</h5>
+                    <h5><b>学院专业</b> ： ${student.academy?if_exists} - ${student.profession?if_exists}</h5>
+                <#else>
+                    <h5>未能读取组长信息</h5>
+                </#if>
+                <div>
+
+                </div>
+            </div>
+
+
+
+            <form class="form-inline" role="form">
+                <!--组长资料-->
+                <h4><label class="label label-primary">（组长）个人信息</label></h4>
+                <div class="alert alert-info">
+                    <div class="form-group"  title="必须提供有效邮箱">
+                        <label for="email">邮箱</label>
+                        <input type="text" class="form-control" id="email" placeholder="邮箱">
+                    </div>
+                    <div class="form-group" title="必须提供有效联系方式">
+                        <label for="cellphone">联系电话</label>
+                        <input type="text" class="form-control" id="cellphone" placeholder="联系电话">
+                    </div>
+                    <div class="form-group" title="有效卡号，用于获奖后的奖金发放">
+                        <label for="cellphone">银行卡号</label>
+                        <input type="text" class="form-control" id="creditCard" placeholder="银行卡号">
+                    </div>
+                    <div class="form-group" title="有过教学处分的同学勾选">
+                        <label for="cellphone">教学帮助</label>
+                        <label class="form-control">
+                            <input type="checkbox">是否有消除处分奖励
+                        </label>
+                    </div>
+                </div>
+
+                <!--组员名单-->
+                <h4><label class="label label-primary">组员名单</label> <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal">添加组员</button></h4>
+                <div class="alert alert-info" style="font-size: 12px;">
+                    <div class="panel panel-default">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>联系方式</th>
+                                <th>是否消除处分</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>周荣辉</td>
+                                <td>1018160222</td>
+                                <td>18640886602</td>
+                                <td style="color: red">是</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h4><label class="label label-primary">作品信息</label></h4>
+                <div class="alert alert-info">
+                    <div class="form-group">
+                        <label for="worksName">作品名称</label>
+                        <input type="text" class="form-control" id="worksName" placeholder="作品名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="worksGuider">指导老师</label>
+                        <input type="text" class="form-control" id="worksGuider" placeholder="指导老师">
+                    </div>
+                    <div class="form-group">
+                        <label for="worksRemark">备注说明</label>
+                        <input type="text" class="form-control" id="worksRemark" placeholder="备注说明">
+                    </div>
+                </div>
+                <h4><label class="label label-primary">参赛作品上传</label></h4>
+                <div class="alert alert-info">
+                    <div class="panel panel-default">
+                        <h5><label class="label label-warning">附件上传说明</label></h5>
+                        <div class="panel-body">
+                            附件上传说明是这样的
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">选择文件</label>
+                        <input type="file" id="exampleInputFile">
+                    </div>
+                </div>
+
+
+
+
+                <!--submit-->
+                <div>
+                    <button class="btn btn-danger btn-block">确认报名</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--competition-->
+<div class="container">
+
+</div>
+
+
+
+<!--Modal sr-only-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加组员</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" role="form">
+                    <h4><label class="label label-primary">新组员信息</label></h4>
+                    <div class="alert alert-info">
+                        <div class="form-group"  title="姓名">
+                            <label for="memberName">姓名</label>
+                            <input type="text" class="form-control" id="memberName" placeholder="姓名">
+                        </div>
+                        <div class="form-group"  title="学号">
+                            <label for="memberNo">学号</label>
+                            <input type="text" class="form-control" id="memberNo" placeholder="学号">
+                        </div>
+                        <div class="form-group"  title="必须提供有效邮箱">
+                            <label for="memberEmail">邮箱</label>
+                            <input type="text" class="form-control" id="memberEmail" placeholder="邮箱">
+                        </div>
+                        <div class="form-group" title="必须提供有效联系方式">
+                            <label for="memberCellphone">联系电话</label>
+                            <input type="text" class="form-control" id="memberCellphone" placeholder="联系电话">
+                        </div>
+                        <div class="form-group" title="有过教学处分的同学勾选">
+                            <label for="cellphone">教学帮助</label>
+                            <label class="form-control">
+                                <input type="checkbox">是否有消除处分奖励
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">添加</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<#include "./snippet/footer.ftl">

@@ -27,7 +27,7 @@
     <div class="jumbotron">
         <div class="center-block">
             <h2><b>Sorry</b></h2>
-            <h3>May be you have no rights to get in.</h3>
+            <h3>May be you have no rights to get in.Or login and try again.</h3>
             <h3>Please check the <b>URL</b> you visit.</h3>
         </div>
     <div class="center-block">

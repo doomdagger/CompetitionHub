@@ -33,7 +33,7 @@ db.name=mysql   #使用的数据库名称
 db.driverClassName=com.mysql.jdbc.Driver #jdbc驱动类名称
 db.url=jdbc:mysql://localhost:3306/demo?characterEncoding=utf8  #数据库url
 db.username=root   #数据库用户
-db.password=911119   #数据库用户密码
+db.password=****   #数据库用户密码
 
 #log path config - default to be your home directory -- see project.properties
 log.path=D:\\Developer\\log    #系统日志目录

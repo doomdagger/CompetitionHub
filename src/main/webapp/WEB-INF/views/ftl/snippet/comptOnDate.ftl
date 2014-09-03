@@ -1,5 +1,5 @@
 <!--time line-->
-<div class="container">
+<div class="container-fluid">
     <h3>
         <label class=" label label-primary">
             <span class="glyphicon glyphicon-time"><b>赛事日程</b></span>

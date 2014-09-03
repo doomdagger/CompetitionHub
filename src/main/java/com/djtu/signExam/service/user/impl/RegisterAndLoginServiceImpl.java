@@ -35,7 +35,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
     public void sendConfirmEmail(String email,String code) {
         //只对学生帐号
         if(email != null && code != null){
-            SQLWrapper sqlWrapper = SQLWrapper.instance().update().set("a_isActive", "1").where().eq("a_email", email).eq("a_activateCode", code);
+            SQLWrapper sqlWrapper = SQLWrapper.instance().update().set("isActive", "1").where().eq("email", email).eq("activateCode", code);
             tUserStudentDao.updateByWrapper(sqlWrapper);
         }
     }
@@ -46,7 +46,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
         Object object;
         if(email != null && pwd != null){
             if(type==0){
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("userPwd",pwd);
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd).eq("a_type",type);
@@ -63,7 +63,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
     public EntityObject signInByEmailAndReturnObj(String email, String pwd, int type) {
         if(email != null && pwd != null){
             if(type==0){
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("userPwd",pwd);
                 return tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd).eq("a_type",type);
@@ -81,7 +81,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
         if(No != null && pwd != null){
             if(type==0){
                 //学生账号
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("userNo",No).eq("userPwd",pwd);
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 //管理员 学院 教务
@@ -100,7 +100,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
         if(No != null && pwd != null){
             if(type==0){
                 //学生账号
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("userNo",No).eq("userPwd",pwd);
                 return tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 //管理员 学院 教务
@@ -119,7 +119,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
 
     @Override
     public boolean checkEmail(String email) {
-        List<TUserStudent> students = tUserStudentDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("a_email", email));
+        List<TUserStudent> students = tUserStudentDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("email", email));
         if(students.isEmpty()){
             return true;//邮箱可用
         }
@@ -128,7 +128,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
 
     @Override
     public boolean checkStudentNo(String No) {
-        List<TUserStudent> students = tUserStudentDao.findAllByWrapper(SQLWrapper.instance().select().eq("a_userNo",No));
+        List<TUserStudent> students = tUserStudentDao.findAllByWrapper(SQLWrapper.instance().select().eq("userNo",No));
         if(students.isEmpty()){
             return true;//学号可用
         }
@@ -137,7 +137,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
 
     @Override
     public TUserAdmin signInByEmail(String email, String pwd) {
-        return tUserAdminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_pwd",pwd));
+        return tUserAdminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd));
     }
 
 

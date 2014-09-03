@@ -8,17 +8,18 @@ import com.djtu.signExam.model.TUserStudent;
  */
 public interface UserService {
 
-    public TUserStudent getStudentInfo();
+    //student
+    public TUserStudent getStudentInfo(String id);
 
-    public TUserAdmin getAdminInfo();
+    public TUserAdmin getAdminInfo(String id);
 
     // adminer account manage
 
-    public boolean addAdminer();
+    public boolean addAdminer(TUserAdmin admin);
 
-    public boolean removeAdminer();
+    public boolean removeAdminer(String id);
 
-    public boolean updateAdminer();
+    public boolean updateAdminer(TUserAdmin admin);
 
 
     //学院帐号 及 教务账号

@@ -25,7 +25,7 @@ public class IndexController {
     @Autowired
     private NewsService newsService;
 
-    @RequestMapping(value={"/","/index"})
+    @RequestMapping(value={"","/index"})
     public String index(Model model){
         //get news list
         List<TNews> newsList = newsService.getNewsByPage(Pageable.inPage(1, ProjectPageConfig.NEWS_INDEX_LIST_NUM));//9条
@@ -42,8 +42,12 @@ public class IndexController {
         return "aboutUs";
     }
 
+
+
+    //Error handler
     @RequestMapping("/noPermission")
     public String noPermission(){
         return "noPermission";
     }
+
 }

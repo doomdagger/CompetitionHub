@@ -56,11 +56,11 @@
 	<!-- 拦截器配置 -->
 	<mvc:interceptors>
     	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-    	<!--<mvc:interceptor>
-        	<mvc:mapping path="/**"/>
-        	<mvc:exclude-mapping path="/demo/webservice/**"/>
-			<bean class="com.djtu.signExam.interceptor.UserControlInterceptor"/>
-    	</mvc:interceptor>-->
+    	<mvc:interceptor>
+        	<mvc:mapping path="/student/**"/>
+        	<!--<mvc:exclude-mapping path="/demo/webservice/**"/>-->
+			<bean class="com.djtu.signExam.interceptor.UserStudentControlInterceptor"/>
+    	</mvc:interceptor>
     	<!-- Add more interceptors here -->
         <mvc:interceptor>
             <mvc:mapping path="/man/**"/>

@@ -122,20 +122,20 @@ public class TUserAdmin extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_userPwd"</li>
+	 * 	 <li>Field Name  : "a_userPwd"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_userPwd")
-	private String uUserPwd;
-	public String getUUserPwd() {
-		return uUserPwd;
+	@Column("a_userPwd")
+	private String aUserPwd;
+	public String getAUserPwd() {
+		return aUserPwd;
 	}
-	public void setUUserPwd(String uUserPwd) {
-		this.uUserPwd = uUserPwd;
+	public void setAUserPwd(String aUserPwd) {
+		this.aUserPwd = aUserPwd;
 	}
 	/**
 	 * Description:
@@ -182,59 +182,59 @@ public class TUserAdmin extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_isSuper"</li>
+	 * 	 <li>Field Name  : "isSuper"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_isSuper")
-	private boolean aIsSuper;
-	public boolean getAIsSuper() {
-		return aIsSuper;
+	@Column("isSuper")
+	private boolean isSuper;
+	public boolean getIsSuper() {
+		return isSuper;
 	}
-	public void setAIsSuper(boolean aIsSuper) {
-		this.aIsSuper = aIsSuper;
+	public void setIsSuper(boolean isSuper) {
+		this.isSuper = isSuper;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_isActive"</li>
+	 * 	 <li>Field Name  : "isActive"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_isActive")
-	private boolean aIsActive;
-	public boolean getAIsActive() {
-		return aIsActive;
+	@Column("isActive")
+	private boolean isActive;
+	public boolean getIsActive() {
+		return isActive;
 	}
-	public void setAIsActive(boolean aIsActive) {
-		this.aIsActive = aIsActive;
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_isDelete"</li>
+	 * 	 <li>Field Name  : "isDelete"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_isDelete")
-	private boolean aIsDelete;
-	public boolean getAIsDelete() {
-		return aIsDelete;
+	@Column("isDelete")
+	private boolean isDelete;
+	public boolean getIsDelete() {
+		return isDelete;
 	}
-	public void setAIsDelete(boolean aIsDelete) {
-		this.aIsDelete = aIsDelete;
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 }

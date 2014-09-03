@@ -42,239 +42,239 @@ public class TUserStudent extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_username"</li>
+	 * 	 <li>Field Name  : "username"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_username")
-	private String uUsername;
-	public String getUUsername() {
-		return uUsername;
+	@Column("username")
+	private String username;
+	public String getUsername() {
+		return username;
 	}
-	public void setUUsername(String uUsername) {
-		this.uUsername = uUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_image"</li>
+	 * 	 <li>Field Name  : "image"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_image")
-	private String uImage;
-	public String getUImage() {
-		return uImage;
+	@Column("image")
+	private String image;
+	public String getImage() {
+		return image;
 	}
-	public void setUImage(String uImage) {
-		this.uImage = uImage;
+	public void setImage(String image) {
+		this.image = image;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_cellphone"</li>
+	 * 	 <li>Field Name  : "cellphone"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_cellphone")
-	private String uCellphone;
-	public String getUCellphone() {
-		return uCellphone;
+	@Column("cellphone")
+	private String cellphone;
+	public String getCellphone() {
+		return cellphone;
 	}
-	public void setUCellphone(String uCellphone) {
-		this.uCellphone = uCellphone;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_userNo"</li>
+	 * 	 <li>Field Name  : "userNo"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_userNo")
-	private String aUserNo;
-	public String getAUserNo() {
-		return aUserNo;
+	@Column("userNo")
+	private String userNo;
+	public String getUserNo() {
+		return userNo;
 	}
-	public void setAUserNo(String aUserNo) {
-		this.aUserNo = aUserNo;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_userPwd"</li>
+	 * 	 <li>Field Name  : "userPwd"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_userPwd")
-	private String aUserPwd;
-	public String getAUserPwd() {
-		return aUserPwd;
+	@Column("userPwd")
+	private String userPwd;
+	public String getUserPwd() {
+		return userPwd;
 	}
-	public void setAUserPwd(String aUserPwd) {
-		this.aUserPwd = aUserPwd;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_creditCard"</li>
+	 * 	 <li>Field Name  : "creditCard"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_creditCard")
-	private String uCreditCard;
-	public String getUCreditCard() {
-		return uCreditCard;
+	@Column("creditCard")
+	private String creditCard;
+	public String getCreditCard() {
+		return creditCard;
 	}
-	public void setUCreditCard(String uCreditCard) {
-		this.uCreditCard = uCreditCard;
+	public void setCreditCard(String creditCard) {
+		this.creditCard = creditCard;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_academy"</li>
+	 * 	 <li>Field Name  : "academy"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_academy")
-	private String uAcademy;
-	public String getUAcademy() {
-		return uAcademy;
+	@Column("academy")
+	private String academy;
+	public String getAcademy() {
+		return academy;
 	}
-	public void setUAcademy(String uAcademy) {
-		this.uAcademy = uAcademy;
+	public void setAcademy(String academy) {
+		this.academy = academy;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_profession"</li>
+	 * 	 <li>Field Name  : "profession"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_profession")
-	private String uProfession;
-	public String getUProfession() {
-		return uProfession;
+	@Column("profession")
+	private String profession;
+	public String getProfession() {
+		return profession;
 	}
-	public void setUProfession(String uProfession) {
-		this.uProfession = uProfession;
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_isActive"</li>
+	 * 	 <li>Field Name  : "isActive"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_isActive")
-	private boolean aIsActive;
-	public boolean getAIsActive() {
-		return aIsActive;
+	@Column("isActive")
+	private boolean isActive;
+	public boolean getIsActive() {
+		return isActive;
 	}
-	public void setAIsActive(boolean aIsActive) {
-		this.aIsActive = aIsActive;
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_activateCode"</li>
+	 * 	 <li>Field Name  : "activateCode"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_activateCode")
-	private String aActivateCode;
-	public String getAActivateCode() {
-		return aActivateCode;
+	@Column("activateCode")
+	private String activateCode;
+	public String getActivateCode() {
+		return activateCode;
 	}
-	public void setAActivateCode(String aActivateCode) {
-		this.aActivateCode = aActivateCode;
+	public void setActivateCode(String activateCode) {
+		this.activateCode = activateCode;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_isDelete"</li>
+	 * 	 <li>Field Name  : "isDelete"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_isDelete")
-	private boolean aIsDelete;
-	public boolean getAIsDelete() {
-		return aIsDelete;
+	@Column("isDelete")
+	private boolean isDelete;
+	public boolean getIsDelete() {
+		return isDelete;
 	}
-	public void setAIsDelete(boolean aIsDelete) {
-		this.aIsDelete = aIsDelete;
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_email"</li>
+	 * 	 <li>Field Name  : "email"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_email")
-	private String aEmail;
-	public String getAEmail() {
-		return aEmail;
+	@Column("email")
+	private String email;
+	public String getEmail() {
+		return email;
 	}
-	public void setAEmail(String aEmail) {
-		this.aEmail = aEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

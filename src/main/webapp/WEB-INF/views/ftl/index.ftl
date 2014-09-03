@@ -184,9 +184,15 @@
                                             </label>
                                         </div>
                                     </form>
-                                    <a class="btn btn-success btn-block" id="btnIndexLogOut" href="/user/logout">注销登录</a>
+                                    <a class="btn btn-success btn-block" id="btnIndexLogOut">注销登录</a>
                                     <br/>
-                                    <p><a class="btn btn-primary btn-block" href="/man/">个人中心</a>
+                                    <p><a class="btn btn-primary btn-block" id="btnToAccount"
+                                              <#if Session?? && Session['CUR']?? && Session['CUR']['CUR_TYPE']?? && Session['CUR']['CUR_TYPE']==0>
+                                              href="/student/"
+                                              <#else>
+                                              href="/man/"
+                                              </#if> >个人中心
+                                        </a>
                                     <p><small>仅限大连交通大学在校生注册使用</small>
                                 </div>
 
@@ -202,8 +208,8 @@
                                             <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" style="font-size: 6px;">
                                         </div>
                                         <div class="form-group">
-                                            <label><input type="radio" name="usertype" value="0" id="type0" checked>学生</label>&nbsp;&nbsp;
-                                            <label><input type="radio" name="usertype" value="1" id="type1">老师</label>
+                                            <label><input type="radio" name="usertype" value="0" id="usertype0" checked="checked">学生</label>&nbsp;&nbsp;
+                                            <label><input type="radio" name="usertype" value="1" id="usertype1">老师</label>
                                         </div>
                                         <div class="form-group">
                                             <button type="button" class="btn btn-success btn-block" id="btnIndexLogin">登陆</button>
