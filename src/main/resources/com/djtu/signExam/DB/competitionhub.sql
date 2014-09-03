@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50703
 File Encoding         : 65001
 
-Date: 2014-09-02 10:12:18
+Date: 2014-09-03 17:34:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,11 +46,12 @@ CREATE TABLE `t_compt` (
   `isNeedFile` tinyint(1) DEFAULT NULL,
   `isTop` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_compt
 -- ----------------------------
+INSERT INTO `t_compt` VALUES ('1', '这是测试', '这是参赛说明', '这是赛事内容', '单位1', '1', '单位2', '2014年9月xx号', '2014-09-03 00:00:00', '2014-09-30 00:00:00', '0', '有学校资助哦', '0', '需要上传很多作品', '0', '3', '1', '0', '0', '0', '0', '0', '2014-09-03 16:18:46', '0', '0');
 
 -- ----------------------------
 -- Table structure for t_compt_attchment
@@ -68,7 +69,7 @@ CREATE TABLE `t_compt_attchment` (
   `is_valid` tinyint(1) DEFAULT NULL,
   `savepath` varchar(2000) DEFAULT NULL COMMENT '保存路径',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_compt_attchment
@@ -76,6 +77,7 @@ CREATE TABLE `t_compt_attchment` (
 INSERT INTO `t_compt_attchment` VALUES ('1', '1', 'Chrysanthemum.jpg', '0', '2014-08-28 14:31:20', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
 INSERT INTO `t_compt_attchment` VALUES ('2', '1', 'Penguins.jpg', '0', '2014-08-28 14:32:17', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Penguins.jpg');
 INSERT INTO `t_compt_attchment` VALUES ('3', '11', 'Chrysanthemum.jpg', '0', '2014-08-28 14:47:41', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
+INSERT INTO `t_compt_attchment` VALUES ('4', '1', 'Wildlife.wmv', '0', '2014-09-03 16:13:45', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Wildlife.wmv');
 
 -- ----------------------------
 -- Table structure for t_compt_calendar
@@ -175,18 +177,19 @@ CREATE TABLE `t_user_admin` (
   `u_usertype` varchar(200) DEFAULT NULL,
   `u_image` varchar(200) DEFAULT NULL,
   `u_cellphone` varchar(200) DEFAULT NULL,
-  `u_userPwd` varchar(200) DEFAULT NULL,
+  `a_userPwd` varchar(200) DEFAULT NULL,
   `a_email` varchar(200) DEFAULT NULL,
   `a_type` int(11) DEFAULT NULL,
-  `a_isSuper` tinyint(1) DEFAULT NULL,
-  `a_isActive` tinyint(1) NOT NULL,
-  `a_isDelete` tinyint(1) DEFAULT NULL,
+  `isSuper` tinyint(1) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `isDelete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_user_admin
 -- ----------------------------
+INSERT INTO `t_user_admin` VALUES ('1', 'JOECHOW', '1', 'nn', '18640886602', '123456', '787449527@qq.com', '1', '1', '1', '0');
 
 -- ----------------------------
 -- Table structure for t_user_student
@@ -194,22 +197,22 @@ CREATE TABLE `t_user_admin` (
 DROP TABLE IF EXISTS `t_user_student`;
 CREATE TABLE `t_user_student` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `u_username` varchar(200) DEFAULT NULL,
-  `u_image` varchar(200) DEFAULT NULL,
-  `u_cellphone` varchar(200) DEFAULT NULL,
-  `a_userNo` varchar(200) DEFAULT NULL,
-  `a_userPwd` varchar(200) DEFAULT NULL,
-  `u_creditCard` varchar(200) DEFAULT NULL,
-  `u_academy` varchar(200) DEFAULT NULL,
-  `u_profession` varchar(200) DEFAULT NULL,
-  `a_isActive` tinyint(1) DEFAULT NULL,
-  `a_activateCode` varchar(200) DEFAULT NULL,
-  `a_isDelete` tinyint(1) DEFAULT NULL,
-  `a_email` varchar(200) DEFAULT '',
+  `username` varchar(200) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `cellphone` varchar(200) DEFAULT NULL,
+  `userNo` varchar(200) DEFAULT NULL,
+  `userPwd` varchar(200) DEFAULT NULL,
+  `creditCard` varchar(200) DEFAULT NULL,
+  `academy` varchar(200) DEFAULT NULL,
+  `profession` varchar(200) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `activateCode` varchar(200) DEFAULT NULL,
+  `isDelete` tinyint(1) DEFAULT NULL,
+  `email` varchar(200) DEFAULT '',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_user_student
 -- ----------------------------
-INSERT INTO `t_user_student` VALUES ('4', '周荣辉', '0', '18640886602', '1018160229', '123456', '0', '0', '软件工程', '0', 'bbe22a5e-f96c-4351-94be-6eb4e821edb7', '0', '787449527@qq.com');
+INSERT INTO `t_user_student` VALUES ('5', 'JOECHOW', '0', '18640886602', '1018160229', '123456', '0', '软件学院', '软件工程', '0', '5a65a613-7d19-4180-9766-d9a97efc5d14', '0', '787449527@qq.com');
