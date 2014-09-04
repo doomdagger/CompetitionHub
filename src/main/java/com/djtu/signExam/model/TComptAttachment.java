@@ -6,13 +6,13 @@ import com.djtu.signExam.model.support.annotation.Id;
 import java.util.Date;
 /**
  * Description:No Description Available
- * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_compt_attchment</strong></p>
+ * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_compt_attachment</strong></p>
  * <p>Do not modify the source code randomly</p>
  * 
  *  @author auto_generate model
  */
- @Table("t_compt_attchment")
-public class TComptAttchment extends EntityObject{
+ @Table("t_compt_attachment")
+public class TComptAttachment extends EntityObject{
 	/**
 	 *  serialVersionUID, dedicated to object serialize.
 	 */

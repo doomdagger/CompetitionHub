@@ -1,6 +1,6 @@
 package com.djtu.signExam.dao.impl;
 
-import com.djtu.signExam.model.TComptAttchment;
+import com.djtu.signExam.model.TComptAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Created by root on 14-7-16.
  */
 @Repository("tComptAttachmentDao")
-public class TComptAttachmentDao extends BaseDaoImpl<TComptAttchment> {
+public class TComptAttachmentDao extends BaseDaoImpl<TComptAttachment> {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override

@@ -5,13 +5,13 @@ import com.djtu.signExam.model.support.annotation.Column;
 import com.djtu.signExam.model.support.annotation.Id;
 /**
  * Description:No Description Available
- * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_signup</strong></p>
+ * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_signin</strong></p>
  * <p>Do not modify the source code randomly</p>
  * 
  *  @author auto_generate model
  */
- @Table("t_signup")
-public class TSignup extends EntityObject{
+ @Table("t_signin")
+public class TSignin extends EntityObject{
 	/**
 	 *  serialVersionUID, dedicated to object serialize.
 	 */
@@ -38,24 +38,84 @@ public class TSignup extends EntityObject{
 		this.ID = ID;
 	}
 	/**
-	 * Description:
+	 * Description:外键：赛事表ID
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "sk_t_userStudent"</li>
+	 * 	 <li>Field Name  : "sk_t_compt"</li>
 	 * 	 <li>Field Type  : "INT"</li>
 	 * 	 <li>Field Length: "10"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("sk_t_userStudent")
-	private int skTUserStudent;
-	public int getSkTUserStudent() {
-		return skTUserStudent;
+	@Column("sk_t_compt")
+	private int skTCompt;
+	public int getSkTCompt() {
+		return skTCompt;
 	}
-	public void setSkTUserStudent(int skTUserStudent) {
-		this.skTUserStudent = skTUserStudent;
+	public void setSkTCompt(int skTCompt) {
+		this.skTCompt = skTCompt;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "sk_t_student"</li>
+	 * 	 <li>Field Type  : "INT"</li>
+	 * 	 <li>Field Length: "10"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("sk_t_student")
+	private int skTStudent;
+	public int getSkTStudent() {
+		return skTStudent;
+	}
+	public void setSkTStudent(int skTStudent) {
+		this.skTStudent = skTStudent;
+	}
+	/**
+	 * Description:赛事名称
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "comptName"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "1000"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("comptName")
+	private String comptName;
+	public String getComptName() {
+		return comptName;
+	}
+	public void setComptName(String comptName) {
+		this.comptName = comptName;
+	}
+	/**
+	 * Description:小组编号，用于区分每个小组
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "teamNo"</li>
+	 * 	 <li>Field Type  : "INT"</li>
+	 * 	 <li>Field Length: "10"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("teamNo")
+	private int teamNo;
+	public int getTeamNo() {
+		return teamNo;
+	}
+	public void setTeamNo(int teamNo) {
+		this.teamNo = teamNo;
 	}
 	/**
 	 * Description:
@@ -102,6 +162,26 @@ public class TSignup extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
+	 * 	 <li>Field Name  : "email"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("email")
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
 	 * 	 <li>Field Name  : "cellphone"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
@@ -142,26 +222,6 @@ public class TSignup extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "reward"</li>
-	 * 	 <li>Field Type  : "BIT"</li>
-	 * 	 <li>Field Length: "0"</li>
-	 *   <li>Refer Info  : ""</li>
-	 * </ul>
-	 * </p>
-	 */
-	@Column("reward")
-	private boolean reward;
-	public boolean getReward() {
-		return reward;
-	}
-	public void setReward(boolean reward) {
-		this.reward = reward;
-	}
-	/**
-	 * Description:
-	 * <p>
-	 * Mapped field info in table:
-	 * <ul>
 	 * 	 <li>Field Name  : "worksName"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
@@ -184,7 +244,7 @@ public class TSignup extends EntityObject{
 	 * <ul>
 	 * 	 <li>Field Name  : "worksIntro"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
-	 * 	 <li>Field Length: "200"</li>
+	 * 	 <li>Field Length: "1000"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
@@ -204,7 +264,7 @@ public class TSignup extends EntityObject{
 	 * <ul>
 	 * 	 <li>Field Name  : "advisor"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
-	 * 	 <li>Field Length: "200"</li>
+	 * 	 <li>Field Length: "1000"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
@@ -218,18 +278,18 @@ public class TSignup extends EntityObject{
 		this.advisor = advisor;
 	}
 	/**
-	 * Description:
+	 * Description:是否已经通过审核
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "is_valid"</li>
+	 * 	 <li>Field Name  : "isValid"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("is_valid")
+	@Column("isValid")
 	private boolean isValid;
 	public boolean getIsValid() {
 		return isValid;
@@ -242,19 +302,79 @@ public class TSignup extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "is_delete"</li>
+	 * 	 <li>Field Name  : "isDelete"</li>
 	 * 	 <li>Field Type  : "BIT"</li>
 	 * 	 <li>Field Length: "0"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("is_delete")
+	@Column("isDelete")
 	private boolean isDelete;
 	public boolean getIsDelete() {
 		return isDelete;
 	}
 	public void setIsDelete(boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+	/**
+	 * Description:是否为组长
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isLeader"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isLeader")
+	private boolean isLeader;
+	public boolean getIsLeader() {
+		return isLeader;
+	}
+	public void setIsLeader(boolean isLeader) {
+		this.isLeader = isLeader;
+	}
+	/**
+	 * Description:是否获奖
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isReward"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isReward")
+	private boolean isReward;
+	public boolean getIsReward() {
+		return isReward;
+	}
+	public void setIsReward(boolean isReward) {
+		this.isReward = isReward;
+	}
+	/**
+	 * Description:对消除学分有帮助
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isHelpCredit"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isHelpCredit")
+	private boolean isHelpCredit;
+	public boolean getIsHelpCredit() {
+		return isHelpCredit;
+	}
+	public void setIsHelpCredit(boolean isHelpCredit) {
+		this.isHelpCredit = isHelpCredit;
 	}
 }

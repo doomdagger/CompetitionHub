@@ -1,6 +1,6 @@
 package com.djtu.signExam.service.compt;
 
-import com.djtu.signExam.model.TComptAttchment;
+import com.djtu.signExam.model.TComptAttachment;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface ComptAttchmentService {
 
-    public boolean addOne(TComptAttchment tComptAttchment);
+    public boolean addOne(TComptAttachment tComptAttachment);
 
     public boolean deleteOneById(String id);
 
-    public List<TComptAttchment> getAllItemsBySkId(String id);
+    public List<TComptAttachment> getAllItemsBySkId(String id);
 }

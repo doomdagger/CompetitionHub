@@ -3,14 +3,10 @@ package com.djtu.signExam.action.compt;
 import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.model.TCompt;
-import com.djtu.signExam.model.TComptAttchment;
-import com.djtu.signExam.model.TNews;
+import com.djtu.signExam.model.TComptAttachment;
 import com.djtu.signExam.service.compt.ComptAttchmentService;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.util.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.json.JSONObject;
-import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -146,7 +142,7 @@ public class ComptManController {
     //上传附件页面
     @RequestMapping("/uploadGet")
     public String uploadGet(@RequestParam String link,Model model){
-        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        List<TComptAttachment> attachList = comptAttchmentService.getAllItemsBySkId(link);
         model.addAttribute("attachList",attachList);
         model.addAttribute("link",link);
         model.addAttribute(NAV_BAR,CURR_MAN_BAR);
@@ -160,14 +156,14 @@ public class ComptManController {
         String savePath = request.getServletContext().getRealPath(UploadConst.FILE_RES_PATH);
         List<String> fileNameList = FileUploader.uploadFile(request,response,savePath);
         for(String name : fileNameList){
-            TComptAttchment tComptAttchment = new TComptAttchment();
-            tComptAttchment.setCreatetime(new Date());
-            tComptAttchment.setIsDelete(false);
-            tComptAttchment.setName(name);
-            tComptAttchment.setSkTCompt(new Integer(link));
-            tComptAttchment.setType(true);//true :1 即为赛事附件
-            tComptAttchment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
-            comptAttchmentService.addOne(tComptAttchment);
+            TComptAttachment tComptAttachment = new TComptAttachment();
+            tComptAttachment.setCreatetime(new Date());
+            tComptAttachment.setIsDelete(false);
+            tComptAttachment.setName(name);
+            tComptAttachment.setSkTCompt(new Integer(link));
+            tComptAttachment.setType(true);//true :1 即为赛事附件
+            tComptAttachment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
+            comptAttchmentService.addOne(tComptAttachment);
         }
         return "redirect:/man/compt/list";
     }
@@ -185,7 +181,7 @@ public class ComptManController {
     @RequestMapping("/updateGet")
     public String updateGet(@RequestParam String link,Model model){
         TCompt compt = comptService.getComptById(link);
-        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        List<TComptAttachment> attachList = comptAttchmentService.getAllItemsBySkId(link);
         model.addAttribute("attachList",attachList);
         model.addAttribute("compt",compt);
         model.addAttribute("isSubmit","success");
@@ -198,7 +194,7 @@ public class ComptManController {
     @RequestMapping("/updateEditGet")
     public String updateEditGet(@RequestParam String link,Model model){
         TCompt compt = comptService.getComptById(link);
-        List<TComptAttchment> attachList = comptAttchmentService.getAllItemsBySkId(link);
+        List<TComptAttachment> attachList = comptAttchmentService.getAllItemsBySkId(link);
         model.addAttribute("attachList",attachList);
         model.addAttribute("compt",compt);
         model.addAttribute("link",link);

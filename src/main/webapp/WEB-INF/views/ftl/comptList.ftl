@@ -55,7 +55,7 @@
             <div class="list-group" style="font-size: 11px;">
                 <#if newsList?? && (newsList?size>0)>
                     <#list newsList as news>
-                        <a class="list-group-item" href="newsDetail.html">
+                        <a class="list-group-item" href="/news/detail?link=${news.ID?if_exists}">
                             <#if news.isTop?if_exists>
                                 <span class="label label-danger">Top</span>
                             </#if>
@@ -88,7 +88,7 @@
                 <div class="list-group" style="font-size: 13px;">
                     <#if comptList?? && (comptList?size>0)>
                         <#list comptList as compt>
-                            <a class="list-group-item" href="comDetail.html">
+                            <a class="list-group-item" href="/compt/detail?link=${compt.ID?if_exists}">
                                 <#if compt.isTop?if_exists>
                                     <span class="label label-danger">Top</span><#--置顶提示-->
                                 </#if>

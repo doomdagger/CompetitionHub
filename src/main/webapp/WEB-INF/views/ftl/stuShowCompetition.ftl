@@ -2,13 +2,15 @@
 
 <p><br/><br/>
 <div class="container-fluid">
-    <br/><br/>
+    <h3>显示赛事报名概况</h3>
 </div>
+
 <div class="container-fluid">
     <div class="jumbotron" style="text-align: center">
-        <h4>Message</h4>
-        <p><span style="font-size: 15px;">404</span>
-        <h4><#if message?exists>${message?if_exists}</#if></h4>
+        <h4>关于交通大学竞赛报名系统</h4>
+        <h4>开发者：CodeHolic团队（周荣辉、李赫）</h4>
+        <br/>
+        <h5>取得联系：www.joechow.cn</h5>
     </div>
 </div>
 

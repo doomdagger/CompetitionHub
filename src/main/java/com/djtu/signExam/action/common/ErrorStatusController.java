@@ -15,10 +15,10 @@ public class ErrorStatusController {
 
     @RequestMapping("/{code}")
     public String dealStatusCode(@PathVariable int code,Model model){
+        model.addAttribute("message","Status: "+code);
         if(code==404){
             return "errorpage";
         }
-        model.addAttribute("message","Status: "+code);
         return "errorpage";
     }
 }

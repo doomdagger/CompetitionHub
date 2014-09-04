@@ -173,4 +173,27 @@ public class RegisterAndLoginController {
         httpSession.setAttribute(SessionConst.U_USER,null);//设置用户为空
         return "redirect:/index";
     }
+
+    //检查登录状态
+    @RequestMapping("/checkLogin")
+    public @ResponseBody String checkLogin(HttpServletRequest request){
+        Object isLogin = SessionUtil.getValue(request,SessionConst.U_LOGIN);
+        if(isLogin != null && (Integer)isLogin == SessionConst.U_LOGIN_SUCC){
+            return  StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    //检查登录者类型
+    //失败返回 fail 成功返回userType
+    @RequestMapping("/checkLoginType")
+    public @ResponseBody String checkLoginType(HttpServletRequest request){
+        Object isLogin = SessionUtil.getValue(request,SessionConst.U_LOGIN);
+        if(isLogin != null && (Integer)isLogin == SessionConst.U_LOGIN_SUCC){
+            Object userType = SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_TYPE);
+            return (String) userType;
+        }else{
+            return StringConst.AJAX_FAIL;
+        }
+    }
 }

@@ -1,11 +1,10 @@
 package com.djtu.signExam.service.compt.impl;
 
-import com.djtu.signExam.action.index.IndexController;
 import com.djtu.signExam.dao.impl.TComptAttachmentDao;
 import com.djtu.signExam.dao.support.IOperators;
 import com.djtu.signExam.dao.support.SQLWrapper;
 import com.djtu.signExam.dao.support.Sortable;
-import com.djtu.signExam.model.TComptAttchment;
+import com.djtu.signExam.model.TComptAttachment;
 import com.djtu.signExam.service.compt.ComptAttchmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,8 @@ public class ComptAttachmentServiceImpl implements ComptAttchmentService {
     private TComptAttachmentDao tComptAttachmentDao;
 
     @Override
-    public boolean addOne(TComptAttchment tComptAttchment) {
-        Integer key = (Integer) tComptAttachmentDao.add(tComptAttchment);
+    public boolean addOne(TComptAttachment tComptAttachment) {
+        Integer key = (Integer) tComptAttachmentDao.add(tComptAttachment);
         if(key != null){
             return true;
         }
@@ -42,7 +41,7 @@ public class ComptAttachmentServiceImpl implements ComptAttchmentService {
      * @return
      */
     @Override
-    public List<TComptAttchment> getAllItemsBySkId(String id) {
+    public List<TComptAttachment> getAllItemsBySkId(String id) {
         return tComptAttachmentDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("sk_t_compt", id).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)));
     }
 }

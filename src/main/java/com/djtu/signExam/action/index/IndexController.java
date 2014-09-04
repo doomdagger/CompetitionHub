@@ -50,4 +50,12 @@ public class IndexController {
         return "noPermission";
     }
 
+    @RequestMapping("/showMessage")
+    public String showMessage(String message,Model model){
+        if(message == null || message == ""){
+            message = "您的访问不正确";
+        }
+        return "";
+    }
+
 }

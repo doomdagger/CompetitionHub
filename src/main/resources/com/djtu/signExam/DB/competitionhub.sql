@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50703
 File Encoding         : 65001
 
-Date: 2014-09-03 17:34:41
+Date: 2014-09-04 17:09:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,13 +51,13 @@ CREATE TABLE `t_compt` (
 -- ----------------------------
 -- Records of t_compt
 -- ----------------------------
-INSERT INTO `t_compt` VALUES ('1', '这是测试', '这是参赛说明', '这是赛事内容', '单位1', '1', '单位2', '2014年9月xx号', '2014-09-03 00:00:00', '2014-09-30 00:00:00', '0', '有学校资助哦', '0', '需要上传很多作品', '0', '3', '1', '0', '0', '0', '0', '0', '2014-09-03 16:18:46', '0', '0');
+INSERT INTO `t_compt` VALUES ('1', '这是测试', '这是参赛说明', '这是赛事内容', '单位1', '1', '比赛地点', '2014年9月xx号', '2014-09-03 00:00:00', '2014-09-30 00:00:00', '0', '有学校资助哦', '0', '需要上传很多作品', '0', '3', '3', '0', '0', '0', '0', '0', '2014-09-03 16:18:46', '1', '0');
 
 -- ----------------------------
--- Table structure for t_compt_attchment
+-- Table structure for t_compt_attachment
 -- ----------------------------
-DROP TABLE IF EXISTS `t_compt_attchment`;
-CREATE TABLE `t_compt_attchment` (
+DROP TABLE IF EXISTS `t_compt_attachment`;
+CREATE TABLE `t_compt_attachment` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `sk_t_compt` int(11) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
@@ -72,12 +72,12 @@ CREATE TABLE `t_compt_attchment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
--- Records of t_compt_attchment
+-- Records of t_compt_attachment
 -- ----------------------------
-INSERT INTO `t_compt_attchment` VALUES ('1', '1', 'Chrysanthemum.jpg', '0', '2014-08-28 14:31:20', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
-INSERT INTO `t_compt_attchment` VALUES ('2', '1', 'Penguins.jpg', '0', '2014-08-28 14:32:17', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Penguins.jpg');
-INSERT INTO `t_compt_attchment` VALUES ('3', '11', 'Chrysanthemum.jpg', '0', '2014-08-28 14:47:41', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
-INSERT INTO `t_compt_attchment` VALUES ('4', '1', 'Wildlife.wmv', '0', '2014-09-03 16:13:45', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Wildlife.wmv');
+INSERT INTO `t_compt_attachment` VALUES ('1', '1', 'Chrysanthemum.jpg', '0', '2014-08-28 14:31:20', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
+INSERT INTO `t_compt_attachment` VALUES ('2', '1', 'Penguins.jpg', '0', '2014-08-28 14:32:17', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Penguins.jpg');
+INSERT INTO `t_compt_attachment` VALUES ('3', '11', 'Chrysanthemum.jpg', '0', '2014-08-28 14:47:41', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
+INSERT INTO `t_compt_attachment` VALUES ('4', '1', 'Wildlife.wmv', '0', '2014-09-03 16:13:45', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Wildlife.wmv');
 
 -- ----------------------------
 -- Table structure for t_compt_calendar
@@ -144,28 +144,35 @@ INSERT INTO `t_news` VALUES ('6', '最后一次测试', '2014-08-21 16:41:11', '
 INSERT INTO `t_news` VALUES ('7', 'new news', '2014-08-27 14:37:51', '1', '<img src=\"\\resources\\kindedtorUploads\\img\\20140827143750_220.jpg\" alt=\"\" />', '0', '1');
 
 -- ----------------------------
--- Table structure for t_signup
+-- Table structure for t_signin
 -- ----------------------------
-DROP TABLE IF EXISTS `t_signup`;
-CREATE TABLE `t_signup` (
+DROP TABLE IF EXISTS `t_signin`;
+CREATE TABLE `t_signin` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `sk_t_userStudent` int(11) DEFAULT NULL,
+  `sk_t_compt` int(11) DEFAULT NULL COMMENT '外键：赛事表ID',
+  `sk_t_student` int(11) DEFAULT NULL,
+  `comptName` varchar(1000) DEFAULT NULL COMMENT '赛事名称',
+  `teamNo` int(11) DEFAULT NULL COMMENT '小组编号，用于区分每个小组',
   `name` varchar(200) DEFAULT NULL,
   `number` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
   `cellphone` varchar(200) DEFAULT NULL,
   `creditCard` varchar(500) DEFAULT NULL,
-  `reward` tinyint(1) DEFAULT NULL,
   `worksName` varchar(200) DEFAULT NULL,
-  `worksIntro` varchar(200) DEFAULT NULL,
-  `advisor` varchar(200) DEFAULT NULL,
-  `is_valid` tinyint(1) DEFAULT NULL,
-  `is_delete` tinyint(1) DEFAULT NULL,
+  `worksIntro` varchar(1000) DEFAULT NULL,
+  `advisor` varchar(1000) DEFAULT NULL,
+  `isValid` tinyint(1) DEFAULT NULL COMMENT '是否已经通过审核',
+  `isDelete` tinyint(1) DEFAULT NULL,
+  `isLeader` tinyint(1) DEFAULT NULL COMMENT '是否为组长',
+  `isReward` tinyint(1) DEFAULT NULL COMMENT '是否获奖',
+  `isHelpCredit` tinyint(1) DEFAULT NULL COMMENT '对消除学分有帮助',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
--- Records of t_signup
+-- Records of t_signin
 -- ----------------------------
+INSERT INTO `t_signin` VALUES ('1', '1', '5', '这是测试', '0', 'JOECHOW', '1018160229', '787449527@qq.com', '18640886602', '6222310064225560', '0', '0', '0', '0', '0', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for t_user_admin

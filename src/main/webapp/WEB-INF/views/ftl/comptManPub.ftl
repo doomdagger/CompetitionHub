@@ -198,7 +198,7 @@
         //上面为了验证是否content是否有值
         $("#btnSubmit").click();
     });
-    $("comptForm").validate();
+    $("#comptForm").validate();
 </script>
 <#--out link-->
 <#include "./snippet/footer.ftl">
