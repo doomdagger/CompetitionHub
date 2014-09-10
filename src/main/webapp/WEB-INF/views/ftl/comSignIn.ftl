@@ -117,7 +117,7 @@
                 <!--submit-->
                 <div>
                     <#if next?exists && next?has_content>
-                        <button type="submit" class="btn btn-success btn-block">确认报名并进入下一步</button>
+                        <button type="submit" class="btn btn-success btn-block">确认报名</button>
                     <#else>
                         <button type="submit" class="btn btn-success btn-block">确定编辑</button>
                     </#if>

@@ -218,4 +218,24 @@ public class TComptAttachment extends EntityObject{
 	public void setSavepath(String savepath) {
 		this.savepath = savepath;
 	}
+	/**
+	 * Description:队伍唯一标识
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "teamNo"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("teamNo")
+	private String teamNo;
+	public String getTeamNo() {
+		return teamNo;
+	}
+	public void setTeamNo(String teamNo) {
+		this.teamNo = teamNo;
+	}
 }

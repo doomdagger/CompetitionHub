@@ -25,4 +25,6 @@ public class ProjectPageConfig {
     //show
     public final static int SHOW_LIST_PAGESIZE = 15;
     public final static int SHOW_INDEX_LIST_NUM = 5;
+    //student
+    public final static int SIGN_LIST_PAGESIZE = 20;
 }

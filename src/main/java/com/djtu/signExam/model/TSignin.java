@@ -3,6 +3,7 @@ import com.djtu.signExam.model.support.EntityObject;
 import com.djtu.signExam.model.support.annotation.Table;
 import com.djtu.signExam.model.support.annotation.Column;
 import com.djtu.signExam.model.support.annotation.Id;
+import java.util.Date;
 /**
  * Description:No Description Available
  * <p>from schema <strong>CompetitionHub</strong> in table <strong>t_signin</strong></p>
@@ -103,18 +104,18 @@ public class TSignin extends EntityObject{
 	 * Mapped field info in table:
 	 * <ul>
 	 * 	 <li>Field Name  : "teamNo"</li>
-	 * 	 <li>Field Type  : "INT"</li>
-	 * 	 <li>Field Length: "10"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
 	@Column("teamNo")
-	private int teamNo;
-	public int getTeamNo() {
+	private String teamNo;
+	public String getTeamNo() {
 		return teamNo;
 	}
-	public void setTeamNo(int teamNo) {
+	public void setTeamNo(String teamNo) {
 		this.teamNo = teamNo;
 	}
 	/**
@@ -376,5 +377,45 @@ public class TSignin extends EntityObject{
 	}
 	public void setIsHelpCredit(boolean isHelpCredit) {
 		this.isHelpCredit = isHelpCredit;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "createtime"</li>
+	 * 	 <li>Field Type  : "DATETIME"</li>
+	 * 	 <li>Field Length: "19"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("createtime")
+	private Date createtime;
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	/**
+	 * Description:用于学院选择排序
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "orderNum"</li>
+	 * 	 <li>Field Type  : "INT"</li>
+	 * 	 <li>Field Length: "10"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("orderNum")
+	private int orderNum;
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 }

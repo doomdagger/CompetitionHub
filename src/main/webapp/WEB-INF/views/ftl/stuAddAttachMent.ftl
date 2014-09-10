@@ -1,48 +1,97 @@
 <#include "./snippet/header.ftl">
 
-<!--competition introduction-->
-<div class="container">
-    <h2 style="text-align: center"><label class="label label-info">竞赛报名</label></h2>
-</div>
 
-<!--sign up here-->
-<div class="container">
-    <!--com remark-->
-    <div class="alert alert-danger">
-        <div>
-            <h4><span class="glyphicon glyphicon-registration-mark">说明：</span></h4>
-            <div>请认真填写每一项内容,每项内容都将影响到你是否能参加比赛或者赛后获奖</div>
+
+<div class="container-fluid">
+<#include "./snippet/AdminLeftNavbar.ftl">
+
+    <div class="col-sm-10">
+        <div class="alert alert-info">
+            作品上传
         </div>
-    </div>
-
-    <div>
-        <h2><label class="label label-danger"><span class="glyphicon glyphicon-log-in">报名-上传作品</span></label></h2>
-        <div>
-            <h4>
-            <#if compt?exists && compt.spType>
-                <label class="label label-primary">参赛形式：个人赛</label>
-            <#else>
-                <label class="label label-primary">参赛形式：小组赛 (组员由组长添加)</label>
-            </#if>
-            </h4>
+        <div class="alert">
             <div class="alert alert-info">
-            <#if student?exists>
-                <h5><b>组长</b> ： ${student.username?if_exists}</h5>
-                <h5><b>学号</b> ： ${student.userNo?if_exists}</h5>
-                <h5><b>学院专业</b> ： ${student.academy?if_exists} - ${student.profession?if_exists}</h5>
-            <#else>
-                <h5>未能读取组长信息</h5>
-            </#if>
+                <h4><b>上传附件</b></h4>
+                <form role="form">
+                    <input type="file">
+                </form>
             </div>
-        </div>
+
+            <div class="alert alert-info">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table table-responsive table-bordered">
+                            <tr>
+                                <th>序号</th>
+                                <th>名称</th>
+                                <th>上传时间</th>
+                                <th>管理</th>
+                            </tr>
+                        <#if attList?exists && (attList?size>0)>
+                            <#list attList as item>
+                                <tr id="${item.ID?if_exists}">
+                                    <td>${item_index+1}</td>
+                                    <td>${item.name?if_exists}</td>
+                                    <td>${item.createtime?if_exists}</td>
+                                    <td>
+                                        <button class="btn btn-xs btn-danger btnDelAttach" data-toggle="modal" data-target="#delAttachModal" alt="${item.ID?if_exists}">删除</button>
+                                    </td>
+                                </tr>
+                            </#list>
+                        <#else>
+                            <tr>
+                                <td colspan="4" style="text-align: center"><b>目前还没有上传作品</b></td>
+                            </tr>
+                        </#if>
+                        </table>
+                    </div><#--panel body-->
+                </div><#--panel-->
+            </div><#--alert info-->
+        </div><#--alert-->
     </div>
 </div>
 
 
-<!--competition-->
-<div class="container">
 
-</div>
+<!-- Modal for delete a competition-->
+<div class="modal fade" id="delAttachModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">删除附件</h4>
+            </div>
+            <div class="modal-body">
+                <span>确认删除该附件</span>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" value="" id="DelAttachId">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDelMember">确认删除</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+
+<script>
+    $(document).ready(function(){
+        $(".btnDelAttach").click(function(){
+            $("#DelAttachId").val($(this).attr("alt"));
+        });
+        $("#confirmDelMember").click(function(){
+            var link = $("#DelAttachId").val();
+            var url = "/student/deleteAttach";
+            var data = {"link":link};
+            $.post(url,data,function(json){
+                if(json === "AJAX_SUCCESS"){
+                    //success
+                }else{
+                    alert("删除失败，请重试");
+                }
+            });
+        });
+    });
+</script>
 
 <#include "./snippet/footer.ftl">
