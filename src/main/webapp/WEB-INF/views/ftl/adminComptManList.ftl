@@ -5,7 +5,7 @@
 
     <div class="col-sm-10">
         <div class="alert alert-info">
-            赛事管理
+            赛事审核
         </div>
         <!--table th-->
         <div class="alert">
@@ -14,7 +14,7 @@
                 <p>发布赛事：提交一个新的赛事后，将会进入<span style="color: blue">等待审核</span>(由系统管理员进行审核)
                 <p>审核通过：管理员审核您提交的赛事后,可以比准发布，批准后才会在首页和赛事列表显示，此时显示<span style="color: green">通过审核</span>
                 <p>未通过审核：未能通过管理员审核，显示<span style="color: red">未通过审核</span>，此时可以重新编辑发布赛事
-                <p><b>提交(>1) -- 审批(1) -- 拒绝(>2)/通过(>3) -- 报名中(3) -- 结束报名(学院操作)(>4) -- 比赛进行中(4) -- 结束比赛(学院操作)(>5) -- 成绩录入(>6) -- 完成</b>
+                <p><b>提交 -- 审批 -- 拒绝/通过 -- 报名中 -- 结束报名(学院操作) -- 比赛进行中 -- 结束比赛(学院操作) -- 成绩录入 -- 完成</b>
             </div>
             <div>
                 <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
@@ -23,7 +23,7 @@
                         <th style="width: 180px;">赛事名称</th>
                         <th>赛事等级</th>
                         <th style="width: 150px;">发布时间</th>
-                        <th>状态</th>
+                        <#--<th>状态</th>-->
                         <th>置顶状态</th>
                         <th style="width: 200px;">管理</th>
                     </tr>
@@ -45,7 +45,7 @@
                                 <#--发布时间-->
                                 <td>${compt.createtime?if_exists}</td>
                                 <#--置顶状态-->
-                                <#if !compt.isTop?if_exists>
+                                <#--<#if !compt.isTop?if_exists>
                                     <td>
                                         <label class="label label-warning isTop" style="display: none">当前置顶</label>
                                         <a class="btn btn-info btn-xs newsToTop" alt="${compt.ID?if_exists}">置顶</a>
@@ -57,14 +57,14 @@
                                         <a class="btn btn-primary btn-xs newsNoTop" alt="${compt.ID?if_exists}">取消置顶</a>
                                         <a class="btn btn-info btn-xs newsToTop" alt="${compt.ID?if_exists}" style="display: none">置顶</a>
                                     </td>
-                                </#if>
+                                </#if>-->
                                 <#--审核状态-->
                                 <#if compt.status == 1>
                                     <td style="color: blue">等待审核</td>
                                 <#elseif compt.status == 2>
                                     <td style="color: red">未通过审核</td>
                                 <#elseif compt.status == 3>
-                                    <td><span style="color: green">通过审核</span><a href="#" class="btn btn-xs btn-warning">结束报名</a></td>
+                                    <td><span style="color: green">通过审核</span></td>
                                 <#elseif compt.status == 4>
                                     <td><span style="color: orange">比赛进行中</span></td>
                                 <#elseif compt.status == 5>
@@ -78,22 +78,15 @@
                                 <#--按钮状态-->
                                 <#if compt.status == 1>
                                         <td>
-                                            <a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <button class="btn btn-xs btn-info btnAccess" alt="${compt.ID}">批准通过</button>
+                                            <button class="btn btn-xs btn-danger btnDeny" alt="${compt.ID}">拒绝通过</button>
                                         </td>
                                     <#elseif compt.status == 2>
-                                        <td><a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        <td><button class="btn btn-xs btn-primary btnAccess" alt="${compt.ID}">批准通过</button>
                                         </td>
-                                    <#elseif compt.status == 3>
-                                        <td>
-                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">报名审核</a>
-                                            <button class="btn btn-xs btn-dange btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
-                                        </td>
-                                    <#elseif compt.status == 4>
+                                    <#elseif (compt.status>2) || (compt.status<7)>
+                                        <td><span style="color: green">通过审核</span></td>
+                                    <#--<#elseif compt.status == 4>
                                         <td>
                                             <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">结束比赛</a>
                                             <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
@@ -102,7 +95,7 @@
                                     <#elseif compt.status == 5>
                                         <td><a class="btn btn-xs btn-success" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
-                                        <td><span style="color: black">完成</span></td>
+                                        <td><span style="color: black">完成</span></td>-->
                                     <#else>
                                         <td>零状态</td>
                                 </#if>
@@ -125,7 +118,7 @@
                         <#if pageable.currentPage == 1>
                             <li><a>&laquo;</a></li>
                         <#else>
-                            <li><a href="/man/compt/list/${pageable.currentPage-1}">&laquo;</a></li>
+                            <li><a href="/man/admin/comptList/${pageable.currentPage-1}">&laquo;</a></li>
                         </#if>
 
                     <#--中间循环-->
@@ -133,7 +126,7 @@
                             <#if p == pageable.currentPage>
                                 <li class="active"><a>${p}</a></li>
                             <#else>
-                                <li><a href="/man/compt/list/${p}">${p}</a></li>
+                                <li><a href="/man/admin/comptList/${p}">${p}</a></li>
                             </#if>
                         </#list>
 
@@ -141,7 +134,7 @@
                         <#if pageable.currentPage == pageable.pageCount>
                             <li><a>&raquo;</a></li>
                         <#else>
-                            <li><a href="/man/compt/list/${pageable.currentPage+1}">&raquo;</a></li>
+                            <li><a href="/man/admin/comptList/${pageable.currentPage+1}">&raquo;</a></li>
                         </#if>
                     </#if>
                 </#if>
@@ -173,6 +166,34 @@
 </div><!-- /.modal -->
 
 
-
-<script src="/resources/custom/js/comptManList.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        //access
+        $(".btnAccess").click(function(){
+            var link = $(this).attr("alt");
+            var url = "/man/admin/changeStatus";
+            var data = {"link":link,"status":3};
+            $.post(url,data,function(json){
+                if(json === "AJAX_SUCCESS"){
+                    location.reload();
+                }else{
+                    alert("操作失败，请重试");
+                }
+            });
+        });
+        //deny
+        $(".btnDeny").click(function(){
+            var link = $(this).attr("alt");
+            var url = "/man/admin/changeStatus";
+            var data = {"link":link,"status":2};
+            $.post(url,data,function(json){
+                if(json === "AJAX_SUCCESS"){
+                    location.reload();
+                }else{
+                    alert("操作失败，请重试");
+                }
+            });
+        });
+    });
+</script>
 <#include "./snippet/footer.ftl">

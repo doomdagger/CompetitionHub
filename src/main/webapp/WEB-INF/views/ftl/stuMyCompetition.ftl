@@ -29,7 +29,7 @@
                         <#list signList as item>
                             <tr>
                                 <td>${item_index+1}</td>
-                                <td><a href="/compt/detail?link=${item.skTCompt}">${item.comptName?if_exists}</a></td>
+                                <td><a href="javascript:void(0)" onclick="window.open('/compt/detail?link=${item.skTCompt}')">${item.comptName?if_exists}</a></td>
                                 <td>${item.createtime?if_exists}</td>
                                 <td>${item.createtime}</td>
                                 <td><#if item.isLeader?if_exists>组长<#else>组员</#if></td>
@@ -78,8 +78,6 @@
                 </#if>
                 </ul>
             </div><#--pegeable end-->
-
-
         </div>
     </div>
 </div>

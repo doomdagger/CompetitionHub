@@ -298,6 +298,10 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
         //如果相除有余数，结果是除数+1
         return (pageSize>=sum)?1: (int) ((sum / pageSize == 0) ? (sum / pageSize) : (sum / pageSize) + 1);
     }
+    public int getPageCount(int pageSize,long count){
+        long sum = count;
+        return (pageSize>=sum)?1: (int) ((sum / pageSize == 0) ? (sum / pageSize) : (sum / pageSize) + 1);
+    }
 
 	
 	

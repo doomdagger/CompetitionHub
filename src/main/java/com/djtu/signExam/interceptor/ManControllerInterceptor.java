@@ -45,9 +45,9 @@ public class ManControllerInterceptor extends HandlerInterceptorAdapter {
         System.out.println("【ManControllerInterceptor】CurrUri: " + currUri);
         //userType:0:学生帐号 1：管理员帐号 2：学院帐号 3：教务帐号
         HashMap<String, String> uriMap = new HashMap<String, String>();
-        uriMap.put("1", "info,news,compt,show");//管理员
-        uriMap.put("2", "info,news,compt,show");//
-        uriMap.put("3", "info,reward");
+        uriMap.put("1", "info,news,compt,admin,show");//管理员
+        uriMap.put("2", "info,news,compt,show");//学院
+        uriMap.put("3", "info,djtu");//教务
         if(currUri!=null){
             String[] tokenArray = uriMap.get(userType.toString()).split(",");
             List<String> tokenList = Arrays.asList(tokenArray);

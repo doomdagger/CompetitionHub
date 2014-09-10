@@ -126,4 +126,10 @@ public class ComptSigninServiceImpl implements ComptSigninService {
     public int getPageCount(int pageSize) {
         return signinDao.getPageCount(pageSize);
     }
+
+    @Override
+    public int getPageCount(int pageSize, String id) {
+        long count = signinDao.getCountByWrapper(SQLWrapper.instance().selectAll().where().eq("sk_t_student",id));
+        return signinDao.getPageCount(pageSize,count);
+    }
 }

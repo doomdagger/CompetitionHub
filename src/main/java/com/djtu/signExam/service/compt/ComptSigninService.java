@@ -39,5 +39,7 @@ public interface ComptSigninService {
 
     public int getPageCount(int pageSize);
 
+    public int getPageCount(int pageSize,String id);
+
 
 }

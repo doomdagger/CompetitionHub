@@ -3,6 +3,8 @@ package com.djtu.signExam.service.user;
 import com.djtu.signExam.model.TUserAdmin;
 import com.djtu.signExam.model.TUserStudent;
 
+import java.util.List;
+
 /**
  * Created by root on 14-7-16.
  */
@@ -23,6 +25,9 @@ public interface UserService {
 
 
     //学院帐号 及 教务账号
+
+    public List<TUserAdmin> getAllAccountByType(int userType);
+
     public boolean addAcer();
 
     public boolean removeAcer();

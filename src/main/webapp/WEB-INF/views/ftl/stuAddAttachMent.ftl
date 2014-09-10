@@ -11,9 +11,10 @@
         </div>
         <div class="alert">
             <div class="alert alert-info">
-                <h4><b>上传附件</b></h4>
-                <form role="form">
-                    <input type="file">
+                <h4><span class="glyphicon glyphicon-upload"><b>上传附件</b></span></h4>
+                <form role="form" enctype="multipart/form-data" action="/student/addAttachMentPost" id="attachForm">
+                    <input type="file" name="attach" id="attach">
+                    <button type="button" class="btn btn-xs btn-success" id="btnSubmit">上传</button>
                 </form>
             </div>
 
@@ -21,7 +22,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table class="table table-responsive table-bordered">
-                            <tr>
+                            <tr class="bg-primary">
                                 <th>序号</th>
                                 <th>名称</th>
                                 <th>上传时间</th>
@@ -91,6 +92,15 @@
                 }
             });
         });
+    });
+
+    //submit file
+    $("#btnSubmit").click(function(){
+        if($("#attach").val().trim().length == 0){
+            alert("请先选择文件");
+        }else{
+            $("#attachForm").submit();
+        }
     });
 </script>
 

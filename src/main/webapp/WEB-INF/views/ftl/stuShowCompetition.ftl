@@ -1,6 +1,5 @@
 <#include "./snippet/header.ftl">
 
-<p><br/><br/>
 <div class="container-fluid">
     <#include "./snippet/AdminLeftNavbar.ftl">
 
@@ -22,14 +21,14 @@
                 <div class="alert alert-info">
                     <p>赛事名称：<a href="/compt/detail?link=${compt.ID?if_exists}"><b>${compt.title?if_exists}</b></a>
                     <p>参赛形式：<#if compt.spType?if_exists><b>小组赛</b><#else><b>个人赛</b></#if>
-                    <p>作品上传：<#if compt.isNeedFile?if_exists><span style="color: #ff0000"><b>需要</b></span>&nbsp;<a class="btn btn-success" href="/student/addAttachMentGet?clink=${clink?if_exists}&slink=${slink?if_exists}">附件管理</a><#else><b>不需要</b></#if>
+                    <p>作品上传：<#if compt.isNeedFile?if_exists><span style="color: #ff0000"><b>需要</b> </span>&nbsp;<a class="btn btn-primary" href="/student/addAttachMentGet?clink=${clink?if_exists}&slink=${slink?if_exists}">附件管理</a><#else><b>不需要</b></#if>
                 </div>
             </#if>
 
             <#--成员列表-->
             <#if signList?exists && signList?has_content>
                 <div class="alert alert-info">
-                    <h4><b>参赛成员</b><a class="btn btn-xs btn-success">添加成员</a></h4>
+                    <h4><b>参赛成员</b> <a class="btn btn-xs btn-success">添加成员</a></h4>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <table class="table table-bordered table-responsive">

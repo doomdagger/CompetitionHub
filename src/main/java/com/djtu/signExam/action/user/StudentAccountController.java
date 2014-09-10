@@ -61,10 +61,10 @@ public class StudentAccountController {
      */
     @RequestMapping(value = {"/myCompetition"})
     public String myCompetition(HttpServletRequest request,Model model){
+        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         //get pageable
         Pageable pageable = Pageable.inPage(1, ProjectPageConfig.SIGN_LIST_PAGESIZE);
-        pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE));
-        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE,userId.toString()));
         List<TSignin> signinList = signinService.getCompetitionByUserIdInPage(userId.toString(), pageable);
         model.addAttribute("signList",signinList);
         model.addAttribute("pageable",pageable);
@@ -78,10 +78,10 @@ public class StudentAccountController {
      */
     @RequestMapping(value = {"/myCompetition/{currpage}"})
     public String myCompetitionInPage(@PathVariable int currpage,HttpServletRequest request,Model model){
+        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         //get pageable
         Pageable pageable = Pageable.inPage(currpage, ProjectPageConfig.SIGN_LIST_PAGESIZE);
-        pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE));
-        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE,userId.toString()));
         List<TSignin> signinList = signinService.getCompetitionByUserIdInPage(userId.toString(), pageable);
         model.addAttribute("signList",signinList);
         model.addAttribute("pageable",pageable);
@@ -186,7 +186,6 @@ public class StudentAccountController {
         signin.setTeamNo(UUIDGenerator.randomUUID());//每个队伍的唯一标识
         //如果没有勾选，isHelpCredit不一定存在
         signin.setIsHelpCredit( (isHelpCredit!=null&&isHelpCredit=="on")?true:false);
-        System.out.println(isHelpCredit);
         signin.setCreditCard(creditCard);
         signinService.addTeamMember(signin);
         //参赛报名，提交后跳转 我的赛事
@@ -231,7 +230,6 @@ public class StudentAccountController {
 
     @RequestMapping("/addAttachMentPost")
     public String addAttachMentPost(HttpServletRequest request){
-
         //存的时候根据teamNo和sk_compt
         String URI = request.getRequestURI();
         //return "redirect:"+URI;
