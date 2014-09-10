@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50703
 File Encoding         : 65001
 
-Date: 2014-09-04 17:09:24
+Date: 2014-09-10 17:32:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,7 +51,7 @@ CREATE TABLE `t_compt` (
 -- ----------------------------
 -- Records of t_compt
 -- ----------------------------
-INSERT INTO `t_compt` VALUES ('1', '这是测试', '这是参赛说明', '这是赛事内容', '单位1', '1', '比赛地点', '2014年9月xx号', '2014-09-03 00:00:00', '2014-09-30 00:00:00', '0', '有学校资助哦', '0', '需要上传很多作品', '0', '3', '3', '0', '0', '0', '0', '0', '2014-09-03 16:18:46', '1', '0');
+INSERT INTO `t_compt` VALUES ('1', '这是测试', '这是参赛说明', '这是赛事内容', '单位1', '1', '比赛地点', '2014年9月xx号', '2014-09-03 00:00:00', '2014-09-30 00:00:00', '0', '有学校资助哦', '0', '需要上传很多作品', '0', '3', '3', '0', '0', '0', '0', '0', '2014-09-10 15:44:32', '1', '0');
 
 -- ----------------------------
 -- Table structure for t_compt_attachment
@@ -68,16 +68,13 @@ CREATE TABLE `t_compt_attachment` (
   `is_delete` tinyint(1) DEFAULT NULL,
   `is_valid` tinyint(1) DEFAULT NULL,
   `savepath` varchar(2000) DEFAULT NULL COMMENT '保存路径',
+  `teamNo` varchar(200) DEFAULT NULL COMMENT '队伍唯一标识',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_compt_attachment
 -- ----------------------------
-INSERT INTO `t_compt_attachment` VALUES ('1', '1', 'Chrysanthemum.jpg', '0', '2014-08-28 14:31:20', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
-INSERT INTO `t_compt_attachment` VALUES ('2', '1', 'Penguins.jpg', '0', '2014-08-28 14:32:17', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Penguins.jpg');
-INSERT INTO `t_compt_attachment` VALUES ('3', '11', 'Chrysanthemum.jpg', '0', '2014-08-28 14:47:41', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Chrysanthemum.jpg');
-INSERT INTO `t_compt_attachment` VALUES ('4', '1', 'Wildlife.wmv', '0', '2014-09-03 16:13:45', '1', '0', '0', '0', '\\resources\\UserUpload\\docs\\Wildlife.wmv');
 
 -- ----------------------------
 -- Table structure for t_compt_calendar
@@ -140,7 +137,7 @@ INSERT INTO `t_news` VALUES ('2', 'hello two', '2014-08-20 15:51:01', '0', '<p>t
 INSERT INTO `t_news` VALUES ('3', 'my competition', '2014-08-20 15:51:05', '0', '<p>let me try<br/></p>', '0', '0');
 INSERT INTO `t_news` VALUES ('4', 'new news', '2014-08-21 16:41:29', '0', '<p>this is not toTop news<br/></p>', '0', '1');
 INSERT INTO `t_news` VALUES ('5', '提交成功了吗', '2014-08-20 14:24:49', '0', '你到底想怎么样', '0', '0');
-INSERT INTO `t_news` VALUES ('6', '最后一次测试', '2014-08-21 16:41:11', '0', '没错 这是最后一次测试', '0', '0');
+INSERT INTO `t_news` VALUES ('6', '最后一次测试', '2014-09-10 15:44:12', '0', '没错 这是最后一次测试', '0', '0');
 INSERT INTO `t_news` VALUES ('7', 'new news', '2014-08-27 14:37:51', '1', '<img src=\"\\resources\\kindedtorUploads\\img\\20140827143750_220.jpg\" alt=\"\" />', '0', '1');
 
 -- ----------------------------
@@ -152,7 +149,7 @@ CREATE TABLE `t_signin` (
   `sk_t_compt` int(11) DEFAULT NULL COMMENT '外键：赛事表ID',
   `sk_t_student` int(11) DEFAULT NULL,
   `comptName` varchar(1000) DEFAULT NULL COMMENT '赛事名称',
-  `teamNo` int(11) DEFAULT NULL COMMENT '小组编号，用于区分每个小组',
+  `teamNo` varchar(200) DEFAULT NULL COMMENT '小组编号，用于区分每个小组',
   `name` varchar(200) DEFAULT NULL,
   `number` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
@@ -166,13 +163,18 @@ CREATE TABLE `t_signin` (
   `isLeader` tinyint(1) DEFAULT NULL COMMENT '是否为组长',
   `isReward` tinyint(1) DEFAULT NULL COMMENT '是否获奖',
   `isHelpCredit` tinyint(1) DEFAULT NULL COMMENT '对消除学分有帮助',
+  `createtime` datetime DEFAULT NULL,
+  `orderNum` int(11) DEFAULT NULL COMMENT '用于学院选择排序',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_signin
 -- ----------------------------
-INSERT INTO `t_signin` VALUES ('1', '1', '5', '这是测试', '0', 'JOECHOW', '1018160229', '787449527@qq.com', '18640886602', '6222310064225560', '0', '0', '0', '0', '0', '1', '0', '0');
+INSERT INTO `t_signin` VALUES ('3', '1', '1', '这是测试3', '78fba91e-6d05-4ff2-81e2-1f01d4b9731a', 'JOECHOW', '1018160229', '787449527@qq.com', '18640886602', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2014-09-10 13:44:31', '0');
+INSERT INTO `t_signin` VALUES ('6', '1', '1', '这是测试6', '78fba91e-6d05-4ff2-81e2-1f01d4b9731a', 'JOECHOW', '1018160229', '787449527@qq.com', '18640886602', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2014-09-10 13:44:31', '0');
+INSERT INTO `t_signin` VALUES ('7', '1', '1', '这是测试7', '78fba91e-6d05-4ff2-81e2-1f01d4b9731a', 'JOECHOW', '1018160229', '787449527@qq.com', '18640886602', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2014-09-10 13:44:31', '0');
+INSERT INTO `t_signin` VALUES ('9', '1', '5', '这是测试', 'ff86b5d5-b9f6-4ea2-9f55-4f190c235d37', 'JOE', '1018160229', '123@qq.com', '18640886602', '6222310064225560', '0', '0', '0', '0', '0', '1', '0', '0', '2014-09-10 16:42:50', '0');
 
 -- ----------------------------
 -- Table structure for t_user_admin
@@ -222,4 +224,5 @@ CREATE TABLE `t_user_student` (
 -- ----------------------------
 -- Records of t_user_student
 -- ----------------------------
-INSERT INTO `t_user_student` VALUES ('5', 'JOECHOW', '0', '18640886602', '1018160229', '123456', '0', '软件学院', '软件工程', '0', '5a65a613-7d19-4180-9766-d9a97efc5d14', '0', '787449527@qq.com');
+INSERT INTO `t_user_student` VALUES ('1', 'JOECHOW', '0', '18640886602', '1018160229', '123456', '0', '软件学院', '软件工程', '0', '5a65a613-7d19-4180-9766-d9a97efc5d14', '0', '787449527@qq.com');
+INSERT INTO `t_user_student` VALUES ('5', 'JOE', '0', '18640886602', '1018160229', '123456', '0', '软件学院', '软件工程', '0', '5a65a613-7d19-4180-9766-d9a97efc5d14', '0', '123@qq.com');
