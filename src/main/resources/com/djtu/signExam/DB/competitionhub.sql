@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50703
 File Encoding         : 65001
 
-Date: 2014-09-10 17:32:16
+Date: 2014-09-11 17:27:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -182,23 +182,25 @@ INSERT INTO `t_signin` VALUES ('9', '1', '5', '这是测试', 'ff86b5d5-b9f6-4ea
 DROP TABLE IF EXISTS `t_user_admin`;
 CREATE TABLE `t_user_admin` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `u_username` varchar(200) DEFAULT NULL,
-  `u_usertype` varchar(200) DEFAULT NULL,
-  `u_image` varchar(200) DEFAULT NULL,
-  `u_cellphone` varchar(200) DEFAULT NULL,
-  `a_userPwd` varchar(200) DEFAULT NULL,
-  `a_email` varchar(200) DEFAULT NULL,
-  `a_type` int(11) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `usertype` varchar(200) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `cellphone` varchar(200) DEFAULT NULL,
+  `pwd` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
   `isSuper` tinyint(1) DEFAULT NULL,
   `isActive` tinyint(1) DEFAULT NULL,
   `isDelete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='latin1_swedish_ci';
 
 -- ----------------------------
 -- Records of t_user_admin
 -- ----------------------------
-INSERT INTO `t_user_admin` VALUES ('1', 'JOECHOW', '1', 'nn', '18640886602', '123456', '787449527@qq.com', '1', '1', '1', '0');
+INSERT INTO `t_user_admin` VALUES ('1', '管理员', '1', '0', '123465', '123', '123', '1', '1', '1', '0');
+INSERT INTO `t_user_admin` VALUES ('5', 'NO2000', '1', '0', '12345678', '123', '787449527@qq.com', '1', '0', '1', '0');
+INSERT INTO `t_user_admin` VALUES ('6', '软件学院', '2', '0', '无', '1234', '1209202022@qq.com', '2', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for t_user_student
