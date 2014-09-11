@@ -42,140 +42,140 @@ public class TUserAdmin extends EntityObject{
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_username"</li>
+	 * 	 <li>Field Name  : "name"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_username")
-	private String uUsername;
-	public String getUUsername() {
-		return uUsername;
+	@Column("name")
+	private String name;
+	public String getName() {
+		return name;
 	}
-	public void setUUsername(String uUsername) {
-		this.uUsername = uUsername;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_usertype"</li>
+	 * 	 <li>Field Name  : "usertype"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_usertype")
-	private String uUsertype;
-	public String getUUsertype() {
-		return uUsertype;
+	@Column("usertype")
+	private String usertype;
+	public String getUsertype() {
+		return usertype;
 	}
-	public void setUUsertype(String uUsertype) {
-		this.uUsertype = uUsertype;
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_image"</li>
+	 * 	 <li>Field Name  : "image"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_image")
-	private String uImage;
-	public String getUImage() {
-		return uImage;
+	@Column("image")
+	private String image;
+	public String getImage() {
+		return image;
 	}
-	public void setUImage(String uImage) {
-		this.uImage = uImage;
+	public void setImage(String image) {
+		this.image = image;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "u_cellphone"</li>
+	 * 	 <li>Field Name  : "cellphone"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("u_cellphone")
-	private String uCellphone;
-	public String getUCellphone() {
-		return uCellphone;
+	@Column("cellphone")
+	private String cellphone;
+	public String getCellphone() {
+		return cellphone;
 	}
-	public void setUCellphone(String uCellphone) {
-		this.uCellphone = uCellphone;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_userPwd"</li>
+	 * 	 <li>Field Name  : "pwd"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_userPwd")
-	private String aUserPwd;
-	public String getAUserPwd() {
-		return aUserPwd;
+	@Column("pwd")
+	private String pwd;
+	public String getPwd() {
+		return pwd;
 	}
-	public void setAUserPwd(String aUserPwd) {
-		this.aUserPwd = aUserPwd;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_email"</li>
+	 * 	 <li>Field Name  : "email"</li>
 	 * 	 <li>Field Type  : "VARCHAR"</li>
 	 * 	 <li>Field Length: "200"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_email")
-	private String aEmail;
-	public String getAEmail() {
-		return aEmail;
+	@Column("email")
+	private String email;
+	public String getEmail() {
+		return email;
 	}
-	public void setAEmail(String aEmail) {
-		this.aEmail = aEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	/**
 	 * Description:
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "a_type"</li>
+	 * 	 <li>Field Name  : "type"</li>
 	 * 	 <li>Field Type  : "INT"</li>
 	 * 	 <li>Field Length: "10"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("a_type")
-	private int aType;
-	public int getAType() {
-		return aType;
+	@Column("type")
+	private int type;
+	public int getType() {
+		return type;
 	}
-	public void setAType(int aType) {
-		this.aType = aType;
+	public void setType(int type) {
+		this.type = type;
 	}
 	/**
 	 * Description:

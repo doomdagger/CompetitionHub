@@ -23,6 +23,7 @@ public interface UserService {
 
     public boolean updateAdminer(TUserAdmin admin);
 
+    public boolean checkEmailExist(String email);
 
     //学院帐号 及 教务账号
 

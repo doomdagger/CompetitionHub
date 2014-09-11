@@ -17,8 +17,8 @@
                 <p><b>提交 -- 审批 -- 拒绝/通过 -- 报名中 -- 结束报名(学院操作) -- 比赛进行中 -- 结束比赛(学院操作) -- 成绩录入 -- 完成</b>
             </div>
             <div>
-                <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
-                    <tr>
+                <table class="table table-responsive table-bordered numControl"  style="text-align: left;font-size: 13px;">
+                    <tr class="bg-primary">
                         <th>序号</th>
                         <th style="width: 180px;">赛事名称</th>
                         <th>赛事等级</th>

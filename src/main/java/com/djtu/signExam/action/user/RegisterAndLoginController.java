@@ -147,8 +147,8 @@ public class RegisterAndLoginController {
             HttpSession session = request.getSession();
             HashMap<String,Object> userSession = new HashMap<String, Object>();
             HashMap<String,Object> userMap = new HashMap<String, Object>();
-            userMap.put(SessionConst.U_USER_TYPE,tUserAdmin.getAType());//用户类型
-            userMap.put(SessionConst.U_USER_NAME,tUserAdmin.getUUsername());//用户姓名
+            userMap.put(SessionConst.U_USER_TYPE,tUserAdmin.getType());//用户类型
+            userMap.put(SessionConst.U_USER_NAME,tUserAdmin.getName());//用户姓名
             userMap.put(SessionConst.U_USER_LINK,tUserAdmin.getID());//用户ID
             userMap.put(SessionConst.U_USER_ISTP,tUserAdmin.getIsSuper());
             System.out.println("LOGIN-ISTP:"+tUserAdmin.getIsSuper());
@@ -157,12 +157,14 @@ public class RegisterAndLoginController {
             session.setAttribute(SessionConst.U_USER,userMap);
             //return json
             JSONObject result = new JSONObject();
-            result.put("usernameSucc",tUserAdmin.getUUsername()==null?"":tUserAdmin.getUUsername());
-            result.put("usertypeSucc",tUserAdmin.getAType());//账号类型
+            result.put("usernameSucc",tUserAdmin.getName()==null?"":tUserAdmin.getName());
+            result.put("usertypeSucc",tUserAdmin.getType());//账号类型
             result.put("result",StringConst.AJAX_SUCCESS);
             return result.toString();
         }
-        return StringConst.AJAX_FAIL;
+        JSONObject result = new JSONObject();
+        result.put("result",StringConst.AJAX_FAIL);
+        return result.toString();
     }
 
     //注销登录

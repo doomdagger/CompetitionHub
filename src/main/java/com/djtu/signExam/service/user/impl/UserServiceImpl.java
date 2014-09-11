@@ -53,9 +53,18 @@ public class UserServiceImpl implements UserService {
         return adminDao.update(admin);
     }
 
+    //存在返回true，不存在返回false
+    @Override
+    public boolean checkEmailExist(String email) {
+        if(adminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("email",email).eq("isDelete",0)) != null){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public List<TUserAdmin> getAllAccountByType(int userType) {
-        return adminDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("a_type",userType).eq("isDelete", 0).orderBy(Sortable.inSort("ID", IOperators.SORT.ASC)));
+        return adminDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("type",userType).eq("isDelete", 0).orderBy(Sortable.inSort("ID", IOperators.SORT.ASC)));
     }
 
     @Override

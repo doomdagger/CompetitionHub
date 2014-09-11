@@ -17,4 +17,10 @@ public class SessionConst {
 
     public final static String REG_VALIDCODE = "VC";
     public final static int REG_SESSION_INTERVAL = 10*60;//10分钟
+    //添加、编辑 管理员用户
+    public final static String ADD_ACCOUNT_CODE = "AAC";
+    public final static String EDIT_ACCOUNT_CODE = "EAC";
+    //修改密码的session 验证码
+    public final static String MODIFY_PASSWORD = "MDPD";
+
 }

@@ -18,8 +18,8 @@
                 <div>
                     <label class="label label-danger" id="newsTips"></label>
                 </div>
-                <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
-                    <tr>
+                <table class="table table-responsive table-bordered numControl"  style="text-align: left;font-size: 13px;">
+                    <tr class="bg-primary">
                         <th>序号</th>
                         <th style="width: 180px;">新闻标题</th>
                         <th>发布日期</th>

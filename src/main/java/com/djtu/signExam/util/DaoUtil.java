@@ -40,6 +40,18 @@ public class DaoUtil {
         }
     }
 
+    public static void printEntity(List<? extends EntityObject> entityList){
+        for(EntityObject object : entityList){
+            printEntity(object);
+        }
+    }
+
+
+
+
+
+
+
     //获取field在数据库中的真实字段名字
     protected static String getRealFieldName(String fieldName,AnnotatedModel meta){
         fieldName = fieldName.substring(3);

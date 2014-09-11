@@ -168,7 +168,7 @@
 <script src="/resources/plugins/datePicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/resources/plugins/datePicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script><#--中文包-->
 <#--validator-->
-<script src="/resources/plugins/validator/jquery.validate.min.js"></script>
+<script src="/resources/plugins/validator/jquery.validate.js"></script>
 <#--kindedtior-->
 <script charset="utf-8" src="/resources/plugins/kindeditor/kindeditor.js"></script>
 <script charset="utf-8" src="/resources/plugins/kindeditor/lang/zh_CN.js"></script>

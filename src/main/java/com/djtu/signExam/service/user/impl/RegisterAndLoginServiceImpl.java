@@ -49,7 +49,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("userPwd",pwd);
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd).eq("a_type",type);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("pwd",pwd).eq("type",type);
                 object = tUserAdminDao.findOneByWrapper(sqlWrapper);
             }
         }else{object=null;}
@@ -66,7 +66,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
                 SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("userPwd",pwd);
                 return tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd).eq("a_type",type);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",email).eq("pwd",pwd).eq("type",type);
                 return tUserAdminDao.findOneByWrapper(sqlWrapper);
             }
         }else{
@@ -85,7 +85,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
                 object = tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 //管理员 学院 教务
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd).eq("a_type",type);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",No).eq("pwd",pwd).eq("type",type);
                 object = tUserAdminDao.findOneByWrapper(sqlWrapper);
             }
         }else{object=null;}
@@ -104,7 +104,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
                 return tUserStudentDao.findOneByWrapper(sqlWrapper);
             }else{
                 //管理员 学院 教务
-                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("a_userNo",No).eq("a_userPwd",pwd).eq("a_type",type);
+                SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email",No).eq("pwd",pwd).eq("type",type);
                 return tUserAdminDao.findOneByWrapper(sqlWrapper);
             }
         }else{
@@ -137,7 +137,7 @@ public class RegisterAndLoginServiceImpl implements RegisterAndLoginService {
 
     @Override
     public TUserAdmin signInByEmail(String email, String pwd) {
-        return tUserAdminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("a_email",email).eq("a_userPwd",pwd));
+        return tUserAdminDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("email",email).eq("pwd",pwd));
     }
 
 
