@@ -105,19 +105,31 @@ public class AdminAccountController {
         object.put("email",admin.getEmail());
         object.put("cellphone",admin.getCellphone());
         object.put("pwd",admin.getPwd());
+        object.put("isSu",admin.getIsSuper()?"success":"fail");
         object.put("result",StringConst.AJAX_SUCCESS);
         return object.toString();
     }
     //更新编辑
     @RequestMapping(value = "/updateAccount",method = RequestMethod.POST)
     public String updateAccount(@RequestParam String name,@RequestParam String cellphone,@RequestParam String pwd,@RequestParam String email,@RequestParam int type,@RequestParam int link,HttpServletRequest request,Model model){
+        //验证最高级管理员
+        TUserAdmin tUserAdmin = userService.getAdminInfo(new Integer(link).toString());
+        Integer modifyUserId = tUserAdmin.getID();
+        boolean isSuper = tUserAdmin.getIsSuper();
+        //update model
         TUserAdmin admin = new TUserAdmin();
         admin.setIsDelete(false);
         admin.setEmail(email);
         admin.setType(type);
-        admin.setPwd(pwd);
+        //最高级管理员无法通过此项修改自己的密码
+        if(!isSuper){
+            admin.setPwd(pwd);//只能修改普通管理员
+            admin.setIsSuper(false);
+        }else{
+            admin.setPwd(tUserAdmin.getPwd());//原管理员密码
+            admin.setIsSuper(true);//原最高身份
+        }
         admin.setIsActive(true);
-        admin.setIsSuper(false);
         admin.setName(name);
         admin.setCellphone(cellphone);
         admin.setUsertype(new Integer(type).toString());

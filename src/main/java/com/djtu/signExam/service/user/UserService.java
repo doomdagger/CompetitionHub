@@ -25,6 +25,10 @@ public interface UserService {
 
     public boolean checkEmailExist(String email);
 
+    public boolean resetAdminPassword(String userId,String pwd);
+
+    public boolean resetStudentPassword(String userId,String pwd);
+
     //学院帐号 及 教务账号
 
     public List<TUserAdmin> getAllAccountByType(int userType);

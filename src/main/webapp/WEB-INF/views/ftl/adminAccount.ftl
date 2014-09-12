@@ -35,7 +35,13 @@
                                         <td>${item.cellphone?if_exists}</td>
                                         <td><#if !item.isSuper?if_exists>${item.pwd?if_exists}<#else>******(保密)</#if></td>
                                         <td>
-                                            <button class="btn btn-xs btn-info btnEditAccount" alt="${item.ID?if_exists}">编辑</button>
+                                            <#if item.isSuper?if_exists>
+                                                <#if Session?exists && Session['CUR']?exists && Session['CUR']['CUR_LINK']?exists && Session['CUR']['CUR_LINK'] == item.ID?if_exists>
+                                                    <button class="btn btn-xs btn-info btnEditAccount" alt="${item.ID?if_exists}">编辑</button>
+                                                </#if>
+                                            <#else><#--it is not the super-->
+                                                <button class="btn btn-xs btn-info btnEditAccount" alt="${item.ID?if_exists}">编辑</button>
+                                            </#if>
                                             <#if !item.isSuper?if_exists>
                                                 <button class="btn btn-xs btn-danger btnDelAdminer" data-toggle="modal" data-target="#delAdminerModal" alt="${item.ID?if_exists}">删除</button>
                                             </#if>
@@ -187,7 +193,13 @@
                 $("#name2").val(jsonData.name);
                 $("#cellphone2").val(jsonData.cellphone);
                 $("#email2").val(jsonData.email);
-                $("#pwd2").val(jsonData.pwd);
+                if(jsonData.isSu == "success"){
+                    $("#pwd2").val("******(保密)");
+                    $("#pwd2").attr("readonly",true);
+                }else{
+                    $("#pwd2").val(jsonData.pwd);
+                }
+
             }else{
                 alert("操作失败请重试");
             }
@@ -236,8 +248,12 @@
                     var index = 5;
                     var timer = setInterval(function(){
                         if(index>0){
+                            currBtn.removeClass("btn-success");
+                            currBtn.addClass("btn-danger");
                             currBtn.html("发送失败|("+index+")秒后重新发送");
                         }else{
+                            currBtn.removeClass("btn-danger");
+                            currBtn.addClass("btn-success");
                             currBtn.html("重新发送");
                             currBtn.attr("disabled",false);
                             clearInterval(timer);

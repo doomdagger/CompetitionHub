@@ -43,11 +43,14 @@ $(document).ready(function(){
                 $("#accountTips").css("color","black");
                 $("#accountTips").html("账号信息");
                 $("#btnIndexLogin").html("<img src='/resources/img/loading.gif'width='15px;'> 登录成功");
+                //显示面板
                 var timer = setTimeout(function(){
                     //login success
                     $("#indexLoginPanel").hide();
                     $("#indexLoginSucc").fadeIn();
                     $("#btnIndexLogin").attr("disabled",false);
+                    $("#afterLoginHref").attr("href",json.usertypeSucc==0 ? "/student/" : "/man/");
+                    $("#afterLogin").fadeIn();
                 },2000);//loading
             }else{
                 //登录失败

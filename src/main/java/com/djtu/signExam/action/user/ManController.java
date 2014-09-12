@@ -24,6 +24,8 @@ import java.util.HashMap;
 @RequestMapping("/man")
 public class ManController {
 
+    private static final String NAV = "navbar";
+    private static final String MDPD = "mdpd";
     @Autowired
     private UserService userService;
 
@@ -44,6 +46,7 @@ public class ManController {
         Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         TUserAdmin admin = userService.getAdminInfo(userId.toString());
         model.addAttribute("user",admin);
+        model.addAttribute(NAV,MDPD);
         return "modifyPassword";
     }
 
@@ -79,7 +82,14 @@ public class ManController {
     }
 
     @RequestMapping("/resetPassword")
-    public @ResponseBody String resetPassword(@RequestParam String link){
+    public @ResponseBody String resetPassword(HttpServletRequest request,@RequestParam String link){
+        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        if(link==null || link==""){
+            return StringConst.AJAX_FAIL;
+        }
+        if(userService.resetAdminPassword(userId.toString(),link)){
+            return StringConst.AJAX_SUCCESS;
+        }
         return StringConst.AJAX_FAIL;
     }
 }

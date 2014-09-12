@@ -9,6 +9,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by JOECHOW on 2014/8/29.
@@ -23,6 +25,21 @@ public class MyMailUtil {
      * @return
      */
     public static boolean simpleSendMail(String title,String content,String to) {
+        boolean flag = false;
+        try{
+            String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(to);
+            flag = matcher.matches();
+            if(!flag){
+                System.out.println("邮箱验证不能通过");
+                return false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("邮箱验证不能通过");
+            return false;
+        }
         try {
             InputStream in = MyMailUtil.class.getResourceAsStream("/com/djtu/signExam/config/email.properties");
             Properties prop = new Properties();

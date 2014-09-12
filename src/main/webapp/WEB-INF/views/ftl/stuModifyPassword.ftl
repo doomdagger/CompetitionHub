@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="reNewPwd">重复新密码</label>
-                                <input type="password" id="reNewPwd" class="form-control" placeholder="重复输入要设置的新密码，确保两次输入一致">
+                                <input type="password" class="form-control" id="reNewPwd" placeholder="重复输入要设置的新密码，确保两次输入一致">
                             </div>
                             <button type="button" class="btn btn-success" id="btnConfirmModify">确认修改</button>
                             <button type="button" class="btn btn-warning" onclick="location.reload()">取消</button>
@@ -51,7 +51,7 @@
             if(email.trim().length < 1){
                 alert("操作失败，刷新或重新登录后重试");
             }else{
-                var url = "/man/validEmail";
+                var url = "/student/validEmail";
                 var data = {"email":email};
                 var currBtn = $(this);
                 $.post(url,data,function(json){
@@ -92,7 +92,7 @@
             if(code.length < 1){
                 alert("请输入验证码");
             }else{
-                var url = "/man/validEmailCode";
+                var url = "/student/validEmailCode";
                 var data = {"link":code};
                 $.post(url,data,function(json){
                     if(json === "AJAX_SUCCESS"){
@@ -121,12 +121,12 @@
             var pwd = $("#newPwd").val().trim();
             var repwd = $("#reNewPwd").val().trim();
             if(pwd.length > 0 && repwd.length > 0 && pwd == repwd){
-                var url = "/man/resetPassword";
+                var url = "/student/resetPassword";
                 var data = {"link":pwd};
                 $.post(url,data,function(json){
                     if(json === "AJAX_SUCCESS"){
                         alert("恭喜！密码修改成功,下次请用新密码登录！");
-                        location.href="/man/";
+                        location.href="/student/";
                     }else{
                         alert("操作失败，请重试");
                     }

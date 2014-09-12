@@ -37,9 +37,15 @@
                     <li><a href="/index/" class="label label-primary"><span>官网首页</span></a></li>
                     <li><a href="/compt/" class="label label-danger"><span>赛事公告</span></a></li>
                     <li><a href="/news/" class="label label-info"><span>新闻中心</span></a></li>
-                    <li><a href="achievementShow.html" class="label label-success"><span>学院风采</span></a></li>
-                    <li><a href="search.html" class="label label-warning"><span>获奖查询</span></a></li>
+                    <li><a href="/show/" class="label label-success"><span>学院风采</span></a></li>
+                    <li><a href="/search/" class="label label-warning"><span>获奖查询</span></a></li>
                     <li><a href="/aboutUs/" class="label label-primary"><span>关于我们</span></a></li>
+                    <#--after login-->
+                    <#if Session?exists && Session['U_LOGIN']?exists && Session['U_LOGIN'] == 1>
+                        <li><a href="<#if Session['CUR']?exists && Session['CUR']['CUR_TYPE']?exists && Session['CUR']['CUR_TYPE'] == 0>/student/<#else>/man/</#if>" class="label label-danger"><span>个人中心</span></a></li>
+                    <#else>
+                        <li id="afterLogin" style="display: none"><a id="afterLoginHref" href="/" class="label label-danger"><span>个人中心</span></a></li>
+                    </#if>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

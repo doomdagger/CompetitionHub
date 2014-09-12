@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean resetAdminPassword(String userId, String pwd) {
+        return adminDao.updateByWrapper(SQLWrapper.instance().update().set("pwd",pwd).where().eq("ID",userId));
+    }
+
+    @Override
+    public boolean resetStudentPassword(String userId, String pwd) {
+        return studentDao.updateByWrapper(SQLWrapper.instance().update().set("userPwd",pwd).where().eq("ID",userId));
+    }
+
+    @Override
     public List<TUserAdmin> getAllAccountByType(int userType) {
         return adminDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("type",userType).eq("isDelete", 0).orderBy(Sortable.inSort("ID", IOperators.SORT.ASC)));
     }

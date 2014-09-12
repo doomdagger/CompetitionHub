@@ -3,17 +3,11 @@ package com.djtu.signExam.action.user;
 import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.dao.support.UUIDGenerator;
-import com.djtu.signExam.model.TCompt;
-import com.djtu.signExam.model.TComptAttachment;
-import com.djtu.signExam.model.TSignin;
-import com.djtu.signExam.model.TUserStudent;
+import com.djtu.signExam.model.*;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.service.compt.ComptSigninService;
 import com.djtu.signExam.service.user.UserService;
-import com.djtu.signExam.util.DaoUtil;
-import com.djtu.signExam.util.SessionConst;
-import com.djtu.signExam.util.SessionUtil;
-import com.djtu.signExam.util.StringConst;
+import com.djtu.signExam.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,13 +39,13 @@ public class StudentAccountController {
     private static final String NAV = "navbar";
     private static final String IDX = "idx";
     private static final String MYC = "myc";
+    private static final String MDPD = "mdpd";
 
     @RequestMapping(value = {"","/","/index"})
     public String index(HttpServletRequest request,HttpServletResponse response,Model model){
         Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         TUserStudent student = userService.getStudentInfo(userId.toString());
         model.addAttribute("student",student);
-        DaoUtil.printEntity(student);
         return "userStudent";
     }
 
@@ -240,6 +235,61 @@ public class StudentAccountController {
     @RequestMapping("/deleteAttach")
     public @ResponseBody String deleteAttach(@RequestParam String link){
         if(signinService.deleteAttachMent(link)){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+
+
+    //modify password
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(HttpServletRequest request,Model model){
+        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        TUserStudent student = userService.getStudentInfo(userId.toString());
+        model.addAttribute("user",student);
+        model.addAttribute(NAV,MDPD);
+        return "stuModifyPassword";
+    }
+
+    @RequestMapping("/doModifyPassword")
+    public String doModifyPassword(){
+        return "";
+    }
+
+    //发送验证码至邮箱,修改密码的邮箱验证
+    @RequestMapping("/validEmail")
+    public @ResponseBody
+    String sendCode(HttpServletRequest request,HttpServletResponse response,@RequestParam String email){
+        String vc = MyMailUtil.generateNum();//4位数验证码
+        HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(SessionConst.REG_SESSION_INTERVAL);//session生存时间
+        session.setAttribute(SessionConst.MODIFY_PASSWORD,vc);
+        //send email
+        if(MyMailUtil.simpleSendMail(MyMailConst.MODIFY_PWD_TITLE,MyMailConst.MODIFY_PWD_CONTENT+vc,email)){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    //验证邮箱
+    @RequestMapping(value = "/validEmailCode", method = RequestMethod.POST)
+    public @ResponseBody String checkCode(HttpServletRequest request,HttpServletResponse response,@RequestParam String link){
+        HttpSession session = request.getSession();
+        //System.out.println("link:"+link+"session:"+session.getAttribute(SessionConst.ADD_ACCOUNT_CODE));
+        if(link.trim().equals(session.getAttribute(SessionConst.MODIFY_PASSWORD.trim()))){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    @RequestMapping("/resetPassword")
+    public @ResponseBody String resetPassword(HttpServletRequest request,@RequestParam String link){
+        Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        if(link==null || link==""){
+            return StringConst.AJAX_FAIL;
+        }
+        if(userService.resetStudentPassword(userId.toString(),link)){
             return StringConst.AJAX_SUCCESS;
         }
         return StringConst.AJAX_FAIL;
