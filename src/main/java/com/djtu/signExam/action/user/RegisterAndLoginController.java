@@ -25,7 +25,7 @@ import java.util.HashMap;
  */
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class RegisterAndLoginController {
 
     @Autowired
