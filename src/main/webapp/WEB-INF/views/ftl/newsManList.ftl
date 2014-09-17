@@ -48,7 +48,7 @@
                                     </td>
                                 </#if>
 
-                                <td><a class="btn btn-xs btn-danger" alt="${news.ID}" href="/man/news/manUpdateGet?link=${news.ID?if_exists}">编辑</a></td>
+                                <td><a class="btn btn-xs btn-primary" alt="${news.ID}" href="/man/news/manUpdateGet?link=${news.ID?if_exists}">编辑</a></td>
                                 <td><a class="btn btn-xs btn-danger preDelNews" alt="${news.ID?if_exists}" data-toggle="modal" data-target="#myModal">删除赛事</a></td>
                             </tr>
 

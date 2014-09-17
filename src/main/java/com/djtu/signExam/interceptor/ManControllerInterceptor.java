@@ -1,6 +1,7 @@
 package com.djtu.signExam.interceptor;
 
 import com.djtu.signExam.util.SessionConst;
+import com.djtu.signExam.util.SessionUtil;
 import com.djtu.signExam.util.StringConst;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -28,8 +29,9 @@ public class ManControllerInterceptor extends HandlerInterceptorAdapter {
         }
         int isLogin = httpSession.getAttribute(SessionConst.U_LOGIN)==null ? SessionConst.U_LOGIN_FAIL : (Integer)httpSession.getAttribute(SessionConst.U_LOGIN);//从session获取登录状态
         @SuppressWarnings("unchecked")
-        HashMap<String,Object> user = httpSession.getAttribute(SessionConst.U_USER)==null ? (new HashMap<String, Object>()) : (HashMap<String, Object>) httpSession.getAttribute(SessionConst.U_USER);//从session中获取user
-        Integer userType = user.get(SessionConst.U_USER_TYPE)==null ? 0 : (Integer)user.get(SessionConst.U_USER_TYPE);//获取登录用户权限
+        //HashMap<String,Object> user = httpSession.getAttribute(SessionConst.U_USER)==null ? (new HashMap<String, Object>()) : (HashMap<String, Object>) httpSession.getAttribute(SessionConst.U_USER);//从session中获取user
+        HashMap<String,Object> userMap = (HashMap<String, Object>) SessionUtil.getValue(request,SessionConst.U_USER);
+        Integer userType = userMap.get(SessionConst.U_USER_TYPE)==null ? 0 : (Integer)userMap.get(SessionConst.U_USER_TYPE);//获取登录用户权限
         if(isLogin == SessionConst.U_LOGIN_FAIL || userType < 1 ){
             //如果session为空、尚未登录、身份是学生 都将No Permission
             System.out.println("【ManControllerInterceptor】登录状态/学生权限 当前无法通过-跳转");
@@ -59,7 +61,7 @@ public class ManControllerInterceptor extends HandlerInterceptorAdapter {
             }
         }
         //the final valid
-        Boolean isTop = user.get(SessionConst.U_USER_ISTP)==null ? false : (Boolean)user.get(SessionConst.U_USER_ISTP);
+        Boolean isTop = userMap.get(SessionConst.U_USER_ISTP)==null ? false : (Boolean)userMap.get(SessionConst.U_USER_ISTP);
         System.out.println("【ManControllerInterceptor】ISTP:"+isTop);
         if(currUri != null && currUri.equals("account") && userType != 2 &&  isTop){
             System.out.println("【ManControllerInterceptor】请求账号管理 当前管理员不是最高权限-跳转");

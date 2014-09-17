@@ -112,7 +112,7 @@
 
         <#--上传文件-->
         <div class="alert alert-info">
-            <h4><span class="glyphicon glyphicon-upload"></span>附件上传</h4>
+            <h4><span class="glyphicon glyphicon-upload"></span>赛事相关的附件上传</h4>
             <!--exist files-->
             <#if attachList??>
                 <h5><b>已上传的文件</b></h5>
@@ -153,6 +153,7 @@
                 </form>
                 <button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>
                 <button type="button" class="btn btn-xs btn-success" id="btnSubmitFile">上传附件</button>
+                <a type="button" class="btn btn-xs btn-warning" href="/man/compt/list">暂不上传</a>
                 <p>备注：
                 <p>如果现在不需要上传，您后续也可以到“赛事管理”中继续上传附件
                 <p>上传成功后将自动跳转到“赛事管理”页面!

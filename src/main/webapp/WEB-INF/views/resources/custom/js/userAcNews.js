@@ -40,13 +40,16 @@ $(document).ready(function(){
                         $("#newsPubSubmit").addClass("btn-warning");
                     }
                     var times = 3;//3秒后跳转
-                    $("#newsPubSubmit").html("提交成功( "+times+" 秒后跳转到新闻管理页面)");
-                    setInterval(function(){
+                    $("#newsPubSubmit").html("提交成功( "+times+" 秒后为你自动跳转到新闻管理页面)");
+                    /*setInterval(function(){
                         if(times<0){
                             location.href = "/man/news/manList";
                         }
-                        $("#newsPubSubmit").html("提交成功( "+--times+" 秒后跳转到新闻管理页面)");
-                    },1000);
+                        $("#newsPubSubmit").html("提交成功( "+ --times+" 秒后跳转到新闻管理页面)");
+                    },1000);*/
+                    setTimeout(function(){
+                        location.href = "/man/news/manList";
+                    },3000);
                 }else{
                     //发布失败
                     console.log("fail");

@@ -207,7 +207,7 @@ public class ComptManController {
 
     @RequestMapping("/updateStatus/{link}/{code}")
     public String updateStatus(@PathVariable String link,@PathVariable int code){
-        if(link==""||link==null || code == 0 ){
+        if("".equals(link) || code == 0 ){
             return "redirect:/man/compt/list/1";//重定向
         }
         comptService.updateStatus(link,code);//do update status
@@ -236,5 +236,21 @@ public class ComptManController {
             comptService.updateCompt(compt);
         }
         return StringConst.AJAX_SUCCESS;
+    }
+
+    @RequestMapping(value = "/updateStatusByAjax",method = RequestMethod.POST)
+    public @ResponseBody String updateStatusByAjax(String link,int status,HttpServletRequest request){
+        if(!"".equals(link) && comptService.updateStatus(link,status)){
+            return StringConst.AJAX_SUCCESS;
+        }
+        return StringConst.AJAX_FAIL;
+    }
+
+    @RequestMapping("confirmResult")
+    public String confirmResult(String link,Model model){
+        TCompt compt = comptService.getComptById(link);
+        model.addAttribute("compt",compt);
+        model.addAttribute("link",link);
+        return "";
     }
 }

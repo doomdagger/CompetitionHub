@@ -18,7 +18,7 @@
             </div>
             <div>
                 <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
-                    <tr>
+                    <tr class="bg-primary">
                         <th>序号</th>
                         <th style="width: 180px;">赛事名称</th>
                         <th>赛事等级</th>
@@ -64,7 +64,7 @@
                                 <#elseif compt.status == 2>
                                     <td style="color: red">未通过审核</td>
                                 <#elseif compt.status == 3>
-                                    <td><span style="color: green">通过审核</span><a href="#" class="btn btn-xs btn-warning">结束报名</a></td>
+                                    <td><span style="color: green">通过审核 &nbsp;</span><a href="javascript:void(0)" alt="${compt.ID?if_exists}" class="btn btn-xs btn-warning btnCloseSignCompt">结束报名</a></td>
                                 <#elseif compt.status == 4>
                                     <td><span style="color: orange">比赛进行中</span></td>
                                 <#elseif compt.status == 5>
@@ -80,27 +80,27 @@
                                         <td>
                                             <a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
                                             <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 2>
                                         <td><a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
                                             <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 3>
                                         <td>
                                             <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">报名审核</a>
-                                            <button class="btn btn-xs btn-dange btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <button class="btn btn-xs btn-danger btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 4>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">结束比赛</a>
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-warning btnCloseCompt" alt="${compt.ID}">结束比赛</a>
                                             <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 5>
-                                        <td><a class="btn btn-xs btn-success" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
+                                        <td><a class="btn btn-xs btn-success btnConfirmResult" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
                                         <td><span style="color: black">完成</span></td>
                                     <#else>
