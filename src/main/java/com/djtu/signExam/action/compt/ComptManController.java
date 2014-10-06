@@ -39,12 +39,14 @@ public class ComptManController {
     private final String CURR_MAN_BAR = "comptMan";
 
     @RequestMapping(value={"/list","/"})
-    public String list(Model model){
+    public String list(HttpServletRequest request,Model model){
 
-        int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
+        //int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
         Pageable pageable = Pageable.inPage(1,ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        List<TCompt> comptList = comptService.getComByPage(pageable);
-        pageable.setPageCount(pageCount);
+        //get current user info
+        Integer user_id = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        List<TCompt> comptList = comptService.getComByPage(user_id.toString(),pageable);
+        //pageable.setPageCount(pageCount);
         model.addAttribute("pageable",pageable);
         model.addAttribute("comptList",comptList);
         model.addAttribute(NAV_BAR,CURR_MAN_BAR);
@@ -52,14 +54,16 @@ public class ComptManController {
     }
 
     @RequestMapping("/list/{currpage}")
-    public String listInPage(@RequestParam int currpage,Model model){
+    public String listInPage(HttpServletRequest request,@RequestParam int currpage,Model model){
         //get pageable
-        int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        currpage = (currpage<1 || currpage> pageCount)?1:currpage;
+        //int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
+        //currpage = (currpage<1 || currpage> pageCount)?1:currpage;
+        //get current user info
+        Integer user_id = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         Pageable pageable = Pageable.inPage(currpage, ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        pageable.setPageCount(pageCount);
+        //pageable.setPageCount(pageCount);
         //get data
-        List<TCompt> comptList = comptService.getComByPage(pageable);
+        List<TCompt> comptList = comptService.getComByPage(user_id.toString(),pageable);
         model.addAttribute("comptList",comptList);
         model.addAttribute("pageable",pageable);
         model.addAttribute(NAV_BAR,CURR_MAN_BAR);
@@ -94,7 +98,11 @@ public class ComptManController {
                               @RequestParam String supportIntro,
                               @RequestParam int currentStatus,
                               @RequestParam int link,//edit
+                              HttpServletRequest request,
                               RedirectAttributes redirectAttributes){
+        //get current user info
+        Integer user_id = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        String user_name = (String) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_NAME);
         //form page post
         TCompt compt = new TCompt();
         compt.setTitle(title);
@@ -124,6 +132,8 @@ public class ComptManController {
         compt.setCreatetime(new Date());
         compt.setIsVaild(currentStatus < 2 ? false : true);
         compt.setIsTop(false);
+        compt.setSkTUserAdmin(user_id);
+        compt.setAdminName(user_name);
         compt.setStatus(1);//无论现在是何种状态，status状态字都将回到1（重新提交状态）
         Integer comptId = link;
         if(currentStatus==0){
@@ -249,8 +259,8 @@ public class ComptManController {
     @RequestMapping("confirmResult")
     public String confirmResult(String link,Model model){
         TCompt compt = comptService.getComptById(link);
-        model.addAttribute("compt",compt);
+        model.addAttribute("compt", compt);
         model.addAttribute("link",link);
-        return "";
+        return "comptManConfirmResult";
     }
 }

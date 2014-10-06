@@ -55,10 +55,11 @@
             <div class="list-group" style="font-size: 11px;">
                 <#if newsList?? && (newsList?size>0)>
                     <#list newsList as news>
-                        <a class="list-group-item" href="/news/detail?link=${news.ID?if_exists}">
+                        <a class="list-group-item" href="/news/detail?link=${news.ID?if_exists}" title="发布者：${news.adminName?if_exists}">
                             <#if news.isTop?if_exists>
                                 <span class="label label-danger">Top</span>
                             </#if>
+                            <label class="label label-warning"><b>${news.adminName?if_exists}</b></label>&nbsp;
                             <span>${news.title?if_exists}</span>
                         </a>
                     </#list>
@@ -92,7 +93,8 @@
                                 <#if compt.isTop?if_exists>
                                     <span class="label label-danger">Top</span><#--置顶提示-->
                                 </#if>
-                                <span>${compt.title?if_exists}</span>
+                                <label class="label label-warning"><b>${compt.adminName?if_exists}</b></label>&nbsp;
+                                <span>${compt.title?if_exists}</span>&nbsp;
                                 <span style="color: #46b8da"> [ 发布时间：${compt.createtime?if_exists}]</span>
                             </a>
                         </#list>

@@ -158,4 +158,24 @@ public class TNews extends EntityObject{
 	public void setIsTop(boolean isTop) {
 		this.isTop = isTop;
 	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "adminName"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "255"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("adminName")
+	private String adminName;
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 }

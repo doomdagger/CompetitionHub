@@ -23,17 +23,23 @@
                         <th>序号</th>
                         <th style="width: 180px;">新闻标题</th>
                         <th>发布日期</th>
+                        <#if Session?exists && Session['CUR']?exists && Session['CUR']['CUR_ISTP']?exists && Session['CUR']['CUR_ISTP']>
+                            <th>发布者</th>
+                        </#if>
                         <th style="width: 180px;">置顶</th>
                         <th>编辑</th>
                         <th>删除</th>
                     </tr>
-                    <#if newsList?exists>
+                    <#if newsList?exists &&(newsList?size>0)>
                         <#list newsList as news>
 
                             <tr id="${news.ID?if_exists}">
                                 <td>${news_index+1}</td>
                                 <td><a href="javascript:void(0)" onclick="window.open('/news/detail?link=${news?if_exists.ID}')">${news.title?if_exists}</a></td>
                                 <td>${news.createtime?if_exists}</td>
+                                <#if Session?exists && Session['CUR']?exists && Session['CUR']['CUR_ISTP']?exists && Session['CUR']['CUR_ISTP']>
+                                    <td>${news.adminName?if_exists}</td>
+                                </#if>
                                 <#if !news.isTop?if_exists>
                                     <td>
                                         <label class="label label-warning isTop" style="display: none">当前置顶</label>
@@ -53,8 +59,16 @@
                             </tr>
 
                         </#list>
-                    </#if>
+                    <#else>
+                        <tr>
+                            <#if Session?exists && Session['CUR']?exists && Session['CUR']['CUR_ISTP']?exists && Session['CUR']['CUR_ISTP']>
+                                <td colspan="7" style="text-align: center"><span><b>该账号目前没有发布过新闻</b></span></td>
+                            <#else>
+                                <td colspan="6" style="text-align: center"><span><b>该账号目前没有发布过新闻</b></span></td>
+                            </#if>
 
+                        </tr>
+                    </#if>
                 </table>
             </div>
             <!--pageable-->

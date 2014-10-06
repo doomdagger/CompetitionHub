@@ -9,7 +9,7 @@
         </div>
         <!--table th-->
         <div class="alert">
-            <div class="alert alert-warning">
+            <div class="alert alert-info">
                 <h3>说明</h3>
                 <p>发布赛事：提交一个新的赛事后，将会进入<span style="color: blue">等待审核</span>(由系统管理员进行审核)
                 <p>审核通过：管理员审核您提交的赛事后,可以比准发布，批准后才会在首页和赛事列表显示，此时显示<span style="color: green">通过审核</span>
@@ -17,7 +17,7 @@
                 <p><b>提交(>1) -- 审批(1) -- 拒绝(>2)/通过(>3) -- 报名中(3) -- 结束报名(学院操作)(>4) -- 比赛进行中(4) -- 结束比赛(学院操作)(>5) -- 成绩录入(>6) -- 完成</b>
             </div>
             <div>
-                <table class="table table-striped table-bordered table-condensed numControl"  style="text-align: left;font-size: 13px;">
+                <table class="table table-responsive table-bordered numControl"  style="text-align: left;font-size: 13px;">
                     <tr class="bg-primary">
                         <th>序号</th>
                         <th style="width: 180px;">赛事名称</th>
@@ -27,7 +27,7 @@
                         <th>置顶状态</th>
                         <th style="width: 200px;">管理</th>
                     </tr>
-                    <#if comptList?exists>
+                    <#if comptList?exists && (comptList?size>0)>
                         <#list comptList as compt>
                             <tr id="_${compt.ID?if_exists}">
                                 <td>${compt_index+1}</td>
@@ -108,6 +108,10 @@
                                 </#if>
                             </tr>
                         </#list>
+                    <#else>
+                        <tr>
+                            <td colspan="7" style="text-align: center"><span><b>该账号目前没有发布过赛事</b></span></td>
+                        </tr>
                     </#if>
 
                 </table>

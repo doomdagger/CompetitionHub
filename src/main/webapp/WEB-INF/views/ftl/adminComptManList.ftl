@@ -9,7 +9,7 @@
         </div>
         <!--table th-->
         <div class="alert">
-            <div class="alert alert-warning">
+            <div class="alert alert-info">
                 <h3>说明</h3>
                 <p>发布赛事：提交一个新的赛事后，将会进入<span style="color: blue">等待审核</span>(由系统管理员进行审核)
                 <p>审核通过：管理员审核您提交的赛事后,可以比准发布，批准后才会在首页和赛事列表显示，此时显示<span style="color: green">通过审核</span>
@@ -23,11 +23,12 @@
                         <th style="width: 180px;">赛事名称</th>
                         <th>赛事等级</th>
                         <th style="width: 150px;">发布时间</th>
+                        <th>发布者</th>
                         <#--<th>状态</th>-->
                         <th>置顶状态</th>
                         <th style="width: 200px;">管理</th>
                     </tr>
-                    <#if comptList?exists>
+                    <#if comptList?exists && (comptList?size>0)>
                         <#list comptList as compt>
                             <tr id="_${compt.ID?if_exists}">
                                 <td>${compt_index+1}</td>
@@ -44,6 +45,8 @@
                                 </td>
                                 <#--发布时间-->
                                 <td>${compt.createtime?if_exists}</td>
+                                <#--发布者-->
+                                <td>${compt.adminName?if_exists}</td>
                                 <#--置顶状态-->
                                 <#--<#if !compt.isTop?if_exists>
                                     <td>
@@ -101,6 +104,10 @@
                                 </#if>
                             </tr>
                         </#list>
+                    <#else>
+                        <tr>
+                            <td colspan="7" style="text-align: center"><span><b>目前系统没有发布过任何赛事</b></span></td>
+                        </tr>
                     </#if>
 
                 </table>

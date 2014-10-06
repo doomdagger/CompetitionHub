@@ -9,7 +9,7 @@
         </div>
         <!--table th-->
         <div class="alert">
-            <div class="alert alert-success">
+            <div class="alert alert-info">
                 <h3>说明</h3>
                 <p>报名后要等待赛事发布(如学院)方同意确认
                 <p>在"赛事概况"中管理队伍的成员和上传作品

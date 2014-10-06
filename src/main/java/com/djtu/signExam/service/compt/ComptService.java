@@ -11,7 +11,9 @@ import java.util.List;
 public interface ComptService {
 
     //基本操作
-    public List<TCompt> getComByPage(Pageable pageable);
+    public List<TCompt> getComByPage(String userId,Pageable pageable);
+
+    public List<TCompt> getAllComByPage(Pageable pageable);
 
     public TCompt getComptById(String id);
 

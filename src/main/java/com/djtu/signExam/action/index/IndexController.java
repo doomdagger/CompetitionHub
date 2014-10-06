@@ -28,9 +28,9 @@ public class IndexController {
     @RequestMapping(value={"","/","/index"})
     public String index(Model model){
         //get news list
-        List<TNews> newsList = newsService.getNewsByPage(Pageable.inPage(1, ProjectPageConfig.NEWS_INDEX_LIST_NUM));//9条
+        List<TNews> newsList = newsService.getAllNewsByPage(Pageable.inPage(1, ProjectPageConfig.NEWS_INDEX_LIST_NUM));//9条
         //get comp list
-        List<TCompt> comptList = comptService.getComByPage(Pageable.inPage(1,ProjectPageConfig.COMP_INDEX_LIST_NUM));//9条
+        List<TCompt> comptList = comptService.getAllComByPage(Pageable.inPage(1,ProjectPageConfig.COMP_INDEX_LIST_NUM));//9条
         //get show list
         model.addAttribute("newsList",newsList);
         model.addAttribute("comptList",comptList);

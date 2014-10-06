@@ -84,8 +84,10 @@
                             <#if news.isTop?if_exists>
                                 <span class="label label-danger">Top</span>
                             </#if>
+                            <label class="label label-warning"><b>${news.adminName?if_exists}</b></label>
                             <span>${news.title?if_exists}</span>
-                            <span style="color: #2aabd2">[ 发布时间 ：${news.createtime?if_exists}]</span></a>
+                            <span style="color: #2aabd2">[ 发布时间 ：${news.createtime?if_exists}]</span>
+                        </a>
                     </#list>
                 <#else>
                     <div class="alert alert-warning">
@@ -131,8 +133,10 @@
                                 <#if compt.isTop?if_exists>
                                     <span class="label label-danger">Top</span>
                                 </#if>
+                                <label class="label label-warning"><b>${compt.adminName?if_exists}</b></label>
                                 <span>${compt.title?if_exists}</span>
-                                <span style="color: #2aabd2">[ 发布时间：${compt.createtime?if_exists}]</span></a>
+                                <span style="color: #2aabd2">[ 发布时间：${compt.createtime?if_exists}]</span>
+                            </a>
                         </#list>
                     </div>
                 <#else>

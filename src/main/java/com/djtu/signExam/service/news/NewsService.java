@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface NewsService {
 
-    public List<TNews> getNewsByPage(Pageable pageable);
+    public List<TNews> getNewsByPage(String userId,Pageable pageable);
+
+    public List<TNews> getAllNewsByPage(Pageable pageable);
 
     public TNews getNewsById(String id);
 

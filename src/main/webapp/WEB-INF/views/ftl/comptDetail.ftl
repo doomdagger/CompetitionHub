@@ -1,9 +1,12 @@
 <#include "./snippet/header.ftl">
 
-<#if compt??><#--如果有数据-->
+<#if compt?exists><#--如果有数据-->
 <div class="container">
     <div class="jumbotron">
-        <h4><span class="glyphicon glyphicon-bookmark">[赛事详情] 发布时间：${compt.createtime?if_exists}</span></h4>
+        <h5>
+            <span class="glyphicon glyphicon-bookmark">[赛事详情] 发布时间：${compt.createtime?if_exists}</span>&nbsp;
+            <span> 发布者：${compt.adminName?if_exists}</span>
+        </h5>
         <h3 style="text-align: center"><span>[标题] ${compt.title?if_exists}</span></h3>
         <div class="my-comDetail-content" style="font-size: 15px;">${compt.content?if_exists}</div>
     </div>

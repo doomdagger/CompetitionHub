@@ -22,7 +22,15 @@ public class ComptServiceImpl implements ComptService {
     public TComptDao tComptDao;
 
     @Override
-    public List<TCompt> getComByPage(Pageable pageable) {
+    public List<TCompt> getComByPage(String userId,Pageable pageable) {
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("sk_t_userAdmin", userId).orderBy(Sortable.inSort("isTop", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC));
+        //get pageCount
+        pageable.setPageCount(tComptDao.getPageCount(pageable.getPageSize(), tComptDao.getCountByWrapper(sqlWrapper)));//no select in page
+        return tComptDao.findAllByWrapper(sqlWrapper.limit(pageable));//select in page
+    }
+
+    @Override
+    public List<TCompt> getAllComByPage(Pageable pageable) {
         SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().orderBy(Sortable.inSort("isTop", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)).limit(pageable);
         return tComptDao.findAllByWrapper(sqlWrapper);
     }

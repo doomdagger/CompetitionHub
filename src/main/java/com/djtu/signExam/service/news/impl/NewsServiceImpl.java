@@ -22,10 +22,21 @@ public class NewsServiceImpl implements NewsService {
     public TNewsDao tNewsDao;
 
     @Override
-    public List<TNews> getNewsByPage(Pageable pageable) {
+    public List<TNews> getNewsByPage(String userId,Pageable pageable) {
+        //sort by istop and createtime,and select the current user's issue
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("sk_t_userAdmin",userId).orderBy(Sortable.inSort("is_top", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC));
+        //set pageCount
+        pageable.setPageCount(tNewsDao.getPageCount(pageable.getPageSize(), tNewsDao.getCountByWrapper(sqlWrapper)));//no select in page
+        return tNewsDao.findAllByWrapper(sqlWrapper.limit(pageable));
+    }
+
+    @Override
+    public List<TNews> getAllNewsByPage(Pageable pageable) {
         //sort by istop and createtime
-        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().orderBy(Sortable.inSort("is_top", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)).limit(pageable);
-        return tNewsDao.findAllByWrapper(sqlWrapper);
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().orderBy(Sortable.inSort("is_top", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC));
+        //set pageCount
+        pageable.setPageCount(tNewsDao.getPageCount(pageable.getPageSize(), tNewsDao.getCountByWrapper(sqlWrapper)));
+        return tNewsDao.findAllByWrapper(sqlWrapper.limit(pageable));
     }
 
     @Override

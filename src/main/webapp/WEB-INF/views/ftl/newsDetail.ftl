@@ -3,9 +3,14 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h5><span class="glyphicon glyphicon-bookmark">[新闻详情] 发布时间：<#if news?exists>${news.createtime?if_exists}</#if></span></h5>
-        <h3 style="text-align: center"><span>[标题]：<#if news?exists>${news.title?if_exists}</#if></span></h3>
-        <div class="my-comDetail-content thumbnail"><#if news?exists>${news.content?if_exists}</#if></div>
+        <#if news?exists>
+            <h5>
+                <span class="glyphicon glyphicon-bookmark">[新闻详情] 发布时间：${news.createtime?if_exists}</span>&nbsp;
+                <span> 发布者：${news.adminName?if_exists}</span>
+            </h5>
+            <h3 style="text-align: center"><span>[标题]：${news.title?if_exists}</span></h3>
+            <div class="my-comDetail-content">${news.content?if_exists}</div>
+        </#if>
     </div>
 </div>
 

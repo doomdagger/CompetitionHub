@@ -33,6 +33,10 @@ public class Pageable {
 	}
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
+        if(this.currentPage<1){
+            this.currentPage = (this.currentPage<1 || this.currentPage> pageCount)?1:this.currentPage;
+        }
+        //service should set pageCount and do select by limit
 	}
 	public int getOffset() {
         if(this.pageCount != 0 && this.pageSize != 0 && this.currentPage != 0){

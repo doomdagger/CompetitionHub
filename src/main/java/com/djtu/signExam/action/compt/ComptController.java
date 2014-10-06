@@ -40,15 +40,17 @@ public class ComptController {
     private ComptSigninService signinService;
 
     @RequestMapping(value = {"/list","/"})
-    public String list(Model model){
+    public String list(HttpServletRequest request,Model model){
         //get comp list
-        int pageCount = comptService.getPageCount(ProjectPageConfig.COMP_LIST_PAGESIZE);
+        //int pageCount = comptService.getPageCount(ProjectPageConfig.COMP_LIST_PAGESIZE);
         Pageable pageable = Pageable.inPage(1,ProjectPageConfig.COMP_LIST_PAGESIZE);
-        List<TCompt> comptList = comptService.getComByPage(pageable);
-        pageable.setPageCount(pageCount);
+        //get current user info
+        //String user_id = (String) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
+        List<TCompt> comptList = comptService.getAllComByPage(pageable);
+        //pageable.setPageCount(pageCount);
         //get newsList
         Pageable newsPanel = Pageable.inPage(1,ProjectPageConfig.NEWS_IN_COMP_LIST_NUM);
-        List<TNews> newsList = newsService.getNewsByPage(newsPanel);
+        List<TNews> newsList = newsService.getAllNewsByPage(newsPanel);
         //model data
         model.addAttribute("pageable",pageable);
         model.addAttribute("comptList",comptList);
@@ -57,17 +59,19 @@ public class ComptController {
     }
 
     @RequestMapping("/list/{currpage}")
-    public String listInPage(@PathVariable int currpage,Model model){
+    public String listInPage(HttpServletRequest request,@PathVariable int currpage,Model model){
         //get pageable
-        int pageCount = comptService.getPageCount(ProjectPageConfig.COMP_LIST_PAGESIZE);
-        currpage = (currpage<1 || currpage> pageCount)?1:currpage;
+        //int pageCount = comptService.getPageCount(ProjectPageConfig.COMP_LIST_PAGESIZE);
+        //currpage = (currpage<1 || currpage> pageCount)?1:currpage;
+        //String user_id = (String) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         Pageable pageable = Pageable.inPage(currpage, ProjectPageConfig.COMP_LIST_PAGESIZE);
-        pageable.setPageCount(pageCount);
+        //get data
+        List<TCompt> comptList = comptService.getAllComByPage(pageable);
+        //pageable.setPageCount(pageCount);
         //get newsList
         Pageable newsPanel = Pageable.inPage(1,ProjectPageConfig.NEWS_IN_COMP_LIST_NUM);
-        List<TNews> newsList = newsService.getNewsByPage(newsPanel);
-        //get data
-        List<TCompt> comptList = comptService.getComByPage(pageable);
+        List<TNews> newsList = newsService.getAllNewsByPage(newsPanel);
+
         model.addAttribute("comptList",comptList);
         model.addAttribute("pageable",pageable);
         model.addAttribute("newsList",newsList);
