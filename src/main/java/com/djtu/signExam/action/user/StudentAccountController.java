@@ -4,18 +4,25 @@ import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.dao.support.UUIDGenerator;
 import com.djtu.signExam.model.*;
+import com.djtu.signExam.service.compt.ComptAttchmentService;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.service.compt.ComptSigninService;
 import com.djtu.signExam.service.user.UserService;
 import com.djtu.signExam.util.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +41,8 @@ public class StudentAccountController {
     private ComptService comptService;
     @Autowired
     private ComptSigninService signinService;
+    @Autowired
+    private ComptAttchmentService attchmentService;
 
 
     private static final String NAV = "navbar";
@@ -76,8 +85,10 @@ public class StudentAccountController {
         Integer userId = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
         //get pageable
         Pageable pageable = Pageable.inPage(currpage, ProjectPageConfig.SIGN_LIST_PAGESIZE);
-        pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE,userId.toString()));
+        //pageable.setPageCount(signinService.getPageCount(ProjectPageConfig.SIGN_LIST_PAGESIZE,userId.toString()));
         List<TSignin> signinList = signinService.getCompetitionByUserIdInPage(userId.toString(), pageable);
+        //String userEmail = userService.getStudentInfo(userId.toString()).getEmail();
+        //signinList = signinList==null?signinService.getCompetitionByUserEmailInPage(userEmail,pageable):signinList;
         model.addAttribute("signList",signinList);
         model.addAttribute("pageable",pageable);
         model.addAttribute(NAV,MYC);
@@ -97,14 +108,20 @@ public class StudentAccountController {
         String teamNo = signin.getTeamNo();
         Integer comptId = signin.getSkTCompt();
         List<TSignin> signinList = signinService.getAllSignIn(teamNo,comptId);
+        //compt
         TCompt compt = comptService.getComptById(comptId.toString());
+        //Attach
+        TComptAttachment attach = attchmentService.getAttachByTeamNo(teamNo);
         //model
         model.addAttribute(NAV,MYC);
         model.addAttribute("isLeader",signin.getIsLeader());
         model.addAttribute("compt",compt);
+        model.addAttribute("attach",attach);
         model.addAttribute("signList",signinList);
+        model.addAttribute("teamNo",teamNo);
         model.addAttribute("clink",signin.getSkTCompt());//当前赛事
         model.addAttribute("slink",signin.getSkTStudent());//当前学生
+        model.addAttribute("link",link);
         return  "stuShowCompetition";
     }
 
@@ -293,5 +310,169 @@ public class StudentAccountController {
             return StringConst.AJAX_SUCCESS;
         }
         return StringConst.AJAX_FAIL;
+    }
+
+
+    /**
+     * 退出比赛选项
+     * @param link:当前t_signin的ID
+     */
+    @RequestMapping(value = "/quitCompetition")
+    public @ResponseBody String quitCompetition(HttpServletRequest request,@RequestParam String link){
+        TSignin signin = signinService.getSignInById(link);
+        if(signin.getIsLeader()){
+            String teamNo = signin.getTeamNo();
+            return signinService.quitFromCompetitionByTeamNo(teamNo)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
+        }else{
+            return signinService.quitFromCompetitionByUserId(link)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
+        }
+    }
+
+    /**
+     * 添加小组成员
+     * link是tsignin的id，此为组长的tsignin
+     */
+    @RequestMapping(value = "addTeamMember",method = RequestMethod.POST)
+    public @ResponseBody String addTeamMember(@RequestParam String name,@RequestParam String NO,@RequestParam String email,
+                                              @RequestParam String cellphone,@RequestParam Integer isHelp,@RequestParam String link){
+        TSignin originSignin = signinService.getSignInById(link);
+        //根据email判断该用户是否注册
+
+        if(signinService.isExistAnEmailInTeamNo(originSignin.getTeamNo(),email)){
+            //如果要添加的emial在一个teamNo中已经重复的话，则添加失败
+            return StringConst.AJAX_FAIL;
+        }
+
+        //new member
+        TSignin signin = new TSignin();
+        signin.setComptName(originSignin.getComptName());
+        signin.setSkTCompt(originSignin.getSkTCompt());
+        signin.setIsValid(originSignin.getIsValid());
+        signin.setTeamNo(originSignin.getTeamNo());
+        signin.setIsLeader(false);
+        signin.setIsDelete(false);
+        signin.setCreatetime(new Date());
+        signin.setCellphone(cellphone);
+        signin.setEmail(email);
+        signin.setName(name);
+        signin.setNumber(NO);
+        signin.setIsHelpCredit(isHelp==1?true:false);
+        TUserStudent student = userService.getStudentInfoByEmail(email);
+        if (student!=null){
+            //如果该用户为已经注册的用户，则更新tsignin中的用户ID
+            signin.setSkTStudent(student.getID());//更新ID
+        }
+        //
+        return signinService.addTeamMember(signin)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
+    }
+
+    /**
+     * 获取要编辑的组员的信息
+     * link为组员tsignin的ID
+     */
+    @RequestMapping(value = "/getEditMemberInfo")
+    public @ResponseBody String getEditMemberInfo(@RequestParam String link){
+        TSignin signin = signinService.getSignInById(link);
+        JSONObject json = new JSONObject();
+        if(signin!=null){
+            json.put("data",new JSONObject(signin));
+            json.put("result",StringConst.AJAX_SUCCESS);
+        }else{
+            json.put("data","");
+            json.put("result",StringConst.AJAX_FAIL);
+        }
+        return json.toString();
+    }
+
+    @RequestMapping(value = "/confirmEditMember")
+    public @ResponseBody String confirmEditMember(@RequestParam String name,@RequestParam String NO,@RequestParam String email,
+                                                  @RequestParam String cellphone,@RequestParam Integer isHelp,@RequestParam String creditCard,
+                                                  @RequestParam String link,@RequestParam String originEmail,@RequestParam String signLink){
+
+        TSignin originSignin = signinService.getSignInById(link);
+        //根据email判断该用户是否注册
+
+        //如果先email跟原email不相同的话
+        if(!email.equals(originEmail)){
+            if(signinService.isExistAnEmailInTeamNo(originSignin.getTeamNo(),email)){
+                //如果要添加的emial在一个teamNo中已经重复的话，则添加失败
+                return StringConst.AJAX_FAIL;
+            }
+        }
+        //new member
+        TSignin signin = signinService.getSignInById(signLink);
+        signin.setCellphone(cellphone);
+        signin.setEmail(email);
+        signin.setName(name);
+        signin.setNumber(NO);
+        signin.setIsHelpCredit(isHelp==1?true:false);
+        TUserStudent student = userService.getStudentInfoByEmail(email);
+        //根据新的Email来绑定用户ID
+        if (student!=null){
+            //如果该用户为已经注册的用户，则更新tsignin中的用户ID
+            signin.setSkTStudent(student.getID());//更新ID
+        }
+        return signinService.updateInfo(signin)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
+    }
+
+    /**
+     * 上传作品
+     * @RequestParam String link,
+     * @RequestParam String teamNo,
+     * @RequestParam String needFileIntro,
+     */
+    @RequestMapping(value = "/uploadWorks",method = RequestMethod.POST)
+    public String uploadWorks(HttpServletRequest request,HttpServletResponse response,
+                              RedirectAttributes redirectAttributes){
+        String teamNo = request.getParameter("teamNo");
+        String needFileIntro = request.getParameter("needFileIntro");
+        try {
+            needFileIntro = URLDecoder.decode(needFileIntro, "utf8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String link = request.getParameter("link");
+//        System.out.println("teamNo: "+teamNo+" intro: "+needFileIntro+" link: "+link);
+        /*System.out.println("form data: "+request.getParameterNames());
+        while (request.getParameterNames().hasMoreElements()){
+            System.out.println(request.getParameterNames().nextElement());
+        }*/
+        //项目绝对路径
+        String savePath = request.getServletContext().getRealPath(UploadConst.WORKS_RES_PATH+teamNo+File.separator);//这里中间要加上teamNo
+        List<String> fileNameList = FileUploader.uploadFile(request,response,savePath);
+        TComptAttachment attachment = new TComptAttachment();
+        String key = attchmentService.isAttachExistInTeamNoAndReturnKey(teamNo);
+        if( !"".equals(key) ){
+            //update
+            attachment.setID(new Integer(key));
+            attachment.setName(fileNameList.get(0));
+            attachment.setSavepath((UploadConst.WORKS_URL_PATH+teamNo+File.separator).replaceAll("\\\\","\\\\\\\\")+fileNameList.get(0));
+            attachment.setCreatetime(new Date());
+            attachment.setIntroduction(needFileIntro);
+            attchmentService.updateOne(attachment);
+        }else{
+            //add
+            attachment.setIsValid(false);
+            attachment.setSkTCompt(new Integer(link));
+            attachment.setTeamNo(teamNo);
+            attachment.setCreatetime(new Date());
+            attachment.setIsDelete(false);
+            attachment.setSavepath((UploadConst.WORKS_URL_PATH+teamNo+File.separator).replaceAll("\\\\","\\\\\\\\")+fileNameList.get(0));
+            attachment.setName(fileNameList.get(0));
+            attachment.setSkTSignup(0);
+            attachment.setIntroduction(needFileIntro);
+            attchmentService.addOne(attachment);
+        }
+        //after add an attachment,redirect to the show page
+        redirectAttributes.addAttribute("link",link);
+        return "redirect:/student/showCompetition";
+    }
+
+    /**
+     * delete the attach by attach_id
+     */
+    @RequestMapping(value = "/deleteAttachMent")
+    public @ResponseBody String deleteAttachMent(@RequestParam String link){
+        return attchmentService.deleteOneById(link)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
     }
 }
