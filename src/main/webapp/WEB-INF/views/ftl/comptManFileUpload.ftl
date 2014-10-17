@@ -16,8 +16,8 @@
                 <#if attachList??>
                     <h5><b>已上传的文件</b></h5>
                     <div class="panel">
-                        <table class="table table-bordered table-responsive table-hover">
-                            <tr>
+                        <table class="table table-bordered table-responsive">
+                            <tr class="bg-primary">
                                 <th>序号</th>
                                 <th>文件名(点击下载)</th>
                                 <th>上传时间</th>
@@ -27,7 +27,7 @@
                                 <#list attachList as item>
                                     <tr id="_${item.ID?if_exists}">
                                         <td>${item_index+1}</td>
-                                        <td><a href="${item.savepath?if_exists}">${item.name?if_exists}</a></td>
+                                        <td><a target="_blank" href="/download/download?path=${item.savepath?if_exists}">${item.name?if_exists}</a></td>
                                         <td>${item.createtime?if_exists}</td>
                                         <td><a class="btn btn-xs btn-danger btnFileDel" alt="${item.ID?if_exists}">删除</a></td>
                                     </tr>
@@ -44,7 +44,7 @@
 
             <#--upload files-->
             <div class="alert alert-info">
-                <h4><span class="glyphicon glyphicon-upload"></span>附件上传</h4>
+                <h4><span class="glyphicon glyphicon-upload"></span><b>附件上传</b></h4>
                 <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadFile?link=${link?if_exists}" id="comptUploadFile">
                     <div id="uploadFileList">
                         <div class="form-group">
@@ -56,7 +56,7 @@
                 <button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>
                 <button type="button" class="btn btn-xs btn-success" id="btnSubmitFile">上传附件</button>
                 <p>备注：
-                <p>上传成功后将返回“赛事管理”页面
+                <p>添加完成后，点击<b>"上传附件"</b>按钮开始上传
             </div>
 
         </div>

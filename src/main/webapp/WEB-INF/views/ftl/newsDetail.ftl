@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <#if news?exists>
             <h5>
-                <span class="glyphicon glyphicon-bookmark">[新闻详情] 发布时间：${news.createtime?if_exists}</span>&nbsp;
+                <span class="glyphicon glyphicon-bookmark">[新闻详情] 发布时间：${news.createtime?if_exists}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span> 发布者：${news.adminName?if_exists}</span>
             </h5>
             <h3 style="text-align: center"><span>[标题]：${news.title?if_exists}</span></h3>

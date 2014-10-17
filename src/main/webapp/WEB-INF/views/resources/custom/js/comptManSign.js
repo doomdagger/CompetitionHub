@@ -10,6 +10,7 @@
  * @param currPage:当前页
  */
 function flashNewPanel(currPage){
+
     //get filters
     var comptId = $("#comptLink").val();
     var filter = $("input[name='filter']:checked").val()==1?true:false;//1为查看已通过

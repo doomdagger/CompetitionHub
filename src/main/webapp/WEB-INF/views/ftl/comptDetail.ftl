@@ -4,7 +4,7 @@
 <div class="container">
     <div class="jumbotron">
         <h5>
-            <span class="glyphicon glyphicon-bookmark">[赛事详情] 发布时间：${compt.createtime?if_exists}</span>&nbsp;
+            <span class="glyphicon glyphicon-bookmark">[赛事详情] 发布时间：${compt.createtime?if_exists}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span> 发布者：${compt.adminName?if_exists}</span>
         </h5>
         <h3 style="text-align: center"><span>[标题] ${compt.title?if_exists}</span></h3>

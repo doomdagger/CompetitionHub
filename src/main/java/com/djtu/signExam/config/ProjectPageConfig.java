@@ -12,6 +12,8 @@ public class ProjectPageConfig {
 
     public final static int MAN_SHOW_LIST_PAGESIZE = 50;
 
+    public final static int MAN_SIGN_LIST_PAGESIZE = 20;
+
 
     //front
     //compt

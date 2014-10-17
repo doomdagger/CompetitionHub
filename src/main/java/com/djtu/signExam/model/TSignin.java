@@ -418,4 +418,64 @@ public class TSignin extends EntityObject{
 	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
 	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isPriority"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isPriority")
+	private boolean isPriority;
+	public boolean getIsPriority() {
+		return isPriority;
+	}
+	public void setIsPriority(boolean isPriority) {
+		this.isPriority = isPriority;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isPass"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isPass")
+	private boolean isPass;
+	public boolean getIsPass() {
+		return isPass;
+	}
+	public void setIsPass(boolean isPass) {
+		this.isPass = isPass;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "memberNum"</li>
+	 * 	 <li>Field Type  : "INT"</li>
+	 * 	 <li>Field Length: "10"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("memberNum")
+	private int memberNum;
+	public int getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
 }

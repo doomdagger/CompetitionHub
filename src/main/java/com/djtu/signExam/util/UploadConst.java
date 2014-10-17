@@ -7,6 +7,8 @@ import java.io.File;
  */
 
 public class UploadConst {
+    public static final String VIEWS = File.separator+"WEB-INF"+File.separator+"views"+File.separator;
+    public static final String RESOURCES = File.separator+"WEB-INF"+File.separator+"views"+File.separator+"resources"+File.separator;
 
     /*文件系统保存地址：项目路径+/WEB-INF/views/resources*/
     public static final String PCS_RES_PATH = File.separator+"WEB-INF"+ File.separator+"views"+ File.separator+"resources"+ File.separator;
@@ -23,6 +25,8 @@ public class UploadConst {
     public static final String FILE_URL_PATH = File.separator+"resources"+ File.separator+"UserUpload"+File.separator+"docs"+File.separator;
     public static final String FILE_RES_PATH = File.separator+"WEB-INF"+ File.separator+"views"+ FILE_URL_PATH;
 
-
+    //student works
+    public static final String WORKS_URL_PATH = File.separator+"resources"+File.separator+"stuWorks"+File.separator;
+    public static final String WORKS_RES_PATH = File.separator+"WEB-INF"+File.separator+"views"+WORKS_URL_PATH;
 
 }

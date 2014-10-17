@@ -33,7 +33,7 @@
                                         <td><#if !item.isSuper?if_exists>普通管理员<#else>最高级管理员</#if></td>
                                         <td>${item.email?if_exists}</td>
                                         <td>${item.cellphone?if_exists}</td>
-                                        <td><#if !item.isSuper?if_exists>${item.pwd?if_exists}<#else>******(保密)</#if></td>
+                                        <td><#if !item.isSuper?if_exists>******<#else>******(保密)</#if></td>
                                         <td>
                                             <#if item.isSuper?if_exists>
                                                 <#if Session?exists && Session['CUR']?exists && Session['CUR']['CUR_LINK']?exists && Session['CUR']['CUR_LINK'] == item.ID?if_exists>
@@ -117,7 +117,7 @@
                             </div>
                             <input type="hidden" value="0" id="link" name="link">
                             <input type="hidden" value="1" id="type" name="type">
-                            <button type="submit" class="btn btn-success">确定编辑</button>
+                            <button type="button" class="btn btn-success" id="btnConfirmEdit">确定编辑</button>
                             <button type="button" class="btn btn-warning" onclick="$('#divEditAccount').fadeOut();">取消编辑</button>
                         </form>
                     </div>
@@ -151,6 +151,8 @@
 
 <#--validator-->
 <script src="/resources/plugins/validator/jquery.validate.js"></script>
+<#--md5-->
+<script src="/resources/dist/js/jquery.md5.js"></script>
 
 <script>
     $(document).ready(function(){
@@ -197,7 +199,7 @@
                     $("#pwd2").val("******(保密)");
                     $("#pwd2").attr("readonly",true);
                 }else{
-                    $("#pwd2").val(jsonData.pwd);
+                    $("#pwd2").val("******");
                 }
 
             }else{
@@ -272,11 +274,22 @@
         var data = {"link":link};
         $.post(url,data,function(json){
             if(json === "AJAX_SUCCESS"){
+                $('#pwd').val($.md5($('#pwd').val()));
                 $("#addAccountForm").submit();
             }else{
                 alert("验证码不正确，请重新输入");
             }
         });
+    });
+    //确定编辑
+    $('#btnConfirmEdit').click(function(){
+        if($('#pwd2').val().trim().length < 1 ){
+            alert('密码不能为空');
+            return;
+        }else{
+            $('#pwd2').val($.md5($('#pwd2').val()));
+            $('#editAccountForm').submit();
+        }
     });
 </script>
 <#include "./snippet/footer.ftl">

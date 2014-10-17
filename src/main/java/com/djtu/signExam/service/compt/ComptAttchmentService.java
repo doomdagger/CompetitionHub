@@ -11,7 +11,13 @@ public interface ComptAttchmentService {
 
     public boolean addOne(TComptAttachment tComptAttachment);
 
+    public boolean updateOne(TComptAttachment tComptAttachment);
+
     public boolean deleteOneById(String id);
 
     public List<TComptAttachment> getAllItemsBySkId(String id);
+
+    public TComptAttachment getAttachByTeamNo(String teamNo);
+
+    public String isAttachExistInTeamNoAndReturnKey(String teamNo);
 }

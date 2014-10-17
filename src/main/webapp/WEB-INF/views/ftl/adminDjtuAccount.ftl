@@ -33,7 +33,7 @@
                                     <td><#if !item.isSuper?if_exists>普通管理员<#else>最高级管理员</#if></td>
                                     <td>${item.email?if_exists}</td>
                                     <td>${item.cellphone?if_exists}</td>
-                                    <td>${item.pwd?if_exists}</td>
+                                    <td>******</td>
                                     <td>
                                         <button class="btn btn-xs btn-info btnEditAccount" alt="${item.ID?if_exists}">编辑</button>
                                         <#if !item.isSuper?if_exists>
@@ -110,7 +110,7 @@
                         </div>
                         <input type="hidden" value="0" id="link" name="link">
                         <input type="hidden" value="3" id="type" name="type">
-                        <button type="submit" class="btn btn-success">确定编辑</button>
+                        <button type="button" class="btn btn-success" id="btnConfirmEdit">确定编辑</button>
                         <button type="button" class="btn btn-warning" onclick="$('#divEditAccount').fadeOut();">取消编辑</button>
                     </form>
                 </div>
@@ -144,6 +144,8 @@
 
 <#--validator-->
 <script src="/resources/plugins/validator/jquery.validate.js"></script>
+<#--md5-->
+<script src="/resources/dist/js/jquery.md5.js"></script>
 
 <script>
     $(document).ready(function(){
@@ -186,7 +188,7 @@
                 $("#name2").val(jsonData.name);
                 $("#cellphone2").val(jsonData.cellphone);
                 $("#email2").val(jsonData.email);
-                $("#pwd2").val(jsonData.pwd);
+                $("#pwd2").val("******");
             }else{
                 alert("操作失败请重试");
             }
@@ -255,11 +257,22 @@
         var data = {"link":link};
         $.post(url,data,function(json){
             if(json === "AJAX_SUCCESS"){
+                $("#pwd").val($.md5($('#pwd').val()));
                 $("#addAccountForm").submit();
             }else{
                 alert("验证码不正确，请重新输入");
             }
         });
+    });
+    //确定编辑
+    $('#btnConfirmEdit').click(function(){
+        if($('#pwd2').val().trim().length < 1 ){
+            alert('密码不能为空');
+            return;
+        }else{
+            $('#pwd2').val($.md5($('#pwd2').val()));
+            $('#editAccountForm').submit();
+        }
     });
 </script>
 <#include "./snippet/footer.ftl">

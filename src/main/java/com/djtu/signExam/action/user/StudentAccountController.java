@@ -195,6 +195,9 @@ public class StudentAccountController {
         signin.setName(student.getUsername());//名字
         signin.setIsDelete(false);
         signin.setCreatetime(new Date());
+        signin.setMemberNum(1);
+        signin.setIsPass(false);
+        signin.setIsPriority(false);
         signin.setTeamNo(UUIDGenerator.randomUUID());//每个队伍的唯一标识
         //如果没有勾选，isHelpCredit不一定存在
         signin.setIsHelpCredit( (isHelpCredit!=null&&isHelpCredit=="on")?true:false);
@@ -362,8 +365,14 @@ public class StudentAccountController {
             //如果该用户为已经注册的用户，则更新tsignin中的用户ID
             signin.setSkTStudent(student.getID());//更新ID
         }
-        //
-        return signinService.addTeamMember(signin)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
+        //add team NO
+        if(signinService.addTeamMember(signin)){
+            originSignin.setMemberNum(originSignin.getMemberNum()+1);
+            signinService.updateInfo(originSignin);
+            return StringConst.AJAX_SUCCESS;
+        }else{
+            return StringConst.AJAX_FAIL;
+        }
     }
 
     /**

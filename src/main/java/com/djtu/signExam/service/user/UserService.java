@@ -13,6 +13,8 @@ public interface UserService {
     //student
     public TUserStudent getStudentInfo(String id);
 
+    public TUserStudent getStudentInfoByEmail(String email);
+
     public TUserAdmin getAdminInfo(String id);
 
     // adminer account manage

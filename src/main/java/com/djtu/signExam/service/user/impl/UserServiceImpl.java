@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public TUserStudent getStudentInfoByEmail(String email) {
+        return studentDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("email",email));
+    }
+
+    @Override
     public TUserAdmin getAdminInfo(String id) {
         return adminDao.findOneById(id);
     }

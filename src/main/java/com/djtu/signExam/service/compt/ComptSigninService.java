@@ -35,11 +35,18 @@ public interface ComptSigninService {
 
     public List<TSignin> getCompetitionByUserIdInPage(String id,Pageable pageable);
 
+    public List<TSignin> getCompetitionByUserEmailInPage(String email,Pageable pageable);
+
     public boolean quitFromCompetitionByUserId(String sid);
+
+    public boolean quitFromCompetitionByTeamNo(String teamNo);
 
     public int getPageCount(int pageSize);
 
     public int getPageCount(int pageSize,String id);
+
+    //extra
+    public boolean isExistAnEmailInTeamNo(String teamNo,String email);
 
 
 }

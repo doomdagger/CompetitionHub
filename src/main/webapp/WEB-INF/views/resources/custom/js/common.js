@@ -24,7 +24,7 @@ $(document).ready(function(){
         $("#btnIndexLogin").html("<img src='/resources/img/loading.gif'width='16px;'> 正在登录...");
         //ajax post
         var url = document.getElementsByName("usertype")[0].checked ? "/user/indexLoginStudent" : "/user/indexLoginAdmin";
-        var data = {"username":username,"pwd":pwd};
+        var data = {"username":username,"pwd": $.md5(pwd)};
         /*console.log("url:"+url+" data:"+data);*/
         $.post(url,data,function(json){
             json = $.parseJSON(json);

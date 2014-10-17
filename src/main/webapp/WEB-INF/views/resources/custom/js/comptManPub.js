@@ -88,15 +88,19 @@ $(document).ready(function(){
             var link = $(this).attr("alt");
             var url = "/man/compt/deleteFile";
             var data = {"link":link};
+            var currentTR = $("#_"+link);
             $.post(
                 url,
                 data,
                 function(json){
                     if(_AJAX.success === json){
-                        alert("删除成功");
-                        $("#_"+link).remove();
+                        currentTR.html("<td style='text-align: center' colspan='4'><span style='color: green'><b>删除成功</b></span></td>");
+                        setTimeout(function(){
+                            currentTR.fadeOut();
+                        },3000);
+                        //$("#_"+link).remove();
                     }else{
-                        alert("删除失败")
+                        alert("删除操作失败，请重试")
                     }
                 }
             );

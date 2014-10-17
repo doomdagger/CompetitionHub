@@ -30,11 +30,11 @@ public class FileUploader {
     public static List<String> uploadFile(HttpServletRequest request, HttpServletResponse response,String savePath) {
 
         //定义允许上传的文件扩展名
-        HashMap<String, String> extMap = new HashMap<String, String>();
+        /*HashMap<String, String> extMap = new HashMap<String, String>();
         extMap.put("img", "gif,jpg,jpeg,png,bmp");
         extMap.put("flash", "swf,flv");
         extMap.put("media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb");
-        extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
+        extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");*/
 
         //返回文件名的集合
         List<String> fileNameList = new ArrayList<String>();
@@ -87,11 +87,11 @@ public class FileUploader {
                     item.write(uploadedFile);//写入文件
                     return fileNameList;
                 }catch(Exception e){
-                    System.out.println("上传问题");
+                    System.out.println("上传出现问题");
                 }
             }
         }
-        System.out.println("列队为空");
+        System.out.println("上传列队为空");
         return null;
     }
 }

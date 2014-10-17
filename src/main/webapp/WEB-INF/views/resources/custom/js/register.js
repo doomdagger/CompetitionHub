@@ -44,13 +44,13 @@ $(document).ready(function () {
     $('#email').focus(function(){$('#email').css('color','#555555'); $('.regTips2').fadeOut()});
     $('#email').blur(function(){
         if(isEmail($('#email').val())){
-            console.log("this is email");
+            //console.log("this is email");
             //ajax check the email isValid or not
             $.getJSON(
                 '/user/checkEmail',
                 {'email':$('#email').val()},
                 function(json){
-                    console.log("ajax back "+json);
+                    //console.log("ajax back "+json);
                     if(json === _AJAX.success){
                         check.isEmail = true;
                         $('#email').parent().addClass("has-success");
@@ -62,7 +62,7 @@ $(document).ready(function () {
                 }
             );
         }else{
-            console.log("is not email");
+            //console.log("is not email");
             check.isEmail = false;
             $('#email').css('color','red');
             $('#email').after("<span class='glyphicon glyphicon-remove-circle help-block regTips2' style='color:red'>该邮箱无效，请重新输入</span>");
@@ -98,7 +98,7 @@ $(document).ready(function () {
                         clearInterval(timer);
                     }
                     index--;
-                    console.log("time:"+index);
+                    //console.log("time:"+index);
                 },1000);
             }else{
                 var index = 5;
@@ -111,7 +111,7 @@ $(document).ready(function () {
                         clearInterval(timer);
                     }
                     index--;
-                    console.log("time:"+index);
+                    //console.log("time:"+index);
                 },1000);
             }
         });
@@ -165,11 +165,11 @@ $(document).ready(function () {
             check.isStudentNo = false;
         }else{//如果密码长度匹配才继续判断 密码的组合 是否正确
             if(isNumberOrLetter($('#pwd').val())){
-                console.log("this is pwd");
+                //console.log("this is pwd");
                 $('#pwd').parent().addClass("has-success");
                 check.isPwd = true;
             }else{
-                console.log("is not pwd");
+                //console.log("is not pwd");
                 $('#pwd').after("<span class='glyphicon glyphicon-remove-circle help-block regTips4' style='color:red'>密码格式不正确</span>");
                 $('#pwd').parent().removeClass("has-success");
                 check.isPwd = false;
@@ -182,11 +182,11 @@ $(document).ready(function () {
     $('#rePwd').focus(function(){$('#rePwd').css('color','#555555'); $('.regTips5').fadeOut()});
     $('#rePwd').blur(function(){
         if($('#rePwd').val() === $('#pwd').val()){
-            console.log("this is rePwd");
+            //console.log("this is rePwd");
             $('#rePwd').parent().addClass("has-success");
             check.isRePwd = true;
         }else{
-            console.log("is not rePwd");
+            //console.log("is not rePwd");
             $('#rePwd').after("<span class='glyphicon glyphicon-remove-circle help-block regTips5' style='color:red'>两次密码填写不一致</span>");
             $('#repwd').parent().removeClass("has-success");
             check.isRePwd = false;
@@ -238,6 +238,8 @@ $(document).ready(function () {
 
     $('#regSubmit').click(function(){
         if(check.isAcademy && check.isCellPhone && check.isEmail && check.isName && check.isPro && check.isPwd && check.isRePwd && check.isStudentNo){
+            $('#pwd').val($.md5($('#pwd').val()));
+            $('#rePwd').val($.md5($('#rePwd').val()));
             $('#regForm').submit();
         }else{
             $('#regSubmit').after("<span class='glyphicon glyphicon-remove-circle help-block regTips9' style='color:red'>资料尚未填写完毕</span>");

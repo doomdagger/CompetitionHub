@@ -41,7 +41,8 @@
     </div>
 </div>
 
-
+<#--md5-->
+<script src="../resources/dist/js/jquery.md5.js"></script>
 <script>
     $(document).ready(function(){
 
@@ -122,7 +123,7 @@
             var repwd = $("#reNewPwd").val().trim();
             if(pwd.length > 0 && repwd.length > 0 && pwd == repwd){
                 var url = "/man/resetPassword";
-                var data = {"link":pwd};
+                var data = {"link": $.md5(pwd)};
                 $.post(url,data,function(json){
                     if(json === "AJAX_SUCCESS"){
                         alert("恭喜！密码修改成功,下次请用新密码登录！");

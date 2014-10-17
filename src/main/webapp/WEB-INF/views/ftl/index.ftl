@@ -205,11 +205,11 @@
                                     <form role="form">
                                         <div class="form-group">
                                             <!--<label for="username">用户名</label>-->
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号" style="font-size: 6px;">
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/学号" value="1209202022@qq.com">
                                         </div>
                                         <div class="form-group">
                                             <!--<label for="pwd">密码</label>-->
-                                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" style="font-size: 6px;">
+                                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="密码" value="123">
                                         </div>
                                         <div class="form-group">
                                             <label><input type="radio" name="usertype" value="0" id="usertype0" checked="checked">学生</label>&nbsp;&nbsp;
@@ -275,6 +275,8 @@
 
 <#--custom-->
 <script type="text/javascript" src="/resources/custom/js/common.js"></script>
+<#--md5-->
+<script src="/resources/dist/js/jquery.md5.js"></script>
 
 <#include "./snippet/comptOnDate.ftl">
 

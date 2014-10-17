@@ -31,6 +31,11 @@ public class ComptAttachmentServiceImpl implements ComptAttchmentService {
     }
 
     @Override
+    public boolean updateOne(TComptAttachment tComptAttachment) {
+        return tComptAttachmentDao.update(tComptAttachment);
+    }
+
+    @Override
     public boolean deleteOneById(String id) {
         return tComptAttachmentDao.deleteById(id);
     }
@@ -44,4 +49,20 @@ public class ComptAttachmentServiceImpl implements ComptAttchmentService {
     public List<TComptAttachment> getAllItemsBySkId(String id) {
         return tComptAttachmentDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("sk_t_compt", id).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)));
     }
+
+    @Override
+    public TComptAttachment getAttachByTeamNo(String teamNo) {
+        return tComptAttachmentDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("teamNo", teamNo));
+    }
+
+    @Override
+    public String isAttachExistInTeamNoAndReturnKey(String teamNo) {
+        TComptAttachment attach = tComptAttachmentDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("teamNo", teamNo));
+        if(attach!=null){
+            return String.valueOf(attach.getID());
+        }
+        return "";
+    }
+
+
 }

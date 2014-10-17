@@ -23,16 +23,16 @@
 <!--common bottom part start-->
 <div class="container">
     <p>
-    <h1>Attention:</h1>
+    <h1>注意:</h1>
     <div class="jumbotron">
         <div class="center-block">
-            <h2><b>Sorry</b></h2>
-            <h3>May be you have no rights to get in.Or login and try again.</h3>
-            <h3>Please check the <b>URL</b> you visit.</h3>
+            <h2><b>对不起</b></h2>
+            <h3>1.您的登陆状态可能已过期，或者您无足够权限访问当前页面，请重新登陆</h3>
+            <h3>2.访问地址有误，请检查<b>URL地址</b></h3>
         </div>
     <div class="center-block">
-        <button class="btn btn-warning btn-lg" onclick="javascript:history.go(-1);">返回上一页/Go Back</button>
-        <a class="btn btn-info btn-lg" href="/index">首页/MainPage</a>
+        <button class="btn btn-warning btn-lg" onclick="javascript:history.go(-1);">返回上一页</button>
+        <a class="btn btn-info btn-lg" href="/index">回到首页</a>
     </div>
     </div>
 </div>

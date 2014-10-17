@@ -175,7 +175,8 @@ public class ComptManController {
             tComptAttachment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
             comptAttchmentService.addOne(tComptAttachment);
         }
-        return "redirect:/man/compt/list";
+        redirectAttributes.addAttribute("link",link);
+        return "redirect:/man/compt/uploadGet";
     }
 
     //删除附件

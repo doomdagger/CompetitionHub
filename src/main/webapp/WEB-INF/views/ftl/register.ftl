@@ -11,6 +11,7 @@
     <!--[if lt IE 9]>
     <script src="../resources/dist/js/html5shiv.min.js"></script>
     <script src="../resources/dist/js/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body>
@@ -100,6 +101,7 @@
 
 </div>
 
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../resources/dist/js/jquery-1.10.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -108,6 +110,6 @@
 <script src="../resources/custom/js/JSValidate.js"></script>
 
 <script src="../resources/custom/js/register.js"></script>
-
-
+<#--md5-->
+<script src="../resources/dist/js/jquery.md5.js"></script>
 <#include "./snippet/footer.ftl">

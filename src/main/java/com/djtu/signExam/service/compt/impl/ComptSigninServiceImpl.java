@@ -41,11 +41,11 @@ public class ComptSigninServiceImpl implements ComptSigninService {
      *
      * @param teamNo：每个队伍的唯一标示
      * @param comptId：赛事ID
-     * @return：根据组长和时间排序
+     * @return：根据组长和时间顺序排序
      */
     @Override
     public List<TSignin> getAllSignIn(String teamNo, Integer comptId) {
-        List<TSignin> list = signinDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("teamNo", teamNo).eq("sk_t_compt", comptId).orderBy(Sortable.inSort("isLeader", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)));
+        List<TSignin> list = signinDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("teamNo", teamNo).eq("sk_t_compt", comptId).orderBy(Sortable.inSort("isLeader", IOperators.SORT.DESC)).orderBy(Sortable.inSort("createtime", IOperators.SORT.ASC)));
         return list;
     }
 
@@ -67,7 +67,7 @@ public class ComptSigninServiceImpl implements ComptSigninService {
     @Override
     public boolean addTeamMember(TSignin model) {
         Object key = signinDao.add(model);
-        if(key != null && key != ""){
+        if(!"".equals(key)){
             return true;
         }
         return false;
@@ -113,13 +113,27 @@ public class ComptSigninServiceImpl implements ComptSigninService {
 
     @Override
     public List<TSignin> getCompetitionByUserIdInPage(String id,Pageable pageable) {
-        return signinDao.findAllByWrapper(SQLWrapper.instance().selectAll().where().eq("sk_t_student", id).eq("isDelete", 0).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC)).limit(pageable));
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("sk_t_student", id).eq("isDelete", 0).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC));
+        pageable.setPageCount(signinDao.getPageCount(pageable.getPageSize(),signinDao.getCountByWrapper(sqlWrapper)));
+        return signinDao.findAllByWrapper(sqlWrapper.limit(pageable));
     }
 
-    //直接根据signIn的ID逻辑删除
     @Override
-    public boolean quitFromCompetitionByUserId(String sid) {
-        return signinDao.deleteById(sid);
+    public List<TSignin> getCompetitionByUserEmailInPage(String email, Pageable pageable) {
+        SQLWrapper sqlWrapper = SQLWrapper.instance().selectAll().where().eq("email", email).eq("isDelete", 0).orderBy(Sortable.inSort("createtime", IOperators.SORT.DESC));
+        pageable.setPageCount(signinDao.getPageCount(pageable.getPageSize(),signinDao.getCountByWrapper(sqlWrapper)));
+        return signinDao.findAllByWrapper(sqlWrapper.limit(pageable));
+    }
+
+    //直接根据signIn的ID物理删除
+    @Override
+    public boolean quitFromCompetitionByUserId(String signId) {
+        return signinDao.deleteById(signId);
+    }
+
+    @Override
+    public boolean quitFromCompetitionByTeamNo(String teamNo) {
+        return signinDao.deleteByWrapper(SQLWrapper.instance().delete().where().eq("teamNo",teamNo));
     }
 
     @Override
@@ -131,5 +145,11 @@ public class ComptSigninServiceImpl implements ComptSigninService {
     public int getPageCount(int pageSize, String id) {
         long count = signinDao.getCountByWrapper(SQLWrapper.instance().selectAll().where().eq("sk_t_student",id));
         return signinDao.getPageCount(pageSize,count);
+    }
+
+    @Override
+    public boolean isExistAnEmailInTeamNo(String teamNo, String email) {
+        TSignin signin = signinDao.findOneByWrapper(SQLWrapper.instance().selectAll().where().eq("teamNo",teamNo).eq("email",email));
+        return signin!=null?true:false;
     }
 }

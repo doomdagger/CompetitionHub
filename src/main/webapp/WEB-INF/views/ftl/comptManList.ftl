@@ -25,7 +25,7 @@
                         <th style="width: 150px;">发布时间</th>
                         <th>状态</th>
                         <th>置顶状态</th>
-                        <th style="width: 200px;">管理</th>
+                        <th style="width: 210px;">管理</th>
                     </tr>
                     <#if comptList?exists && (comptList?size>0)>
                         <#list comptList as compt>
@@ -66,7 +66,7 @@
                                 <#elseif compt.status == 3>
                                     <td><span style="color: green">通过审核 &nbsp;</span><a href="javascript:void(0)" alt="${compt.ID?if_exists}" class="btn btn-xs btn-warning btnCloseSignCompt">结束报名</a></td>
                                 <#elseif compt.status == 4>
-                                    <td><span style="color: orange">比赛进行中</span></td>
+                                    <td><span style="color: orange">比赛进行中</span><a href="/man/compt/sign/checkSignList/${compt.ID?if_exists}" class="btn btn-xs btn-warning" alt="${compt.ID?if_exists}">报名审核</a></td>
                                 <#elseif compt.status == 5>
                                     <td><span style="color: purple">比赛结束</span></td>
                                 <#elseif compt.status == 6>
@@ -79,28 +79,28 @@
                                 <#if compt.status == 1>
                                         <td>
                                             <a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-info">重新编辑</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 2>
-                                        <td><a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-primary" alt="${compt.ID}">重新交审</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                        <td><a href="/man/compt/updateEditGet?link=${compt.ID?if_exists}" class="btn btn-xs btn-primary" alt="${compt.ID?if_exists}">重新交审</a>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 3>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">报名审核</a>
-                                            <button class="btn btn-xs btn-danger btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <a href="/man/compt/sign/checkSignList/${compt.ID?if_exists}" class="btn btn-xs btn-warning" alt="${compt.ID?if_exists}">报名审核</a>
+                                            <button class="btn btn-xs btn-danger btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 4>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-xs btn-warning btnCloseCompt" alt="${compt.ID}">结束比赛</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs btn-default" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-warning btnCloseCompt" alt="${compt.ID?if_exists}">结束比赛</a>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
+                                            <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 5>
-                                        <td><a class="btn btn-xs btn-success btnConfirmResult" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
+                                        <td><a class="btn btn-xs btn-success btnConfirmResult" alt="${compt.ID?if_exists}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
                                         <td><span style="color: black">完成</span></td>
                                     <#else>
