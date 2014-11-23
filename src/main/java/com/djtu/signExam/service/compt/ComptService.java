@@ -14,6 +14,8 @@ public interface ComptService {
     public List<TCompt> getComByPage(String userId,Pageable pageable);
 
     public List<TCompt> getAllComByPage(Pageable pageable);
+    
+    public List<TCompt> getAllIndexListByPage(Pageable pageable);
 
     public TCompt getComptById(String id);
 
@@ -22,6 +24,8 @@ public interface ComptService {
     public boolean deleteComptById(String id);
 
     public Integer addCompt(TCompt tCompt);
+    
+    public boolean setToTop(String id,boolean isTop);
 
 
     //流程操作

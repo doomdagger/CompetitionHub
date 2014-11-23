@@ -12,7 +12,7 @@ public class SessionConst {
     public final static String U_USER = "CUR";
     public final static String U_USER_TYPE = "CUR_TYPE";
     public final static String U_USER_NAME = "CUR_NAME";
-    public final static String U_USER_LINK = "CUR_LINK";
+    public final static String U_USER_LINK = "CUR_LINK";//用户ID
     public final static String U_USER_ISTP = "CUR_ISTP";//最高权限
 
     public final static String REG_VALIDCODE = "VC";

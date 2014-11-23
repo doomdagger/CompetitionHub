@@ -8,14 +8,17 @@ import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.util.SessionConst;
 import com.djtu.signExam.util.SessionUtil;
 import com.djtu.signExam.util.StringConst;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -37,25 +40,13 @@ public class ComptAdminController {
 
     @RequestMapping(value={"/comptList","/"})
     public String list(HttpServletRequest request,Model model){
-        //Integer user_id = (Integer) SessionUtil.getValue(request, SessionConst.U_USER, SessionConst.U_USER_LINK);
-        //int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        Pageable pageable = Pageable.inPage(1,ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        List<TCompt> comptList = comptService.getAllComByPage(pageable);
-        //pageable.setPageCount(pageCount);
-        model.addAttribute("pageable",pageable);
-        model.addAttribute("comptList",comptList);
-        model.addAttribute(NAV_BAR,CURR_MAN_BAR);
-        return "adminComptManList";
+        return "redirect:/man/admin/comptList/1";
     }
-
+    
+    
     @RequestMapping("/comptList/{currpage}")
-    public String listInPage(HttpServletRequest request,@RequestParam int currpage,Model model){
-        //Integer user_id = (Integer) SessionUtil.getValue(request,SessionConst.U_USER,SessionConst.U_USER_LINK);
-        //get pageable
-        //int pageCount = comptService.getPageCount(ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        //currpage = (currpage<1 || currpage> pageCount)?1:currpage;
+    public String listInPage(HttpServletRequest request,@PathVariable int currpage,Model model){
         Pageable pageable = Pageable.inPage(currpage, ProjectPageConfig.MAN_COMP_LIST_PAGESIZE);
-        //pageable.setPageCount(pageCount);
         //get data
         List<TCompt> comptList = comptService.getAllComByPage(pageable);
         model.addAttribute("comptList",comptList);
@@ -63,7 +54,7 @@ public class ComptAdminController {
         model.addAttribute(NAV_BAR,CURR_MAN_BAR);
         return "adminComptManList";
     }
-
+    
     //改变状态
     @RequestMapping("/changeStatus")
     public @ResponseBody String changeStatus(@RequestParam String link,@RequestParam int status){

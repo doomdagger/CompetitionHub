@@ -99,6 +99,66 @@ public class TSignin extends EntityObject{
 		this.comptName = comptName;
 	}
 	/**
+	 * Description:赛事等级
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "comptLevel"</li>
+	 * 	 <li>Field Type  : "INT"</li>
+	 * 	 <li>Field Length: "10"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("comptLevel")
+	private int comptLevel;
+	public int getComptLevel() {
+		return comptLevel;
+	}
+	public void setComptLevel(int comptLevel) {
+		this.comptLevel = comptLevel;
+	}
+	/**
+	 * Description:主办单位
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "comptSponsor"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("comptSponsor")
+	private String comptSponsor;
+	public String getComptSponsor() {
+		return comptSponsor;
+	}
+	public void setComptSponsor(String comptSponsor) {
+		this.comptSponsor = comptSponsor;
+	}
+	/**
+	 * Description:发起赛事的学院名字
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "comptAdminer"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("comptAdminer")
+	private String comptAdminer;
+	public String getComptAdminer() {
+		return comptAdminer;
+	}
+	public void setComptAdminer(String comptAdminer) {
+		this.comptAdminer = comptAdminer;
+	}
+	/**
 	 * Description:小组编号，用于区分每个小组
 	 * <p>
 	 * Mapped field info in table:
@@ -217,6 +277,46 @@ public class TSignin extends EntityObject{
 	}
 	public void setCreditCard(String creditCard) {
 		this.creditCard = creditCard;
+	}
+	/**
+	 * Description:所在学院
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "academy"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("academy")
+	private String academy;
+	public String getAcademy() {
+		return academy;
+	}
+	public void setAcademy(String academy) {
+		this.academy = academy;
+	}
+	/**
+	 * Description:所在专业
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "profession"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("profession")
+	private String profession;
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 	/**
 	 * Description:
@@ -339,6 +439,26 @@ public class TSignin extends EntityObject{
 		this.isLeader = isLeader;
 	}
 	/**
+	 * Description:对消除学分有帮助
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isHelpCredit"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isHelpCredit")
+	private boolean isHelpCredit;
+	public boolean getIsHelpCredit() {
+		return isHelpCredit;
+	}
+	public void setIsHelpCredit(boolean isHelpCredit) {
+		this.isHelpCredit = isHelpCredit;
+	}
+	/**
 	 * Description:是否获奖
 	 * <p>
 	 * Mapped field info in table:
@@ -359,24 +479,44 @@ public class TSignin extends EntityObject{
 		this.isReward = isReward;
 	}
 	/**
-	 * Description:对消除学分有帮助
+	 * Description:获奖时间
 	 * <p>
 	 * Mapped field info in table:
 	 * <ul>
-	 * 	 <li>Field Name  : "isHelpCredit"</li>
-	 * 	 <li>Field Type  : "BIT"</li>
-	 * 	 <li>Field Length: "0"</li>
+	 * 	 <li>Field Name  : "rewardDate"</li>
+	 * 	 <li>Field Type  : "DATE"</li>
+	 * 	 <li>Field Length: "10"</li>
 	 *   <li>Refer Info  : ""</li>
 	 * </ul>
 	 * </p>
 	 */
-	@Column("isHelpCredit")
-	private boolean isHelpCredit;
-	public boolean getIsHelpCredit() {
-		return isHelpCredit;
+	@Column("rewardDate")
+	private Date rewardDate;
+	public Date getRewardDate() {
+		return rewardDate;
 	}
-	public void setIsHelpCredit(boolean isHelpCredit) {
-		this.isHelpCredit = isHelpCredit;
+	public void setRewardDate(Date rewardDate) {
+		this.rewardDate = rewardDate;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "reward"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("reward")
+	private String reward;
+	public String getReward() {
+		return reward;
+	}
+	public void setReward(String reward) {
+		this.reward = reward;
 	}
 	/**
 	 * Description:
@@ -477,5 +617,45 @@ public class TSignin extends EntityObject{
 	}
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "teacher"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("teacher")
+	private String teacher;
+	public String getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "creditCardBank"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("creditCardBank")
+	private String creditCardBank;
+	public String getCreditCardBank() {
+		return creditCardBank;
+	}
+	public void setCreditCardBank(String creditCardBank) {
+		this.creditCardBank = creditCardBank;
 	}
 }

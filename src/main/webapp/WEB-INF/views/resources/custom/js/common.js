@@ -51,7 +51,7 @@ $(document).ready(function(){
                     $("#btnIndexLogin").attr("disabled",false);
                     $("#afterLoginHref").attr("href",json.usertypeSucc==0 ? "/student/" : "/man/");
                     $("#afterLogin").fadeIn();
-                },2000);//loading
+                },500);//loading
             }else{
                 //登录失败
                 $("#accountTips").css("color","red");
@@ -60,7 +60,7 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $("#btnIndexLogin").html("登录");
                     $("#btnIndexLogin").attr("disabled",false);
-                },2000);
+                },1000);
             }
         });
     });
@@ -72,7 +72,7 @@ $(document).ready(function(){
         $(this).html("<img src='/resources/img/loading.gif'width='15px;'> 正在注销...");
         setTimeout(function(){
             location.href="/user/logout";
-        },2000);
+        },1000);
     });
 
 

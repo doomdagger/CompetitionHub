@@ -45,7 +45,7 @@
             <#--upload files-->
             <div class="alert alert-info">
                 <h4><span class="glyphicon glyphicon-upload"></span><b>附件上传</b></h4>
-                <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadFile?link=${link?if_exists}" id="comptUploadFile">
+                <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadAttach?link=${link?if_exists}" id="comptUploadFile">
                     <div id="uploadFileList">
                         <div class="form-group">
                             <input type="file" class="col-sm-3 upFile" name="upFile">
@@ -53,7 +53,7 @@
                     </div>
                     <input type="hidden" value="${link?if_exists}" name="link" id="link">
                 </form>
-                <button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>
+                <!--<button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>-->
                 <button type="button" class="btn btn-xs btn-success" id="btnSubmitFile">上传附件</button>
                 <p>备注：
                 <p>添加完成后，点击<b>"上传附件"</b>按钮开始上传

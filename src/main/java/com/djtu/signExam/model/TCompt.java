@@ -538,4 +538,24 @@ public class TCompt extends EntityObject{
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
 	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "isReward"</li>
+	 * 	 <li>Field Type  : "BIT"</li>
+	 * 	 <li>Field Length: "0"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("isReward")
+	private boolean isReward;
+	public boolean getIsReward() {
+		return isReward;
+	}
+	public void setIsReward(boolean isReward) {
+		this.isReward = isReward;
+	}
 }

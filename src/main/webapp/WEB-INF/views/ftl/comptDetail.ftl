@@ -90,7 +90,7 @@
             <div class="my-comDetail-content" style="font-size: 15px;">${compt.comptIntro?if_exists}</div>
         </div>
     </div>
-
+	
     <!--exam appendix-->
     <div class="alert alert-info">
         <div class="">
@@ -99,7 +99,7 @@
                 <ol>
                     <#if attachList?exists>
                         <#list attachList as item>
-                            <li><a href="${item.savepath?if_exists}" title="点击下载-${item.name?if_exists}">${item.name?if_exists}</a>&nbsp;<span> 上传时间：[ ${item.createtime?if_exists} ]</span></li>
+                            <li><a target="_blank" href="/download/download?path=${item.savepath?if_exists}" title="点击下载-${item.name?if_exists}">${item.name?if_exists}</a>&nbsp;<span> 上传时间：[ ${item.createtime?if_exists} ]</span></li>
                         </#list>
                     </#if>
                 </ol>

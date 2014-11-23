@@ -30,7 +30,7 @@
                     </tr>
                     <#if comptList?exists && (comptList?size>0)>
                         <#list comptList as compt>
-                            <tr id="_${compt.ID?if_exists}">
+                            <tr id="_${compt.ID?if_exists}" class="text-center">
                                 <td>${compt_index+1}</td>
                                 <td><a href="javascript:void(0)" onclick="window.open('/compt/detail?link=${compt.ID?if_exists}')">${compt.title?if_exists}</a></td>
                                 <#--赛事等级-->
@@ -71,9 +71,12 @@
                                 <#elseif compt.status == 4>
                                     <td><span style="color: orange">比赛进行中</span></td>
                                 <#elseif compt.status == 5>
-                                    <td><span style="color: purple">比赛结束</span></td>
+                                    <td><span style="color: purple">比赛结束 & <a class="btn btn-xs btn-success" target="_blank" href="/man/compt/sign/result/checkResult?comptLink=${compt.ID?if_exists}" title="学院尚未做最终确认">预览赛果</a></span></td>
                                 <#elseif compt.status == 6>
-                                    <td><span style="color: black">完成</span></td>
+                                    <td>
+                                    	<span style="color: black"><b>完成</b>&nbsp;
+                                    	<a class="btn btn-xs btn-success" target="_blank" href="/man/compt/sign/result/checkResult?comptLink=${compt.ID?if_exists}">查看赛果</a></span>
+                                    </td>
                                 <#else>
                                     <td>零状态</td>
                                 </#if>
@@ -87,18 +90,18 @@
                                     <#elseif compt.status == 2>
                                         <td><button class="btn btn-xs btn-primary btnAccess" alt="${compt.ID}">批准通过</button>
                                         </td>
-                                    <#elseif (compt.status>2) || (compt.status<7)>
-                                        <td><span style="color: green">通过审核</span></td>
-                                    <#--<#elseif compt.status == 4>
-                                        <td>
-                                            <a href="#" class="btn btn-xs btn-warning" alt="${compt.ID}">结束比赛</a>
-                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID}">删除赛事</button>
-                                            <a class="btn btn-xs" alt="${compt.ID}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
-                                        </td>
+                                    <#elseif (compt.status>2) && (compt.status<5)>
+                                        <td><span style="color: green">已通过审核</span></td>
                                     <#elseif compt.status == 5>
-                                        <td><a class="btn btn-xs btn-success" alt="${compt.ID}">确认结果 & 成绩录入</a></td>
+                                        <td>
+                                        	<#if compt.isReward>
+                                        		<span>已上传材料</span>
+                                    		<#else>
+                                    			<span>等待结果</span>
+                                        	</#if>
+                                        </td>
                                     <#elseif compt.status == 6>
-                                        <td><span style="color: black">完成</span></td>-->
+	                                    <td><a href="/download/compt/sign/total/${compt.ID?if_exists}">导出赛事报表</a></td>
                                     <#else>
                                         <td>零状态</td>
                                 </#if>

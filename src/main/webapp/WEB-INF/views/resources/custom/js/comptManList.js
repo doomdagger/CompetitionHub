@@ -11,6 +11,8 @@ $(document).ready(function(){
 
     //删除赛事
     $(".btnDelCompt").click(function(){
+    	console.log($("#linkDelCompt").val());
+    	console.log($(this).attr());
         $("#linkDelCompt").val($(this).attr("alt"));
     });
     //确定删除赛事
@@ -116,7 +118,7 @@ $(document).ready(function(){
                     currTd.html("<span style=\"color: green\"><img src='/resources/img/loading3.gif'> 正在更新状态...</span>");
                     currTd.html();
                     setTimeout(function(){
-                        currTd.html("<a class=\"btn btn-xs btn-success btnConfirmResult\" alt="+link+">确认结果 & 成绩录入</a>");
+                        currTd.html("<a class=\"btn btn-xs btn-success btnConfirmResult\" href=\"/man/compt/sign/result/confirmResult?comptLink="+link+"\" alt="+link+">确认结果 & 成绩录入</a>");
                         prevTd.html("<span style=\"color: purple\">比赛结束</span>");
                     },1000);
                 }else{
@@ -131,8 +133,8 @@ $(document).ready(function(){
         }
     });
 
-    $(document).delegate("a.btnConfirmResult","click",function(){
+    /*$(document).delegate("a.btnConfirmResult","click",function(){
         var link = $(this).attr("alt");
         location.href = "/man/compt/confirmResult?link="+link;
-    });
+    });*/
 });

@@ -1,13 +1,10 @@
 package com.djtu.signExam.util;
 
-import com.djtu.signExam.dao.support.ISQLProvider;
 import com.djtu.signExam.model.support.AnnotatedModel;
 import com.djtu.signExam.model.support.EntityObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

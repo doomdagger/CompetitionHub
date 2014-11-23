@@ -3,9 +3,12 @@ package com.djtu.signExam.action.news;
 import com.djtu.signExam.config.ProjectPageConfig;
 import com.djtu.signExam.dao.support.Pageable;
 import com.djtu.signExam.model.TCompt;
+import com.djtu.signExam.model.TComptCalendar;
 import com.djtu.signExam.model.TNews;
+import com.djtu.signExam.service.calendar.CalendarService;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.service.news.NewsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,23 +30,13 @@ public class NewsController {
     private NewsService newsService;
     @Autowired
     private ComptService comptService;
+    @Autowired
+    private CalendarService calService;
 
     //用户浏览列表,包含分页
     @RequestMapping(value = {"/list","/"})
     public String broList(Model model){
-        //get news list
-        Pageable pageable = Pageable.inPage(1,ProjectPageConfig.NEWS_LIST_PAGESIZE);
-        List<TNews> newsList = newsService.getAllNewsByPage(pageable);
-        //int pageCount = newsService.getPageCount(ProjectPageConfig.NEWS_LIST_PAGESIZE);
-        //pageable.setPageCount(pageCount);
-        //get compt list
-        Pageable comptPanel = Pageable.inPage(1,ProjectPageConfig.COMP_IN_COMP_LIST_NUM);
-        List<TCompt> comptList = comptService.getAllComByPage(comptPanel);
-        //model data
-        model.addAttribute("pageable",pageable);
-        model.addAttribute("newsList",newsList);
-        model.addAttribute("comptList",comptList);
-        return "newsList";
+        return "redirect:/news/list/1";
     }
 
     @RequestMapping("/list/{currpage}")
@@ -58,9 +51,13 @@ public class NewsController {
         Pageable comptPanel = Pageable.inPage(1,ProjectPageConfig.COMP_IN_COMP_LIST_NUM);
         List<TCompt> comptList = comptService.getAllComByPage(comptPanel);
         //model data
+        
+        //get calendar list
+        List<TComptCalendar> calList = calService.getAllListInPage(Pageable.inPage(1, ProjectPageConfig.CAL_LIST_PAGESIZE));
         model.addAttribute("newsList",newsList);
         model.addAttribute("pageable",pageable);
         model.addAttribute("comptList",comptList);
+        model.addAttribute("calList", calList);
         return "newsList";
     }
 

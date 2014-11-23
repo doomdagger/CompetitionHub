@@ -67,6 +67,11 @@
             <!--<mvc:exclude-mapping path="/man/*"/>-->
             <bean class="com.djtu.signExam.interceptor.ManControllerInterceptor"/>
         </mvc:interceptor>
+        <!-- 拦截上传文件的请求 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="com.djtu.signExam.interceptor.FileUploadIntercepter"/>
+        </mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- conversion&formatter service 转换服务 -->

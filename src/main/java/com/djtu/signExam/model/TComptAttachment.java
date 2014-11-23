@@ -238,4 +238,24 @@ public class TComptAttachment extends EntityObject{
 	public void setTeamNo(String teamNo) {
 		this.teamNo = teamNo;
 	}
+	/**
+	 * Description:无
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "workName"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("workName")
+	private String workName;
+	public String getWorkName() {
+		return workName;
+	}
+	public void setWorkName(String workName) {
+		this.workName = workName;
+	}
 }

@@ -1,8 +1,6 @@
 package com.djtu.signExam.action.common;
 
-import com.djtu.signExam.util.CompressPicUtils;
 import com.djtu.signExam.util.UploadConst;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
@@ -18,9 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

@@ -7,9 +7,16 @@
 
     <div class="col-sm-10">
         <div class="alert alert-info">
-            <a href="/man/compt/list">赛事管理</a> / <a href="/man/compt/sign/checkSignList/2">报名审核</a> / <span>详细信息</span>
+            <a href="/man/compt/list">赛事管理</a> / <a href="/man/compt/sign/checkSignList/${leader.skTCompt?if_exists}">报名审核</a> / <span>详细信息</span>
         </div>
-
+		
+		<div class="alert alert-info">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span><b>指导老师：</b> ${leader.teacher?if_exists}</span>
+				</div>
+			</div>
+		</div>
         <#--leader info-->
         <div class="alert alert-info">
             <div class="panel panel-default">
@@ -19,33 +26,54 @@
                             <th width="20%"><span><b>(组长)个人信息</b></span></th>
                         </tr>
                         <tr>
-                            <td>姓名</td>
-                            <td>JOECHOW</td>
+                            <td><b>姓名</b></td>
+                            <td>${leaderInfo.username?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>学院</td>
-                            <td>软件学院</td>
+                            <td><b>学院</b></td>
+                            <td>${leaderInfo.academy?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>专业</td>
-                            <td>软件工程</td>
+                            <td><b>专业</b></td>
+                            <td>${leaderInfo.profession?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>学号</td>
-                            <td>联系手机</td>
+                            <td><b>学号</b></td>
+                            <td>${leader.number?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>邮箱</td>
-                            <td>1209202022@qq.com</td>
+                            <td><b>邮箱</b></td>
+                            <td>${leader.email?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>手机</td>
-                            <td>18640886602</td>
+                            <td><b>手机</b></td>
+                            <td>${leader.cellphone?if_exists}</td>
                         </tr>
                         <tr>
-                            <td>银行卡号</td>
-                            <td>6222 8888 8888 8888</td>
+                            <td><b>银行卡号</b></td>
+                            <td>${leader.creditCard?if_exists}</td>
                         </tr>
+                        <tr>
+                            <td><b>作品名称</b></td>
+                            <td>
+	                            <#if attach?exists>
+	                            	<a href="/download/download?path=${attach.savepath?if_exists}"><span class="glyphicon glyphicon-floppy-disk"/>${attach.name?if_exists}</a>
+	                            	(点击文件进行下载)
+	                            <#else>
+	                        		无
+	                            </#if>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>作品描述</b></td>
+                            <td><#if attach?exists>${attach.introduction?if_exists}<#else>无</#if></td>
+                        </tr>
+                        <!--
+                        <tr>
+                            <td><b>所属银行</b></td>
+                            <td>${leader.creditCardBank}</td>
+                        </tr>
+                        -->
                     </table>
                 </div><#--panel-body-->
 
@@ -63,19 +91,35 @@
                         <tr class="bg-primary">
                             <th>序号</th>
                             <th>姓名</th>
+                            <th>学院</th>
+                            <th>专业</th>
                             <th>学号</th>
                             <th>邮箱</th>
                             <th>联系手机</th>
                             <th>学分帮助</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>组员1</td>
-                            <td>101810000</td>
-                            <td>8888@qq.com</td>
-                            <td>13800138000</td>
-                            <td><span style="color: #ff0000">是</span></td>
-                        </tr>
+                        <#if signList?exists && (signList?size>0) >
+                        	<#list signList as item>
+                        		<tr>
+		                            <td>${item_index+1}</td>
+		                            <td>${item.name?if_exists}</td>
+		                            <td>${item.academy?if_exists}</td>
+		                            <td>${item.profession?if_exists}</td>
+		                            <td>${item.number?if_exists}</td>
+		                            <td>${item.email?if_exists}</td>
+		                            <td>${item.cellphone?if_exists}</td>
+		                            <td>
+		                            	<#if item.isHelpCredit?if_exists>
+		                            		<span style="color: #ff0000">是</span>
+	                            		<#else>
+	                            			<span>否</span>
+		                            	</#if>
+	                            	</td>
+		                        </tr>
+                        	</#list>
+                    	<#else>
+                    		<tr><td><span><b>无组员</b></span></td></tr>
+                        </#if>
                     </table>
                 </div><#--panel-body-->
             </div><#--panel-default-->

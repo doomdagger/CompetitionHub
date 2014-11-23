@@ -7,14 +7,22 @@ import com.djtu.signExam.model.TComptAttachment;
 import com.djtu.signExam.service.compt.ComptAttchmentService;
 import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +30,7 @@ import java.util.List;
 
 /**
  * Created by JOECHOW on 2014/8/21.
+ * 学院对赛事后台管理和操作
  */
 
 @Controller
@@ -38,6 +47,7 @@ public class ComptManController {
     private final String CURR_PUB_BAR = "comptPub";
     private final String CURR_MAN_BAR = "comptMan";
 
+    
     @RequestMapping(value={"/list","/"})
     public String list(HttpServletRequest request,Model model){
 
@@ -128,7 +138,6 @@ public class ComptManController {
         compt.setIsSupport(isSupport == 1 ? true : false);
         compt.setSupportIntro(supportIntro);
         compt.setIsDelete(false);
-        compt.setStatus(1);
         compt.setCreatetime(new Date());
         compt.setIsVaild(currentStatus < 2 ? false : true);
         compt.setIsTop(false);
@@ -165,16 +174,79 @@ public class ComptManController {
         //项目绝对路径
         String savePath = request.getServletContext().getRealPath(UploadConst.FILE_RES_PATH);
         List<String> fileNameList = FileUploader.uploadFile(request,response,savePath);
-        for(String name : fileNameList){
-            TComptAttachment tComptAttachment = new TComptAttachment();
+        if(fileNameList.size() < 1){
+        	for(String name : fileNameList){
+                TComptAttachment tComptAttachment = new TComptAttachment();
+                tComptAttachment.setCreatetime(new Date());
+                tComptAttachment.setIsDelete(false);
+                tComptAttachment.setName(name);
+                tComptAttachment.setSkTCompt(new Integer(link));
+                tComptAttachment.setType(true);//true :1 即为赛事附件
+                tComptAttachment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
+                comptAttchmentService.addOne(tComptAttachment);
+            }
+        }
+        redirectAttributes.addAttribute("link",link);
+        return "redirect:/man/compt/uploadGet";
+    }
+    
+    //附件上传-2014-11-17
+    @RequestMapping(value = "/uploadAttach",method = RequestMethod.POST)
+    public String uploadAttach(@RequestParam String link,HttpServletRequest request,HttpServletResponse response,@RequestParam MultipartFile upFile,RedirectAttributes redirectAttributes) throws IOException{
+    	
+    	String savePath = request.getServletContext().getRealPath(UploadConst.FILE_RES_PATH);
+    	
+    	if (!new File(savePath).isDirectory())
+        {
+        	new File(savePath).mkdirs();
+        }
+    	
+    	//获取文件输出流
+        System.out.println("文件大小："+upFile.getSize());
+        
+        if(upFile.getSize() > UploadConst.COMMON_MAX_FILESIZE){
+        	response.setHeader("text/html","UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("上传文件大小超出10M");
+            return null;
+        }
+        
+        String urlPath = "";
+        try {
+        	//获取上传文件旧名
+            String name = upFile.getOriginalFilename();
+            //获取后缀名
+            //String suffix = name.substring(name.lastIndexOf(".")+1);
+            //创建上传目标文件
+            //String newFileName = "COVER"+System.currentTimeMillis() + new Random(50000).nextInt() + "."+suffix;
+            File targetFile = new File(savePath,name);
+            //获得保存数据库的http访问路径
+            urlPath = UploadConst.FILE_URL_PATH.replaceAll("\\\\", "/")+name;
+            //创建输入输出流
+        	InputStream is = upFile.getInputStream();
+        	FileOutputStream fos = new FileOutputStream(targetFile);
+        	FileCopyUtils.copy(is, fos);
+			//打开上传图片文件夹，调试用
+			//Runtime.getRuntime().exec("cmd /c start "+savePath);
+        	
+        	
+        	//add to 数据库
+        	TComptAttachment tComptAttachment = new TComptAttachment();
             tComptAttachment.setCreatetime(new Date());
             tComptAttachment.setIsDelete(false);
             tComptAttachment.setName(name);
             tComptAttachment.setSkTCompt(new Integer(link));
             tComptAttachment.setType(true);//true :1 即为赛事附件
-            tComptAttachment.setSavepath(UploadConst.FILE_URL_PATH.replaceAll("\\\\","\\\\\\\\")+name);
+            tComptAttachment.setSavepath(urlPath);
             comptAttchmentService.addOne(tComptAttachment);
-        }
+            
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("上传文件失败");
+			response.setHeader("text/html","UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("上传文件失败");
+		}
         redirectAttributes.addAttribute("link",link);
         return "redirect:/man/compt/uploadGet";
     }
@@ -211,8 +283,6 @@ public class ComptManController {
         model.addAttribute("link",link);
         model.addAttribute(NAV_BAR,CURR_PUB_BAR);
         model.addAttribute("status",compt.getStatus());//当前状态字
-        System.out.println("上传：" + compt.getNeedFileIntro());
-
         return "comptManPub";
     }
 
@@ -236,17 +306,19 @@ public class ComptManController {
     //Ajax 置顶/取消置顶 接收参数type 0为取消置顶 1为置顶
     @RequestMapping("/manTotop/{value}")
     public @ResponseBody String manTotop(@PathVariable int value,@RequestParam String link){
+    	boolean isSucc = false;
         if(!"".equals(link)){
-            TCompt compt = comptService.getComptById(link);
+            //TCompt compt = comptService.getComptById(link);
             if(1==value){
-                compt.setCreatetime(new Date());
-                compt.setIsTop(true);
+                //compt.setCreatetime(new Date());
+                //compt.setIsTop(true);
+            	isSucc = comptService.setToTop(link, true);
             }else{
-                compt.setIsTop(false);
+            	isSucc = comptService.setToTop(link, false);
             }
-            comptService.updateCompt(compt);
+            //comptService.updateCompt(compt);
         }
-        return StringConst.AJAX_SUCCESS;
+        return isSucc?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
     }
 
     @RequestMapping(value = "/updateStatusByAjax",method = RequestMethod.POST)
@@ -257,7 +329,7 @@ public class ComptManController {
         return StringConst.AJAX_FAIL;
     }
 
-    @RequestMapping("confirmResult")
+    @RequestMapping("/confirmResult")
     public String confirmResult(String link,Model model){
         TCompt compt = comptService.getComptById(link);
         model.addAttribute("compt", compt);

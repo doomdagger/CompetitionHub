@@ -8,32 +8,40 @@
         <div class="alert alert-info">
             赛事报名概况
         </div>
-
+		
             <div class="alert">
 
                 <#--&lt;#&ndash;附件&ndash;&gt;
                 <#if compt?exists && compt.isNeedFile?if_exists>
-
+				
                 </#if>-->
 
                 <#--comptetition-->
                 <#if compt?exists && compt?has_content>
                     <div class="alert alert-info">
                         <p>赛事名称：<a target="_blank" href="/compt/detail?link=${compt.ID?if_exists}"><b>${compt.title?if_exists}</b></a>
-                        <p>参赛形式：<#if compt.spType?if_exists><b>小组赛</b><#else><b>个人赛</b></#if>
+                        <p>参赛形式：<#if !compt.spType?if_exists><b>小组赛（最多${compt.spNum}人）</b><#else><b>个人赛</b></#if>
                         <p>作品上传：<#if compt.isNeedFile?if_exists><span style="color: #ff0000"><b>需要</b> </span><#else><b>不需要</b></#if>
                         <p>报名状态：<#if compt.status?exists && compt.status==3><span style="color: green"><b>可报名</b> </span><#else><b>报名已截止</b></#if>
                         <br/>
                         <p>备注：报名截止后将无法继续添加成员
                     </div>
                 </#if>
-
+				
                 <#--成员列表-->
                 <div class="alert alert-info">
                 <#-- status大于等于4则已经是结束报名状态 -->
                     <h4>
                         <b>参赛成员</b>
-                        <#if compt?exists && compt.status?exists && !compt.spType?if_exists && compt.status==3> <a class="btn btn-xs btn-success" id="btnAddMember">添加成员</a></#if>
+                        <#if compt?exists && compt.status?exists && !compt.spType?if_exists && compt.status==3>
+                        	<#if canAdd?if_exists>
+                        		<a class="btn btn-xs btn-success" id="btnAddMember">添加成员</a>
+                    		<#else>
+                    			<a class="btn btn-xs btn-danger" href="javascript:void(0)" disabled>已达到最大人数</a>
+                        	</#if>
+                    	<#else>
+                    		<span>(个人赛不能添加成员/报名已截止)</span>
+                        </#if>
                     </h4>
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -41,6 +49,8 @@
                                 <tr class="bg-primary">
                                     <th>序号</th>
                                     <th>姓名</th>
+                                    <th>学院</th>
+                                    <th>专业</th>
                                     <th>学号</th>
                                     <th>邮箱</th>
                                     <th>联系手机</th>
@@ -52,6 +62,8 @@
                                         <tr id="_${item.ID?if_exists}">
                                             <td>${item_index+1}</td>
                                             <td>${item.name?if_exists}</td>
+                                            <td>${item.academy?if_exists}</td>
+                                            <td>${item.profession?if_exists}</td>
                                             <td>${item.number?if_exists}</td>
                                             <td>${item.email?if_exists}</td>
                                             <td>${item.cellphone?if_exists}</td>
@@ -77,23 +89,31 @@
                     <div class="alert alert-info" id="divAddTeamMember" style="display: none">
                     <form role="form" id="formAddTeamMember" action="" method="post">
                         <div class="form-group">
-                            <label>姓名</label>
+                            <label for="name">姓名</label>
                             <input class="form-control" type="text" name="name" id="name" placeholder="姓名">
                         </div>
                         <div class="form-group">
-                            <label>学号</label>
+                            <label for="academy">学院</label>
+                            <input class="form-control" type="text" name="academy" id="academy" placeholder="学院">
+                        </div>
+                        <div class="form-group">
+                            <label for="profession">专业</label>
+                            <input class="form-control" type="text" name="profession" id="profession" placeholder="专业">
+                        </div>
+                        <div class="form-group">
+                            <label for="NO">学号</label>
                             <input class="form-control" type="text" name="NO" id="NO" placeholder="学生卡学号">
                         </div>
                         <div class="form-group">
-                            <label>邮箱</label>
+                            <label for="email">邮箱</label>
                             <input class="form-control" type="text" name="email" id="email" placeholder="组员email不能重复">
                         </div>
                         <div class="form-group">
-                            <label>联系手机</label>
+                            <label for="cellphone">联系手机</label>
                             <input class="form-control" type="text" name="cellphone" id="cellphone" placeholder="有效联系手机">
                         </div>
                         <div class="form-group">
-                            <label>学分帮助</label>
+                            <label>是否涉及消除处分</label>
                             <div class="form-control">
                                 <input type="radio" name="isHelp" value="1">是
                                 <input type="radio" name="isHelp" value="0" checked>否
@@ -116,6 +136,14 @@
                             <input class="form-control" type="text" name="e_name" id="e_name">
                         </div>
                         <div class="form-group">
+                            <label>学院</label>
+                            <input class="form-control" type="text" name="e_academy" id="e_academy">
+                        </div>
+                        <div class="form-group">
+                            <label>专业</label>
+                            <input class="form-control" type="text" name="e_profession" id="e_profession">
+                        </div>
+                        <div class="form-group">
                             <label>学号</label>
                             <input class="form-control" type="text" name="e_NO" id="e_NO">
                         </div>
@@ -131,14 +159,14 @@
                         <input type="hidden" id="originEmail" value="0">
                         <input type="hidden" id="signLink" value="0">
                         <div class="form-group" title="有效卡号，用于获奖后的奖金发放" style="display: none" id="divForCard">
-                            <label for="cellphone">银行卡号</label>
+                            <label for="creditCard">银行卡号</label>
                             <input type="text" class="form-control" name="creditCard" id="creditCard" placeholder="银行卡号">
                         </div>
                         <div class="form-group">
                             <label>学分帮助</label>
                             <div class="form-control">
                                 <input type="radio" name="e_isHelp" value="1">是
-                                <input type="radio" name="e_isHelp" value="0" checked>否
+                                <input type="radio" name="e_isHelp" value="0">否
                             </div>
                         </div>
                     <#--button-->
@@ -148,13 +176,13 @@
                         </div>
                     </form>
                 </div>
-
+				
                 <#--附件-->
                 <#if compt?exists && compt.isNeedFile?exists && compt.isNeedFile>
                     <div class="alert alert-info">
                         <h4>
                             <b>参赛作品</b>
-                            <small>(<span style="color: #ff0000">*需要上传*</span> 要求所有作品文件压缩到一个rar/zip压缩包再上传)</small>
+                            <small>(<span style="color: #ff0000">*需要上传·最大10M*</span> 要求所有作品文件压缩到一个rar/zip压缩包再上传，选择上传后要输入作品名和描述)</small>
                             <label class="btn btn-xs btn-success" for="inputForFile">上传作品</label>
                             <button type="button" class="btn btn-xs btn-warning" id="btnCheckForNeedFileIntro">查看附件上传说明</button>
                         </h4>
@@ -167,11 +195,15 @@
                         </div>
                         <#--upload form-->
                         <div id="divForUploadForm" style="display: none">
-                            <form role="form" id="formForNeedFile" method="post" enctype="multipart/form-data" action="">
+                            <form role="form" id="formForNeedFile" method="post" enctype="multipart/form-data" action="/student/addWorks">
 
                                 <div class="form-group" id="divForFileName">
                                     <label>文件名</label>
                                     <label class="form-control"><span class="glyphicon glyphicon-file" id="spanForFileName"></span></label>
+                                </div>
+                                <div class="form-group">
+                                	<label for="workName">作品名</label>
+                                	<input id="workName" class="form-control" type="text" name="workName" placeholder="输入团队作品的名字">
                                 </div>
                                 <div class="form-group">
                                     <label>备注说明</label>
@@ -279,6 +311,8 @@
         $("#btnSubmitForm").click(function(){
             //check
             if(isEmpty($("#name").val())
+            		|| isEmpty($("#academy").val())
+            		|| isEmpty($("#profession").val())
                     || isEmpty($("#NO").val())
                     || isEmpty($("#email").val())
                     || isEmpty($("#cellphone").val())
@@ -288,7 +322,10 @@
             }
             var isHelp = $("input[name='isHelp']:checked").val();
             var url = "/student/addTeamMember";
-            var data = {"name":$("#name").val(),"NO":$("#NO").val(),"email":$("#email").val(),"cellphone":$("#cellphone").val(),"isHelp":isHelp,"link":$("#link").val()};
+            var data = {"name":$("#name").val(),"NO":$("#NO").val(),
+            			"academy":$("#academy").val(),"profession":$("#profession").val(),
+            			"email":$("#email").val(),"cellphone":$("#cellphone").val(),
+            			"isHelp":isHelp,"link":$("#link").val()};
             console.log(data);
             $.ajax({
                 url: url,
@@ -332,9 +369,13 @@
                     }
                     if(json.data.isHelpCredit){
                         $("input[name='e_isHelp']:first").attr("checked",true);
+                    }else{
+                    	$("input[name='e_isHelp']:last").attr("checked",true);
                     }
                     $("#signLink").val(json.data.ID);
                     $("#e_name").val(json.data.name);
+                    $("#e_academy").val(json.data.academy);
+                    $("#e_profession").val(json.data.academy);
                     $("#e_NO").val(json.data.number);
                     $("#e_email").val(json.data.email);
                     $("#originEmail").val(json.data.email);
@@ -352,6 +393,8 @@
         $("#btnSubmitFormEdit").click(function(){
             //check
             if(isEmpty($("#e_name").val())
+            		|| isEmpty($("#e_academy").val())
+            		|| isEmpty($("#e_profession").val())
                     || isEmpty($("#e_NO").val())
                     || isEmpty($("#e_email").val())
                     || isEmpty($("#e_cellphone").val())
@@ -363,11 +406,12 @@
             var isHelp = $("input[name='e_isHelp']:checked").val();
             var url = "/student/confirmEditMember";
             var data = {"name":$("#e_name").val(),"NO":$("#e_NO").val(),"email":$("#e_email").val(),
+            	"academy":$("#e_academy").val(),"profession":$("#e_profession").val(),
                 "cellphone":$("#e_cellphone").val(),"isHelp":isHelp,
                 "creditCard":$("#creditCard").val(),"link":$("#link").val(),
                 "originEmail":$("#originEmail").val(),"signLink":$("#signLink").val()
             };
-            console.log(data);
+            //console.log(data);
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -414,10 +458,11 @@
         });
         /*确定上传*/
         $("#btnForConfirmUpload").click(function(){
-            var link = $("#upLink").val();
-            var teamNo = $("#upTeamNo").val();
-            var intro = $("#needFileIntro").val();
-            $("#formForNeedFile").attr("action",encodeURI(encodeURI("/student/uploadWorks?link="+link+"&teamNo="+teamNo+"&needFileIntro="+intro)));
+            //var link = $("#upLink").val();
+            //var teamNo = $("#upTeamNo").val();
+            //var intro = $("#needFileIntro").val();
+            //var workName = $("#workName").val();
+            //$("#formForNeedFile").attr("action",encodeURI(encodeURI("/student/uploadWorks?link="+link+"&teamNo="+teamNo+"&needFileIntro="+intro+"&workName="+workName)));
             $("#formForNeedFile").submit();
         });
         /*删除作品*/

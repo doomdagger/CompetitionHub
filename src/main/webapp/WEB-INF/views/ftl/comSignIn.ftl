@@ -59,10 +59,18 @@
                             <label for="cellphone">银行卡号</label>
                             <input type="text" class="form-control" id="creditCard" name="creditCard" placeholder="银行卡号" value="${signInInfo.creditCard?if_exists}">
                         </div>
+                        <div class="form-group" title="有效卡号，用于获奖后的奖金发放">
+                            <label for="cellphone">所属银行</label>
+                            <input type="text" class="form-control" id="creditCardBank" name="creditCardBank" placeholder="所属银行" value="${signInInfo.creditCardBank?if_exists}">
+                        </div>
+                        <div class="form-group" title="赛事指导老师">
+                        	<label for="teacher">指导老师</label>
+                        	<input type="text" id="teacher" name="teacher" placeholder="指导老师,确定后无法修改" value="${signInInfo.teacher?if_exists}">
+                        </div>
                         <div class="form-group" title="有过教学处分的同学勾选">
                             <label for="cellphone">教学帮助</label>
                             <label class="form-control">
-                                <input type="checkbox" name="isHelpCredit" <#if signInInfo.isHelpCredit?if_exists>checked="true"</#if> >是否有消除处分奖励
+                                <input type="checkbox" name="isHelpCredit" <#if signInInfo.isHelpCredit?if_exists>checked="true"</#if> >是否涉及消除处分
                             </label>
                         </div>
                     </div>
@@ -81,6 +89,10 @@
                         <div class="form-group" title="有效卡号，用于获奖后的奖金发放">
                             <label for="cellphone">银行卡号</label>
                             <input type="text" class="form-control" name="creditCard" id="creditCard" placeholder="银行卡号" value="${student.creditCard?if_exists}">
+                        </div>
+                        <div class="form-group" title="赛事指导老师">
+                        	<label for="teacher">指导老师</label>
+                        	<input type="text" class="form-control" id="teacher" name="teacher" placeholder="指导老师" value="${student.teacher?if_exists}">
                         </div>
                         <div class="form-group" title="有过教学处分的同学勾选">
                             <label for="cellphone">教学帮助</label>

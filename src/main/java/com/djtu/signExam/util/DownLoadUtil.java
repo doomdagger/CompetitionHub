@@ -3,7 +3,6 @@ package com.djtu.signExam.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URL;
 import java.net.URLEncoder;
 
 /**
@@ -23,7 +22,7 @@ public class DownLoadUtil {
                     OutputStream outs=response.getOutputStream();//获取文件输出IO流
                     BufferedOutputStream bouts=new BufferedOutputStream(outs);
                     response.setContentType("application/x-download");//设置response内容的类型
-                    String[] pieces = path.split("\\\\");
+                    String[] pieces = path.split("/");
                     path = pieces[pieces.length-1];
                     response.setHeader("Content-disposition","attachment;filename="+ URLEncoder.encode(path, "UTF-8"));//设置头部信息
                     int bytesRead = 0;

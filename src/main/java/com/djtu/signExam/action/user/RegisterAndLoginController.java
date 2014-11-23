@@ -103,7 +103,7 @@ public class RegisterAndLoginController {
 
 
 
-    //login and set the login session
+    //login and set the login session,设置登陆session
     @RequestMapping(value = "/indexLoginStudent",method = RequestMethod.POST)
     public @ResponseBody String indexLoginStudent(HttpServletRequest request,@RequestParam String username,@RequestParam String pwd){
         TUserStudent student = new TUserStudent();

@@ -5,7 +5,7 @@
 
     <div class="col-sm-10">
         <div class="alert alert-info">
-            赛事管理
+            	赛事管理
         </div>
         <!--table th-->
         <div class="alert">
@@ -18,7 +18,7 @@
             </div>
             <div>
                 <table class="table table-responsive table-bordered numControl"  style="text-align: left;font-size: 13px;">
-                    <tr class="bg-primary">
+                    <tr class="bg-primary text-center">
                         <th>序号</th>
                         <th style="width: 180px;">赛事名称</th>
                         <th>赛事等级</th>
@@ -29,7 +29,7 @@
                     </tr>
                     <#if comptList?exists && (comptList?size>0)>
                         <#list comptList as compt>
-                            <tr id="_${compt.ID?if_exists}">
+                            <tr id="_${compt.ID?if_exists}" class="text-center">
                                 <td>${compt_index+1}</td>
                                 <td><a href="javascript:void(0)" onclick="window.open('/compt/detail?link=${compt.ID?if_exists}')">${compt.title?if_exists}</a></td>
                                 <#--赛事等级-->
@@ -68,9 +68,9 @@
                                 <#elseif compt.status == 4>
                                     <td><span style="color: orange">比赛进行中</span><a href="/man/compt/sign/checkSignList/${compt.ID?if_exists}" class="btn btn-xs btn-warning" alt="${compt.ID?if_exists}">报名审核</a></td>
                                 <#elseif compt.status == 5>
-                                    <td><span style="color: purple">比赛结束</span></td>
+                                    <td><span style="color: purple">比赛结束 & 等待确认成绩</span></td>
                                 <#elseif compt.status == 6>
-                                    <td><span style="color: black">完成</span></td>
+                                    <td><span style="color: black"><b>完成</b></span></td>
                                 <#else>
                                     <td>零状态</td>
                                 </#if>
@@ -90,7 +90,7 @@
                                     <#elseif compt.status == 3>
                                         <td>
                                             <a href="/man/compt/sign/checkSignList/${compt.ID?if_exists}" class="btn btn-xs btn-warning" alt="${compt.ID?if_exists}">报名审核</a>
-                                            <button class="btn btn-xs btn-danger btnDelComptr" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
+                                            <button class="btn btn-xs btn-danger btnDelCompt" data-toggle="modal" data-target="#myModal" alt="${compt.ID?if_exists}">删除赛事</button>
                                             <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 4>
@@ -100,9 +100,12 @@
                                             <a class="btn btn-xs btn-default" alt="${compt.ID?if_exists}" href="/man/compt/uploadGet?link=${compt.ID?if_exists}">附件上传</a>
                                         </td>
                                     <#elseif compt.status == 5>
-                                        <td><a class="btn btn-xs btn-success btnConfirmResult" alt="${compt.ID?if_exists}">确认结果 & 成绩录入</a></td>
+                                        <td><a class="btn btn-xs btn-success btnConfirmResult" href="/man/compt/sign/result/confirmResult?comptLink=${compt.ID?if_exists}" alt="${compt.ID?if_exists}">确认结果 & 成绩录入</a></td>
                                     <#elseif compt.status == 6>
-                                        <td><span style="color: black">完成</span></td>
+                                        <td>
+                                        	<!--<span style="color: black">完成</span>-->
+                                        	<a class="btn btn-xs btn-success btn-block" href="/man/compt/sign/result/checkResult?comptLink=${compt.ID?if_exists}">已完成 & 查看赛果</a>
+                                        </td>
                                     <#else>
                                         <td>零状态</td>
                                 </#if>
@@ -131,7 +134,7 @@
                         <#else>
                             <li><a href="/man/compt/list/${pageable.currentPage-1}">&laquo;</a></li>
                         </#if>
-
+					
                     <#--中间循环-->
                         <#list 1..pageable.pageCount as p>
                             <#if p == pageable.currentPage>
@@ -165,7 +168,7 @@
                 <h4 class="modal-title" id="myModalLabel">删除赛事</h4>
             </div>
             <div class="modal-body">
-                确认删除赛事
+            		确认删除赛事
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="linkDelCompt" value="">

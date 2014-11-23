@@ -30,6 +30,9 @@ public class CompressPicUtils {
 				return false;
 			}
 			Image img = ImageIO.read(inputFile);
+			if(img == null){
+				return false;
+			}
 			// 判断图片格式是否正确
 			if (img.getWidth(null) == -1) {
 				return false;
@@ -73,7 +76,7 @@ public class CompressPicUtils {
     public static boolean compressPic(InputStream inputFile, File outputFile, int outputWidth,int outputHeight, boolean proportion) {
 		try {
 			// 获得源文件
-			if (inputFile != null) {
+			if (inputFile == null) {
 				return false;
 			}
 			Image img = ImageIO.read(inputFile);
@@ -99,9 +102,9 @@ public class CompressPicUtils {
 				BufferedImage tag = new BufferedImage(newWidth, newHeight,BufferedImage.TYPE_INT_RGB);
 				tag.getGraphics().drawImage(img.getScaledInstance(newWidth, newHeight,Image.SCALE_SMOOTH), 0, 0, null);
 				//判断输出文件夹是否存在，不存在则创建
-				/*
-				if(!outputFile.exists()){
-					outputFile.mkdir();
+				
+				/*if(!outputFile.exists()){
+					outputFile.mkdirs();
 				}*/
 				FileOutputStream out = new FileOutputStream(outputFile);
 				// JPEGImageEncoder可适用于其他图片类型的转换

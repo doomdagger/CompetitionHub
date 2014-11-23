@@ -1,67 +1,57 @@
 <#include "./snippet/header.ftl">
-
-
-
+<style>
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+</style>
 <div class="container-fluid" style="">
     <!-- line-1 left-1-->
     <div class="col-lg-5">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+            	<#if adsList?exists && (adsList?size>0)>
+            		<#list adsList as item>
+            			<li data-target="#carousel-example-generic" data-slide-to="${item_index}" class="<#if item_index == 0>active</#if>"></li>
+            		</#list>
+            	</#if>
             </ol>
-
+			
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <!--one item-->
-                <div class="item active">
-                    <a href="#"><img src="/resources/img/img5.jpg" alt="..."></a>
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-                <!--one item-->
-                <div class="item">
-                    <img src="/resources/img/img5.jpg" alt="...">
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-                <!--one item-->
-                <div class="item">
-                    <img src="/resources/img/img5.jpg" alt="...">
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-                <!--one item-->
-                <div class="item">
-                    <img src="/resources/img/img5.jpg" alt="...">
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-                <!--one item-->
-                <div class="item">
-                    <img src="/resources/img/img5.jpg" alt="...">
-                    <div class="carousel-caption">
-                        <p>这里可以添加标题
-                    </div>
-                </div>
-
-            </div>
+            	
+            	<#if adsList?exists && (adsList?size>0)>
+            		<#list adsList as item>
+            			<!--one item-->
+		                <div class="item <#if item_index == 0>active</#if>" width="100%" style="height:350px;">
+		                    <a target="_blank" href="${item.href?if_exists}">
+		                    	<img src="${item.image?if_exists}" title="${item.title?if_exists}" width="100%">
+		                    </a>
+		                    <div class="carousel-caption">
+		                        <p>${item.title?if_exists}
+		                    </div>
+		                </div>
+            		</#list>
+        		<#else>
+        			<div class="item active">
+	                    <a href="javscript:void(0)"><img src="/resources/img/img5.jpg" title="大连交通大学软件联盟协会"></a>
+	                    <div class="carousel-caption">
+	                        <p>大连交通大学软件联盟协会
+	                    </div>
+	                </div>
+            	</#if>
+            	
+            </div><!--carousel-inner-->
 
             <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <!--<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
             <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+            </a>-->
         </div>
         <!-- pic top end-->
         <p><br/>
@@ -100,12 +90,15 @@
         <div class="panel panel-primary" style="height: 300px">
             <h3><label class="label label-primary center-block">友情链接</label></h3>
             <div class="list-group" style="font-size: 12px;">
-                <a href="/index" class="list-group-item">大连交通大学竞赛官网</a>
-                <a href="http://www.djtu.edu.cn" class="list-group-item">大连交通大学官网</a>
-                <a href="http://jw.djtu.edu.cn" class="list-group-item">大连交通大学教务在线</a>
-                <a href="#" class="list-group-item">大连理工大学创新可以官网</a>
-                <a href="#" class="list-group-item">中国挑战杯官网</a>
-                <a href="#" class="list-group-item">中国挑战杯官网</a>
+            
+            	<#if linkList?exists && (adsList?size>0)>
+            		<#list linkList as item>
+            			<!--one item-->
+            			<a target="_blank" href="${item.href?if_exists}" class="list-group-item">${item.title}</a>
+            		</#list>
+        		<#else>
+        			<a href="/index" class="list-group-item">大连交通大学竞赛官网</a>
+            	</#if>
             </div>
         </div>
     </div>
@@ -213,7 +206,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label><input type="radio" name="usertype" value="0" id="usertype0" checked="checked">学生</label>&nbsp;&nbsp;
-                                            <label><input type="radio" name="usertype" value="1" id="usertype1">老师</label>
+                                            <label><input type="radio" name="usertype" value="1" id="usertype1">教师</label>
                                         </div>
                                         <div class="form-group">
                                             <button type="button" class="btn btn-success btn-block" id="btnIndexLogin">登陆</button>
@@ -227,42 +220,36 @@
                 </div>
             </div>
         </div>
-
+		
         <!--学院风采-->
         <div class="col-sm-12">
-            <div class="panel panel-primary" style="height: 647px">
+            <div class="panel panel-primary scrollBar" style="height: 680px;">
                 <h3><label class="label label-primary center-block">学院风采</label></h3>
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <div>
-                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
-                                <p class="list-group-item-text">hello world</p>
-                            </div>
-                        </div>
-                        <div class="list-group-item">
-                            <div>
-                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
-                                <p class="list-group-item-text">hello world</p>
-                            </div>
-                        </div>
-                        <div class="list-group-item">
-                            <div>
-                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
-                                <p class="list-group-item-text">hello world</p>
-                            </div>
-                        </div>
-                        <div class="list-group-item">
-                            <div>
-                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                <img class="list-group-item-text" src="/resources/img/img7.jpg" height="50px">
-                                <p class="list-group-item-text">hello world</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="panel-body" style="height: 610px;overflow-y:auto;">
+                
+                	<#if showList?exists && (showList?size>0)>
+                		<#list showList as item>
+		               		<!--one item--> 
+		                    <div class="media well">
+		                    	<a class="pull-left" href="/show/album/${item.ID?if_exists}">
+		                    		<img class="media-object img-thumbnail" src="${item.coverImage?if_exists}" style="height:90px;"/> 
+		                    	</a>
+								<div class="">
+									<h4><label calss="label label-info bg-info">${item.title?if_exists}</label></h4>
+									<p>${item.description?if_exists}
+								</div>
+							</div><!--one item-->
+						</#list> 
+						<div class="text-center">
+							<a class="btn btn-default btn-block" href="/show/list">查看更多</a>
+						</div>
+					<#else>
+						<div class="text-center showItem">
+			          		<h1><b>内容还是空的哦</b></h1>
+			          	</div>
+					</#if>
+					
+					
                 </div>
             </div>
         </div>

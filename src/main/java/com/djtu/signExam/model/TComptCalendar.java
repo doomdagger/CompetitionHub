@@ -178,4 +178,44 @@ public class TComptCalendar extends EntityObject{
 	public void setType(boolean type) {
 		this.type = type;
 	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "onDate"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "200"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("onDate")
+	private String onDate;
+	public String getOnDate() {
+		return onDate;
+	}
+	public void setOnDate(String onDate) {
+		this.onDate = onDate;
+	}
+	/**
+	 * Description:
+	 * <p>
+	 * Mapped field info in table:
+	 * <ul>
+	 * 	 <li>Field Name  : "cover"</li>
+	 * 	 <li>Field Type  : "VARCHAR"</li>
+	 * 	 <li>Field Length: "2000"</li>
+	 *   <li>Refer Info  : ""</li>
+	 * </ul>
+	 * </p>
+	 */
+	@Column("cover")
+	private String cover;
+	public String getCover() {
+		return cover;
+	}
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
 }

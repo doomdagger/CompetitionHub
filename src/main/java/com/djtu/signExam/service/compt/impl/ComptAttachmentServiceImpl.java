@@ -6,6 +6,7 @@ import com.djtu.signExam.dao.support.SQLWrapper;
 import com.djtu.signExam.dao.support.Sortable;
 import com.djtu.signExam.model.TComptAttachment;
 import com.djtu.signExam.service.compt.ComptAttchmentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +64,8 @@ public class ComptAttachmentServiceImpl implements ComptAttchmentService {
         }
         return "";
     }
+
+   
 
 
 }

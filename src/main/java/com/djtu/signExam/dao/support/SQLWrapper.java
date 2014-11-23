@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import com.djtu.signExam.config.ProjectContainer;
 import com.djtu.signExam.dao.support.IOperators.AOR;
@@ -438,7 +437,7 @@ public class SQLWrapper {
 	 * @return
 	 */
 	public SQLWrapper or(SQLWrapper wrapper){
-		provider.and(wrapper.getProvider());
+		provider.or(wrapper.getProvider());
 		return this;
 	}
 	

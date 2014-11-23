@@ -141,7 +141,8 @@
                     </#if>
                 </#if>
                 </ul>
-            </div>
+            </div><#-- pageable-->
+            
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@
 
         <#if isSubmit?? && isSubmit == "success">
             <div class="alert alert-success">
-                <h4><b>表单提交成功</b></h4>
+                <h4><b>赛事发布成功</b></h4>
                 <p>可以在下方上传赛事附件
             </div>
         <#else>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <label for="editor2">参赛说明</label>
-                        <textarea class="form-control" id="editor2" name="comptIntro" placeholder="参赛说明"><#if compt??>${compt.comptIntro?if_exists}</#if></textarea>
+                        <textarea class="form-control" name="comptIntro" placeholder="参赛说明"><#if compt??>${compt.comptIntro?if_exists}</#if></textarea>
                         <input type="text" class="sr-only" id="comptIntroProxy" value="" required>
                     </div>
                     <div class="form-group">
@@ -143,7 +143,7 @@
             </#if>
             <!--upload file-->
             <#if isSubmit??&& isSubmit == "success">
-                <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadFile?link=${link?if_exists}" id="comptUploadFile">
+                <form role="role" class="form-horizontal" method="post" enctype="multipart/form-data" action="/man/compt/uploadAttach?link=${link?if_exists}" id="comptUploadFile">
                     <div id="uploadFileList">
                         <div class="form-group">
                             <input type="file" class="col-sm-3 upFile" name="upFile">
@@ -151,7 +151,7 @@
                     </div>
                     <input type="hidden" value="${link?if_exists}" name="link" id="tempComptId">
                 </form>
-                <button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>
+                <!--<button type="button" class="btn btn-xs btn-info" id="addOneMore">添加一项</button>-->
                 <button type="button" class="btn btn-xs btn-success" id="btnSubmitFile">上传附件</button>
                 <a type="button" class="btn btn-xs btn-warning" href="/man/compt/list">暂不上传</a>
                 <p>备注：
@@ -179,7 +179,7 @@
 <script>
     KindEditor.ready(function(K) {
         window.editor1 = K.create('#editor1',{height:'250px;'});
-        window.editor2 = K.create('#editor2',{height:'250px;'});
+        //window.editor2 = K.create('#editor2',{height:'250px;'});
     });
     $('.datetimepicker').datetimepicker({
         language:'zh-CN',

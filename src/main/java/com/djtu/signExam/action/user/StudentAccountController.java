@@ -9,26 +9,32 @@ import com.djtu.signExam.service.compt.ComptService;
 import com.djtu.signExam.service.compt.ComptSigninService;
 import com.djtu.signExam.service.user.UserService;
 import com.djtu.signExam.util.*;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by JOECHOW on 2014/9/3.
+ * 包含了 报名参赛  赛事管理 赛事成员
  */
 
 @Controller
@@ -46,7 +52,8 @@ public class StudentAccountController {
 
 
     private static final String NAV = "navbar";
-    private static final String IDX = "idx";
+    @SuppressWarnings("unused")
+	private static final String IDX = "idx";
     private static final String MYC = "myc";
     private static final String MDPD = "mdpd";
 
@@ -112,11 +119,16 @@ public class StudentAccountController {
         TCompt compt = comptService.getComptById(comptId.toString());
         //Attach
         TComptAttachment attach = attchmentService.getAttachByTeamNo(teamNo);
+        
+        //判断是否能继续添加组员
+        Boolean canAdd = compt.getSpNum()>signinList.size()?true:false;
+        
         //model
         model.addAttribute(NAV,MYC);
         model.addAttribute("isLeader",signin.getIsLeader());
         model.addAttribute("compt",compt);
         model.addAttribute("attach",attach);
+        model.addAttribute("canAdd", canAdd);
         model.addAttribute("signList",signinList);
         model.addAttribute("teamNo",teamNo);
         model.addAttribute("clink",signin.getSkTCompt());//当前赛事
@@ -174,7 +186,9 @@ public class StudentAccountController {
 
     //第一步，先确认参加比赛,组长创建比赛
     @RequestMapping(value = "/confirmSignin",method = RequestMethod.POST)
-    public String confirmSignin(@RequestParam String link,@RequestParam String slink,@RequestParam String email,@RequestParam String cellphone,@RequestParam String creditCard,String isHelpCredit){
+    public String confirmSignin(@RequestParam String link,@RequestParam String slink,@RequestParam String email,
+    		@RequestParam String cellphone,@RequestParam String creditCard,
+    		String creditCardBank,String teacher,String isHelpCredit){
         if(link == "" || slink == ""){
             return "/noPermission";
         }
@@ -188,7 +202,6 @@ public class StudentAccountController {
         signin.setEmail(email);//邮箱
         signin.setIsLeader(true);//设定组长
         signin.setCellphone(cellphone);
-        signin.setIsHelpCredit(true);
         signin.setNumber(student.getUserNo());
         signin.setIsReward(false);
         signin.setIsValid(false);
@@ -198,10 +211,16 @@ public class StudentAccountController {
         signin.setMemberNum(1);
         signin.setIsPass(false);
         signin.setIsPriority(false);
+        signin.setTeacher(teacher);//指导老师
+        signin.setComptLevel(tCompt.getLevel());//赛事等级
+        signin.setProfession(student.getProfession());//专业
+        signin.setAcademy(student.getAcademy());//学院
+        signin.setComptAdminer(tCompt.getAdminName());//赛事发布者
         signin.setTeamNo(UUIDGenerator.randomUUID());//每个队伍的唯一标识
         //如果没有勾选，isHelpCredit不一定存在
-        signin.setIsHelpCredit( (isHelpCredit!=null&&isHelpCredit=="on")?true:false);
+        signin.setIsHelpCredit("on".equals(isHelpCredit)?true:false);
         signin.setCreditCard(creditCard);
+        signin.setCreditCardBank(creditCardBank);
         signinService.addTeamMember(signin);
         //参赛报名，提交后跳转 我的赛事
         return "redirect:/student/myCompetition";
@@ -246,7 +265,8 @@ public class StudentAccountController {
     @RequestMapping("/addAttachMentPost")
     public String addAttachMentPost(HttpServletRequest request){
         //存的时候根据teamNo和sk_compt
-        String URI = request.getRequestURI();
+        @SuppressWarnings("unused")
+		String URI = request.getRequestURI();
         //return "redirect:"+URI;
         return "redirect:/student/myCompetition/";
     }
@@ -337,28 +357,35 @@ public class StudentAccountController {
      */
     @RequestMapping(value = "addTeamMember",method = RequestMethod.POST)
     public @ResponseBody String addTeamMember(@RequestParam String name,@RequestParam String NO,@RequestParam String email,
+    										  @RequestParam String academy,@RequestParam String profession,	
                                               @RequestParam String cellphone,@RequestParam Integer isHelp,@RequestParam String link){
+    	//此处应该为队长signin
         TSignin originSignin = signinService.getSignInById(link);
+        
         //根据email判断该用户是否注册
-
         if(signinService.isExistAnEmailInTeamNo(originSignin.getTeamNo(),email)){
             //如果要添加的emial在一个teamNo中已经重复的话，则添加失败
             return StringConst.AJAX_FAIL;
         }
-
+        
         //new member
         TSignin signin = new TSignin();
-        signin.setComptName(originSignin.getComptName());
-        signin.setSkTCompt(originSignin.getSkTCompt());
-        signin.setIsValid(originSignin.getIsValid());
-        signin.setTeamNo(originSignin.getTeamNo());
+        signin.setComptName(originSignin.getComptName());//赛事名字
+        signin.setSkTCompt(originSignin.getSkTCompt());//赛事ID
+        signin.setIsValid(originSignin.getIsValid());//赛事审核标志
+        signin.setTeamNo(originSignin.getTeamNo());//团队唯一标识
+        signin.setComptLevel(originSignin.getComptLevel());//赛事等级
+        signin.setComptAdminer(originSignin.getComptAdminer());//赛事发布者
+        signin.setTeacher(originSignin.getTeacher());//指导老师
         signin.setIsLeader(false);
         signin.setIsDelete(false);
         signin.setCreatetime(new Date());
-        signin.setCellphone(cellphone);
-        signin.setEmail(email);
-        signin.setName(name);
-        signin.setNumber(NO);
+        signin.setCellphone(cellphone);//手机
+        signin.setEmail(email);//邮箱
+        signin.setName(name);//名字
+        signin.setNumber(NO);//学号
+        signin.setAcademy(academy);//学院
+        signin.setProfession(profession);//专业
         signin.setIsHelpCredit(isHelp==1?true:false);
         TUserStudent student = userService.getStudentInfoByEmail(email);
         if (student!=null){
@@ -395,6 +422,7 @@ public class StudentAccountController {
 
     @RequestMapping(value = "/confirmEditMember")
     public @ResponseBody String confirmEditMember(@RequestParam String name,@RequestParam String NO,@RequestParam String email,
+    											  @RequestParam String academy,@RequestParam String profession,
                                                   @RequestParam String cellphone,@RequestParam Integer isHelp,@RequestParam String creditCard,
                                                   @RequestParam String link,@RequestParam String originEmail,@RequestParam String signLink){
 
@@ -411,9 +439,11 @@ public class StudentAccountController {
         //new member
         TSignin signin = signinService.getSignInById(signLink);
         signin.setCellphone(cellphone);
-        signin.setEmail(email);
-        signin.setName(name);
-        signin.setNumber(NO);
+        signin.setEmail(email);//email
+        signin.setName(name);//学号
+        signin.setNumber(NO);//学号
+        signin.setAcademy(academy);//学院
+        signin.setProfession(profession);//专业
         signin.setIsHelpCredit(isHelp==1?true:false);
         TUserStudent student = userService.getStudentInfoByEmail(email);
         //根据新的Email来绑定用户ID
@@ -425,7 +455,7 @@ public class StudentAccountController {
     }
 
     /**
-     * 上传作品
+     * 上传作品-该方法废除使用
      * @RequestParam String link,
      * @RequestParam String teamNo,
      * @RequestParam String needFileIntro,
@@ -435,6 +465,8 @@ public class StudentAccountController {
                               RedirectAttributes redirectAttributes){
         String teamNo = request.getParameter("teamNo");
         String needFileIntro = request.getParameter("needFileIntro");
+        @SuppressWarnings("unused")
+		String workName = request.getParameter("workName");
         try {
             needFileIntro = URLDecoder.decode(needFileIntro, "utf8");
         } catch (UnsupportedEncodingException e) {
@@ -476,6 +508,88 @@ public class StudentAccountController {
         redirectAttributes.addAttribute("link",link);
         return "redirect:/student/showCompetition";
     }
+    
+    
+    /*
+     * 上传作品-2014-11-18
+     */
+    @RequestMapping(value = "addWorks", method = RequestMethod.POST)
+    public String addWorks(@RequestParam String workName,@RequestParam String needFileIntro,
+    		@RequestParam String teamNo,@RequestParam MultipartFile upLoadFile,@RequestParam String link,
+    		HttpServletRequest request,HttpServletResponse response) throws IOException{
+    	
+    	
+    	String savePath = request.getServletContext().getRealPath(UploadConst.WORKS_RES_PATH);
+        
+        if (!new File(savePath).isDirectory())
+        {
+        	new File(savePath).mkdirs();
+        }
+        //文件名
+        String name = "";
+        //保存路径
+        String urlPath = "";
+        
+        //获取文件输出流
+        System.out.println("文件大小："+upLoadFile.getSize());
+        
+        if(upLoadFile.getSize() > UploadConst.STU_MAX_FILESIZE){
+        	response.setHeader("text/html","UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("上传文件大小超出10M");
+            return null;
+        }
+        
+        
+    	try {
+        	//获取上传文件旧名
+            name = upLoadFile.getOriginalFilename();
+            //获取后缀名
+            //String suffix = name.substring(name.lastIndexOf(".")+1);
+            //创建上传目标文件
+            //String newFileName = "COVER"+System.currentTimeMillis() + new Random(50000).nextInt() + "."+suffix;
+            File targetFile = new File(savePath,name);
+            //获得保存数据库的http访问路径
+            urlPath = UploadConst.WORKS_URL_PATH.replaceAll("\\\\", "/")+name;
+            //创建输入输出流
+        	InputStream is = upLoadFile.getInputStream();
+        	FileOutputStream fos = new FileOutputStream(targetFile);
+        	FileCopyUtils.copy(is, fos);
+        	
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("上传文件失败");
+			response.setHeader("text/html","UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("上传文件失败");
+		}
+    	
+    	//添加到数据库
+    	TComptAttachment attachment = new TComptAttachment();
+        String key = attchmentService.isAttachExistInTeamNoAndReturnKey(teamNo);
+        if( !"".equals(key) ){
+            //update
+            attachment.setID(new Integer(key));
+            attachment.setName(name);
+            attachment.setSavepath(urlPath);
+            attachment.setCreatetime(new Date());
+            attachment.setIntroduction(needFileIntro);
+            attchmentService.updateOne(attachment);
+        }else{
+            //add
+            attachment.setIsValid(false);
+            attachment.setSkTCompt(new Integer(link));
+            attachment.setTeamNo(teamNo);
+            attachment.setCreatetime(new Date());
+            attachment.setIsDelete(false);
+            attachment.setSavepath(urlPath);
+            attachment.setName(name);
+            attachment.setSkTSignup(0);
+            attachment.setIntroduction(needFileIntro);
+            attchmentService.addOne(attachment);
+        }
+    	return "redirect:/student/showCompetition?link="+link;
+    }
 
     /**
      * delete the attach by attach_id
@@ -484,4 +598,6 @@ public class StudentAccountController {
     public @ResponseBody String deleteAttachMent(@RequestParam String link){
         return attchmentService.deleteOneById(link)?StringConst.AJAX_SUCCESS:StringConst.AJAX_FAIL;
     }
+    
+    
 }

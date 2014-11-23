@@ -34,7 +34,7 @@
                                 <td>${item.createtime?if_exists}</td>
                                 <td>${item.createtime}</td>
                                 <td><#if item.isLeader?if_exists>组长<#else>组员</#if></td>
-                                <td><#if item.isValid?if_exists><span style="color: green">已通过</span><#else><span style="color: #ff0000">未通过</span></#if></td>
+                                <td><#if item.isPass?if_exists><span style="color: green">已通过</span><#else><span style="color: #ff0000">未通过</span></#if></td>
                                 <td><#if item.isHelpCredit?if_exists><span style="color: green">是</span><#else><span>否</span></#if></td>
                                 <td>
                                     <#if item.isLeader?if_exists><a class="btn btn-xs btn-warning" href="/student/showCompetition?link=${item.ID?if_exists}">赛事报名概况</a></#if>

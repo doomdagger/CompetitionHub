@@ -1,16 +1,26 @@
 <#include "./snippet/header.ftl">
+<style>
+.showItem{
+	-webkit-box-shadow:0 5px 10px #666; 
+    -moz-box-shadow:0 5px 10px #666;
+    box-shadow:0 5px 10px #666;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    -o-border-radius:5px;
+    border-radius:5px; 
+}
+</style>
 
-<p><br/><br/>
+<p><br/>
 <div class="container-fluid">
     <br/><br/>
 </div>
 <div class="container-fluid">
-    <div class="jumbotron" style="text-align: center">
-        <h4>关于交通大学竞赛报名系统</h4>
-        <h4>单位：大连交通大学团委</h4>
-        <h4>开发者：大连交通大学软件联盟协会</h4>
+    <div class="text-center">
+        <h1><b>主办单位：</b><label class="label label-info showItem">大学生素质教育中心</label></h1>
+        <h1><b>开发者：</b><label class="label label-primary showItem">周荣辉    钟宏远</label></h1>
         <br/>
-        <h5>取得联系：<a href="http://www.joechow.cn">www.joechow.cn</a></h5>
+        <!--<h5><b>取得联系：</b><a href="http://www.joechow.cn">www.joechow.cn</a></h5>-->
     </div>
 </div>
 

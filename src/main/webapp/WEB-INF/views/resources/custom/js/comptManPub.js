@@ -27,7 +27,7 @@ $(document).ready(function(){
     $('#comIsNeedWorks2').click(function(){
         $('#comIsNeedWorks').fadeOut();
     });
-
+    
     /*上传附件说明*/
     $('#comIsSupport1').click(function(){
         $('#comIsSupport').fadeIn();
@@ -76,9 +76,15 @@ $(document).ready(function(){
     });
     //上传附件
     $("#btnSubmitFile").click(function(){
-        $("#comptUploadFile").submit();
-        //var fileList = document.getElementsByName("upFile");
+    	
+        
+        var fileList = document.getElementsByName("upFile");
         //console.log(fileList);
+        if(fileList[0].value.trim().length < 1){
+        	alert("请先选择需要上传的文件");
+        	return;
+        }
+        $("#comptUploadFile").submit();
     });
 
     //删除附件

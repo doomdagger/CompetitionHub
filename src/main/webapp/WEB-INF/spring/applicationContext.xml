@@ -44,6 +44,11 @@
 	    <property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
+	<!-- 支持上传文件,文件最大为10M p:maxUploadSize="10000000"-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+    	 p:defaultEncoding="utf-8"
+    	 p:uploadTempDir="fileUpload/temp"/>
+	
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 	
 	<!-- 事物配置 -->

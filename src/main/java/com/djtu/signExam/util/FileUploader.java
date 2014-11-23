@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -93,5 +94,63 @@ public class FileUploader {
         }
         System.out.println("上传列队为空");
         return null;
+    }
+    
+    
+    public static String uploadImageAndCompress(HttpServletRequest request,String savePath){
+    	
+    	/*创建文件夹*/
+        File saveDirFile = new File(savePath);
+        if (!saveDirFile.exists()) {
+            saveDirFile.mkdirs();
+        }
+        
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);//创建文件上传对象
+        upload.setHeaderEncoding("UTF-8");
+        RequestContext requestContext = new ServletRequestContext(request);
+        List<FileItem> items = null;
+        
+        //从requestContext中获取上传的文件list
+        try {
+            items = upload.parseRequest(requestContext);
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+            System.out.println("获取文件出错");
+            return null;
+        }
+        System.out.println("list size:"+items.size());
+        String fileName = items.get(0).getName();
+        File uploadedFile = new File(savePath, fileName);
+        try {
+        	//写入文件
+			items.get(0).write(uploadedFile);
+			return fileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+        
+        /*
+        Iterator<FileItem> itr = items.iterator();
+        
+        //遍历上传文件，理论来说只有一个
+        while(itr.hasNext()){
+        	FileItem item = (FileItem) itr.next();//获取当前fileItem
+        	String fileName = item.getName();//获取文件名
+        	
+        	if (!item.isFormField()) {
+                try{
+                    File uploadedFile = new File(savePath, fileName);
+                    item.write(uploadedFile);//写入文件
+                    return fileName;
+                }catch(Exception e){
+                	e.printStackTrace();
+                    System.out.println("上传出现问题");
+                    return "";
+                }
+            }
+        }
+    	return "";*/
     }
 }
